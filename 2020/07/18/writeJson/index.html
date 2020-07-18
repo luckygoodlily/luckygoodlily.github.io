@@ -28,7 +28,7 @@
 <meta property="og:description" content="如何簡單的寫json檔，不用自己刻">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-07-18T13:46:21.000Z">
-<meta property="article:modified_time" content="2020-07-18T14:10:05.362Z">
+<meta property="article:modified_time" content="2020-07-18T14:12:13.091Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -176,7 +176,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2020-07-18 21:46:21 / 修改時間：22:10:05" itemprop="dateCreated datePublished" datetime="2020-07-18T21:46:21+08:00">2020-07-18</time>
+              <time title="創建時間：2020-07-18 21:46:21 / 修改時間：22:12:13" itemprop="dateCreated datePublished" datetime="2020-07-18T21:46:21+08:00">2020-07-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -201,7 +201,9 @@
       
         <p>如何簡單的寫json檔，不用自己刻</p>
 <a id="more"></a>
+<h2 id="json架構">json架構</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">     &quot;id&quot;</span><br><span class="line">     &quot;name&quot;</span><br><span class="line">     &quot;gender&quot;</span><br><span class="line">     &quot;age&quot;</span><br><span class="line">     &quot;attachment&quot; [</span><br><span class="line">         &#123;&quot;name&quot;</span><br><span class="line">          &quot;content&quot;</span><br><span class="line">          &#125;</span><br><span class="line">     ]</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="python-程式">python 程式</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">getMsg &#x3D; requests.get(url&#x3D;server + path, headers&#x3D;headers)</span><br><span class="line">person &#x3D; getMsg.json()</span><br><span class="line">fileName &#x3D; str(person[&#39;id&#39;])+&quot;.json&quot;</span><br><span class="line"></span><br><span class="line">newJson&#x3D;&#123;&#125; # creat json</span><br><span class="line">newJson[&#39;id&#39;]&#x3D;person[&#39;id&#39;]</span><br><span class="line">newJson[&#39;name&#39;]&#x3D;person[&#39;name&#39;]</span><br><span class="line">newJson[&#39;gender&#39;]&#x3D;person[&#39;gender&#39;]</span><br><span class="line">newJson[&#39;age&#39;]&#x3D;person[&#39;age&#39;]</span><br><span class="line">hasAttachment &#x3D; False</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># when json has array list</span><br><span class="line">for item in person[&#39;parts&#39;]:</span><br><span class="line">   if item[&#39;body&#39;]:</span><br><span class="line">      if item[&#39;body&#39;].get(&#39;attachment&#39;): # &#39;attachment&#39;欄位有可能不存在</span><br><span class="line">        if not hasAttachment : </span><br><span class="line">            newJson[&#39;attachment&#39;]&#x3D;[] # 建立array list</span><br><span class="line">            hasAttachment&#x3D;True</span><br><span class="line">        newJson[&#39;attachment&#39;].append(&#123;</span><br><span class="line">            &#39;name&#39;:item[&#39;body&#39;][&#39;attachment&#39;][&#39;meta&#39;][&#39;name&#39;],</span><br><span class="line">            &#39;content&#39;:item[&#39;body&#39;][&#39;attachment&#39;][&#39;content&#39;]</span><br><span class="line">        &#125;)</span><br><span class="line">    with open(fileName, &quot;w&quot;) as f:  #寫檔並關檔</span><br><span class="line">            json.dump(newJson, f, ensure_ascii&#x3D;False, indent&#x3D;2)</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -282,6 +284,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#json架構"><span class="nav-number">1.</span> <span class="nav-text">json架構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-程式"><span class="nav-number">2.</span> <span class="nav-text">python 程式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
