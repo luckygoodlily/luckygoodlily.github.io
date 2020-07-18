@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"luckygoodlily.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="有句話說得好:「萬事起頭難」">
+  <meta name="description" content="如何簡單的寫json檔，不用自己刻">
 <meta property="og:type" content="article">
-<meta property="og:title" content="部落格的起源">
-<meta property="og:url" content="https://luckygoodlily.github.io/2020/07/12/blog/index.html">
+<meta property="og:title" content="how to write json file">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/07/18/writeJson/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="有句話說得好:「萬事起頭難」">
+<meta property="og:description" content="如何簡單的寫json檔，不用自己刻">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-07-12T08:49:57.000Z">
-<meta property="article:modified_time" content="2020-07-12T09:35:12.406Z">
+<meta property="article:published_time" content="2020-07-18T13:46:21.000Z">
+<meta property="article:modified_time" content="2020-07-18T14:10:05.362Z">
 <meta property="article:author" content="Lily Chen">
-<meta property="article:tag" content="life">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://luckygoodlily.github.io/2020/07/12/blog/">
+<link rel="canonical" href="https://luckygoodlily.github.io/2020/07/18/writeJson/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>部落格的起源 | Lily's coding life</title>
+  <title>how to write json file | Lily's coding life</title>
   
 
 
@@ -152,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://luckygoodlily.github.io/2020/07/12/blog/">
+    <link itemprop="mainEntityOfPage" href="https://luckygoodlily.github.io/2020/07/18/writeJson/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          部落格的起源
+          how to write json file
         </h1>
 
         <div class="post-meta">
@@ -176,7 +176,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2020-07-12 16:49:57 / 修改時間：17:35:12" itemprop="dateCreated datePublished" datetime="2020-07-12T16:49:57+08:00">2020-07-12</time>
+              <time title="創建時間：2020-07-18 21:46:21 / 修改時間：22:10:05" itemprop="dateCreated datePublished" datetime="2020-07-18T21:46:21+08:00">2020-07-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -184,7 +184,7 @@
               </span>
               <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
                 </span>
             </span>
 
@@ -199,15 +199,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>有句話說得好:「萬事起頭難」</p>
+        <p>如何簡單的寫json檔，不用自己刻</p>
 <a id="more"></a>
-<p>對我來說沒錯，我很想做很多事，但常常想到要完成很難，或著覺得做了會損失很多就不去做了，讓自己就停留在原地，甚至到退休到老。</p>
-<p>今天我看了訪問鬼鬼的一個影片，鬼鬼說到:「不管我的後果是什麼，我就是要跑」。<br>
-我是個被體制保護的女孩，雖然時代進步，女性地位抬頭，但在華人社會已經根深蒂固男人比女人強的社會印象，從小我也覺得未來我找位深愛我的男人嫁了就此生幸福了。雖然女生結婚後可能上班比例增加了，但是大家還是認為遇到事情女生還是犧牲的那位。<br>
-我老公從跟我交往就跟我說我要培養自己的工作能力，哪天他不在我才能自食其力，剛大學時我仍然覺得為什麼我有個愛我的老公我不能靠她過一輩子呢？後來我學習程式越來越有成就感後，我發現靠自己比靠別人學得更快更有成就感，或許有時候怎麼都解不出來時還是需要詢問，但是寫程式解出錯誤的那種實現自我價值的感覺真的很不錯。<br>
-從研究所快畢業前，我有想過有自己寫部落格，記錄我的生活點滴，我當時給自己的理由是找工作寫論文太忙就沒時間研究，其實我知道那只是藉口而已。這次看到鬼鬼的勇敢成熟，再加上看了一部片《親愛的，我愛上別人了》，提醒了我做為女人不能忘記自己實現價值，每天做著同樣無聊的事情，只會倦怠忘記自己是誰。<br>
-所以我開始記錄我的生活了……</p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">     &quot;id&quot;</span><br><span class="line">     &quot;name&quot;</span><br><span class="line">     &quot;gender&quot;</span><br><span class="line">     &quot;age&quot;</span><br><span class="line">     &quot;attachment&quot; [</span><br><span class="line">         &#123;&quot;name&quot;</span><br><span class="line">          &quot;content&quot;</span><br><span class="line">          &#125;</span><br><span class="line">     ]</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">getMsg &#x3D; requests.get(url&#x3D;server + path, headers&#x3D;headers)</span><br><span class="line">person &#x3D; getMsg.json()</span><br><span class="line">fileName &#x3D; str(person[&#39;id&#39;])+&quot;.json&quot;</span><br><span class="line"></span><br><span class="line">newJson&#x3D;&#123;&#125; # creat json</span><br><span class="line">newJson[&#39;id&#39;]&#x3D;person[&#39;id&#39;]</span><br><span class="line">newJson[&#39;name&#39;]&#x3D;person[&#39;name&#39;]</span><br><span class="line">newJson[&#39;gender&#39;]&#x3D;person[&#39;gender&#39;]</span><br><span class="line">newJson[&#39;age&#39;]&#x3D;person[&#39;age&#39;]</span><br><span class="line">hasAttachment &#x3D; False</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># when json has array list</span><br><span class="line">for item in person[&#39;parts&#39;]:</span><br><span class="line">   if item[&#39;body&#39;]:</span><br><span class="line">      if item[&#39;body&#39;].get(&#39;attachment&#39;): # &#39;attachment&#39;欄位有可能不存在</span><br><span class="line">        if not hasAttachment : </span><br><span class="line">            newJson[&#39;attachment&#39;]&#x3D;[] # 建立array list</span><br><span class="line">            hasAttachment&#x3D;True</span><br><span class="line">        newJson[&#39;attachment&#39;].append(&#123;</span><br><span class="line">            &#39;name&#39;:item[&#39;body&#39;][&#39;attachment&#39;][&#39;meta&#39;][&#39;name&#39;],</span><br><span class="line">            &#39;content&#39;:item[&#39;body&#39;][&#39;attachment&#39;][&#39;content&#39;]</span><br><span class="line">        &#125;)</span><br><span class="line">    with open(fileName, &quot;w&quot;) as f:  #寫檔並關檔</span><br><span class="line">            json.dump(newJson, f, ensure_ascii&#x3D;False, indent&#x3D;2)</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -216,7 +211,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/life/" rel="tag"># life</a>
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
         
@@ -224,11 +219,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/07/18/writeJson/" rel="next" title="how to write json file">
-      how to write json file <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/12/blog/" rel="prev" title="部落格的起源">
+      <i class="fa fa-chevron-left"></i> 部落格的起源
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
