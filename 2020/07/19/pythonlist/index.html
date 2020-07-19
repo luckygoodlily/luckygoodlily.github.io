@@ -20,32 +20,33 @@
     var CONFIG = {"hostname":"luckygoodlily.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Let&#39;s happy every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lily&#39;s coding life">
-<meta property="og:url" content="https://luckygoodlily.github.io/index.html">
+  <meta name="description" content="使用for語法，達成list生成一系列值得目的，還能套用在dictionary和set集合物件上。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 的list綜合表達式">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/07/19/pythonlist/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="使用for語法，達成list生成一系列值得目的，還能套用在dictionary和set集合物件上。">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-19T12:46:48.000Z">
+<meta property="article:modified_time" content="2020-07-19T12:48:29.443Z">
 <meta property="article:author" content="Lily Chen">
-<meta property="article:tag" content="source code">
-<meta property="article:tag" content="後端">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://luckygoodlily.github.io/">
+<link rel="canonical" href="https://luckygoodlily.github.io/2020/07/19/pythonlist/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
 
-  <title>Lily's coding life</title>
+  <title>python 的list綜合表達式 | Lily's coding life</title>
   
 
 
@@ -144,9 +145,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
@@ -162,10 +164,9 @@
       <meta itemprop="name" content="Lily's coding life">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/19/pythonlist/" class="post-title-link" itemprop="url">python 的list綜合表達式</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          python 的list綜合表達式
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -198,180 +199,70 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>使用for語法，達成list生成一系列值得目的，還能套用在dictionary和set集合物件上。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/19/pythonlist/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+        <p>使用for語法，達成list生成一系列值得目的，還能套用在dictionary和set集合物件上。</p>
+<a id="more"></a> 
+<h2 id="逐元素複製list所有元素">逐元素複製list所有元素</h2>
+<h3 id="法一">法一</h3>
+<p><code>b_list=a_list[:]</code></p>
+<h3 id="法二">法二</h3>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b_list&#x3D;[]</span><br><span class="line">for i &#x3D; a_list:</span><br><span class="line">   b_list.append(i)</span><br></pre></td></tr></table></figure>
+<p>由於法二的方法太常見了，python 2.0引入了一種緊湊的方法來做同樣的事情。<br>
+<code>b_list = [i for i in a_list]</code></p>
+<h3 id="延伸寫法。假設建立一個list，內容為a-list中元素的平方：">延伸寫法。假設建立一個list，內容為a_list中元素的平方：</h3>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b_list&#x3D;[]</span><br><span class="line">for i &#x3D; a_list:</span><br><span class="line">   b_list.append(i*i)</span><br></pre></td></tr></table></figure>
+<p>如果a_list包含[1,2,3]，結果內容是[1,4,9]，對應的綜合表達式為：<br>
+<code>b_list = [i*i for i in a_list]</code></p>
+<p>規律為：</p>
+<blockquote>
+<p>[value for_statement_header]</p>
+</blockquote>
+<h3 id="雙層迴圈">雙層迴圈</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mult_list&#x3D;[]</span><br><span class="line">for i &#x3D; range(3):</span><br><span class="line">  for j &#x3D; range(3):</span><br><span class="line">    mult_list.append(i*j)</span><br></pre></td></tr></table></figure>
+<p>結果<br>
+=&gt;[0,0,0,0,1,2,0,2,4]</p>
+<h4 id="綜合表達式">綜合表達式</h4>
+<p><code>mult_list = [i*j for i in range(3) for j in range(3)]</code></p>
+<p>綜合表達式<code>if</code>規律為：</p>
+<blockquote>
+<p>[value for_statement_header if_expression]</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_list&#x3D;[10,-10,-1,12,-500,13,15,-3]</span><br><span class="line">new_list&#x3D;[]</span><br><span class="line">for i &#x3D; my_list:</span><br><span class="line">  for i&gt;0:</span><br><span class="line">    new_list.append(i)</span><br></pre></td></tr></table></figure>
+<p>上面程式執行結果，會在new_list中放置值[10,12,13,15]，下面的述句改為使用list綜合表達式執行相同的動作：<br>
+<code>new_list = [i for i in my_list if i &gt; 0]</code></p>
+<p>list 綜合表達式中括號內的右側，在本例中它由三個部份組成：</p>
+<ol>
+<li>value 運算式i;直接從list中取一個值。</li>
+<li>for述句for i in my_list，功能是產生要用的數列。</li>
+<li>最後，if 條件句，if i &gt; 0，用來選擇哪些元素會參加運算。</li>
+</ol>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://luckygoodlily.github.io/2020/07/18/writeJson/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lily Chen">
-      <meta itemprop="description" content="Let's happy every day">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lily's coding life">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/18/writeJson/" class="post-title-link" itemprop="url">how to write json file</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-              
-
-              <time title="創建時間：2020-07-18 21:46:21 / 修改時間：22:12:13" itemprop="dateCreated datePublished" datetime="2020-07-18T21:46:21+08:00">2020-07-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>如何簡單的寫json檔，不用自己刻</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/18/writeJson/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://luckygoodlily.github.io/2020/07/12/blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lily Chen">
-      <meta itemprop="description" content="Let's happy every day">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lily's coding life">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/12/blog/" class="post-title-link" itemprop="url">部落格的起源</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-              
-
-              <time title="創建時間：2020-07-12 16:49:57 / 修改時間：17:35:12" itemprop="dateCreated datePublished" datetime="2020-07-12T16:49:57+08:00">2020-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>有句話說得好:「萬事起頭難」</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/12/blog/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/18/writeJson/" rel="prev" title="how to write json file">
+      <i class="fa fa-chevron-left"></i> how to write json file
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -424,6 +315,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#逐元素複製list所有元素"><span class="nav-number">1.</span> <span class="nav-text">逐元素複製list所有元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#法一"><span class="nav-number">1.1.</span> <span class="nav-text">法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#法二"><span class="nav-number">1.2.</span> <span class="nav-text">法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延伸寫法。假設建立一個list，內容為a-list中元素的平方："><span class="nav-number">1.3.</span> <span class="nav-text">延伸寫法。假設建立一個list，內容為a_list中元素的平方：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#雙層迴圈"><span class="nav-number">1.4.</span> <span class="nav-text">雙層迴圈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#綜合表達式"><span class="nav-number">1.4.1.</span> <span class="nav-text">綜合表達式</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
