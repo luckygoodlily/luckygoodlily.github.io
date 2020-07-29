@@ -175,7 +175,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2020-07-29 23:48:29 / 修改時間：23:51:09" itemprop="dateCreated datePublished" datetime="2020-07-29T23:48:29+08:00">2020-07-29</time>
+              <time title="創建時間：2020-07-29 23:48:29 / 修改時間：23:58:59" itemprop="dateCreated datePublished" datetime="2020-07-29T23:48:29+08:00">2020-07-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -198,13 +198,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-<h2 id="json架構">json架構</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  aaa:[[['0', 0.3], ['1', 0.7]]]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="scala-寫法">scala 寫法</h2>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">json(<span class="string">"aaa"</span>).arr.map(p =&gt;&#123; <span class="comment">//先剝下一層</span></span><br><span class="line">  println(p.toString()) <span class="comment">//[['0', 0.3], ['1', 0.7]]</span></span><br><span class="line">  println(p.arr(<span class="number">1</span>)(<span class="number">1</span>).num)</span><br><span class="line">  println(p.arr(<span class="number">0</span>)(<span class="number">1</span>).num)</span><br><span class="line">  <span class="keyword">if</span>(p.arr(<span class="number">1</span>)(<span class="number">1</span>).num&gt;=p.arr(<span class="number">0</span>)(<span class="number">1</span>).num)&#123; <span class="comment">//拿出數值</span></span><br><span class="line">    println(<span class="string">"成功機率"</span>)</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    println(<span class="string">"失敗機密"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="python-寫法">python 寫法</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> categoryResult <span class="keyword">in</span> result[<span class="string">'prediction'</span>]:</span><br><span class="line">   print(dict(categoryResult).get(<span class="string">'0'</span>))</span><br><span class="line">   print(dict(categoryResult).get(<span class="string">'1'</span>))</span><br></pre></td></tr></table></figure>
+          <p>Json回傳array有包很多層時該如何解。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/29/scalaJson/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
