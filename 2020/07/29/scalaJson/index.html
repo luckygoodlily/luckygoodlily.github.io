@@ -28,7 +28,7 @@
 <meta property="og:description" content="Json回傳array有包很多層時該如何解。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-07-29T15:48:29.000Z">
-<meta property="article:modified_time" content="2020-07-29T15:58:59.085Z">
+<meta property="article:modified_time" content="2020-07-29T16:07:45.916Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="scala">
 <meta name="twitter:card" content="summary">
@@ -174,10 +174,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2020-07-29 23:48:29 / 修改時間：23:58:59" itemprop="dateCreated datePublished" datetime="2020-07-29T23:48:29+08:00">2020-07-29</time>
+              <time title="創建時間：2020-07-29 23:48:29" itemprop="dateCreated datePublished" datetime="2020-07-29T23:48:29+08:00">2020-07-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-07-30 00:07:45" itemprop="dateModified" datetime="2020-07-30T00:07:45+08:00">2020-07-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -207,6 +213,8 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">json(<span class="string">"aaa"</span>).arr.map(p =&gt;&#123; <span class="comment">//先剝下一層</span></span><br><span class="line">  println(p.toString()) <span class="comment">//[['0', 0.3], ['1', 0.7]]</span></span><br><span class="line">  println(p.arr(<span class="number">1</span>)(<span class="number">1</span>).num)</span><br><span class="line">  println(p.arr(<span class="number">0</span>)(<span class="number">1</span>).num)</span><br><span class="line">  <span class="keyword">if</span>(p.arr(<span class="number">1</span>)(<span class="number">1</span>).num&gt;=p.arr(<span class="number">0</span>)(<span class="number">1</span>).num)&#123; <span class="comment">//拿出數值</span></span><br><span class="line">    println(<span class="string">"成功機率"</span>)</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    println(<span class="string">"失敗機密"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h2 id="python-寫法">python 寫法</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> categoryResult <span class="keyword">in</span> result[<span class="string">'prediction'</span>]:</span><br><span class="line">   print(dict(categoryResult).get(<span class="string">'0'</span>))</span><br><span class="line">   print(dict(categoryResult).get(<span class="string">'1'</span>))</span><br></pre></td></tr></table></figure>
+<h6 id="tags-scala">tags: <code>scala</code></h6>
+
     </div>
 
     
@@ -227,7 +235,10 @@
     <a href="/2020/07/19/pythonlist/" rel="prev" title="python 的list綜合表達式">
       <i class="fa fa-chevron-left"></i> python 的list綜合表達式
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/30/Intellijquestion/" rel="next" title="Ubuntu18.04.4下Intellij IDEA不能输入中文的问题">
+      Ubuntu18.04.4下Intellij IDEA不能输入中文的问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -286,7 +297,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#json架構"><span class="nav-number">1.</span> <span class="nav-text">json架構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scala-寫法"><span class="nav-number">2.</span> <span class="nav-text">scala 寫法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-寫法"><span class="nav-number">3.</span> <span class="nav-text">python 寫法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#json架構"><span class="nav-number">1.</span> <span class="nav-text">json架構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scala-寫法"><span class="nav-number">2.</span> <span class="nav-text">scala 寫法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-寫法"><span class="nav-number">3.</span> <span class="nav-text">python 寫法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-scala"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">tags: scala</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -300,7 +311,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -309,7 +320,7 @@
         <span class="site-state-item-name">分類</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">標籤</span>
       </div>
   </nav>

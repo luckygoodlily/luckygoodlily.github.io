@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luckygoodlily.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="無法用中文輸入法這個問題是因為用 snap 包裝造成的，所以才會需要改執行腳本來強制允許輸入法的模組執行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu18.04.4下Intellij IDEA不能输入中文的问题">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/07/30/Intellijquestion/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="無法用中文輸入法這個問題是因為用 snap 包裝造成的，所以才會需要改執行腳本來強制允許輸入法的模組執行">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-07-29T16:05:22.000Z">
+<meta property="article:modified_time" content="2020-07-29T16:07:47.236Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luckygoodlily.github.io/2020/07/30/Intellijquestion/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Ubuntu18.04.4下Intellij IDEA不能输入中文的问题 | Lily's coding life</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lily's coding life</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Believe in myself</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://luckygoodlily.github.io/2020/07/30/Intellijquestion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Lily Chen">
+      <meta itemprop="description" content="Let's happy every day">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lily's coding life">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu18.04.4下Intellij IDEA不能输入中文的问题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-07-30 00:05:22 / 修改時間：00:07:47" itemprop="dateCreated datePublished" datetime="2020-07-30T00:05:22+08:00">2020-07-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>無法用中文輸入法這個問題是因為用 snap 包裝造成的，所以才會需要改執行腳本來強制允許輸入法的模組執行</p>
+<a id="more"></a>
+<h2 id="設定檔位置">設定檔位置</h2>
+<p>使用者偏好的東西</p>
+<blockquote>
+<p>~/.config/JetBrains</p>
+</blockquote>
+<h2 id="安裝執行檔位置">安裝執行檔位置</h2>
+<p>intellij idea 是 snap 包裝的</p>
+<p>先設root密碼，使可以設定 <code>idea.sh</code><br>
+linux:  $ sudo passwd<br>
+mac:  $ sudo passwd root</p>
+<p>snap下載的安裝執行檔都會在這裡</p>
+<blockquote>
+<p>$ vi /snap/intellij-idea-community/current/bin/idea.sh<br>
+//修改不了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export XMODIFIERS&#x3D;&quot;@im&#x3D;fcitx&quot;</span><br><span class="line">export GTK_IM_MODULE&#x3D;&quot;fcitx&quot;</span><br><span class="line">export QT_IM_MODULE&#x3D;&quot;fcitx&quot;</span><br></pre></td></tr></table></figure>
+<p>儲存後重新啟動</p>
+<blockquote>
+<p>$ ~/snap是mount point</p>
+</blockquote>
+<h2 id="umake-install-path">umake install path</h2>
+<p>首先安裝 Ubuntu Make 如果使用Ubuntu 16.04, 18.04 或更高版本, 可以使用以下指令安裝:</p>
+<p>sudo apt install ubuntu-make<br>
+Once you have Ubuntu Make installed, you can use the command below to install IntelliJ IDEA Community edition:</p>
+<h3 id="安裝idea">安裝idea</h3>
+<blockquote>
+<p>umake ide idea</p>
+</blockquote>
+<p>/home/lily/.local/share/umake/ide/idea</p>
+<h3 id="解除安裝">解除安裝</h3>
+<blockquote>
+<p>umake -r ide idea</p>
+</blockquote>
+<h2 id="重新裝snap的idea-edge最新的idea">重新裝snap的idea edge最新的idea</h2>
+<p>sudo snap install intellij-idea-community --classic --edge</p>
+<h2 id="apt裝法">apt裝法</h2>
+<h3 id="找apt-deb的安裝檔">找apt/deb的安裝檔</h3>
+<p>在Ubuntu和所有其他基於Debian的發行版中，apt軟件存儲庫在/etc/apt/sources.list文件中或目錄下的單獨文件中定義/etc/apt/sources.list.d/。</p>
+<p>/etc/apt/sources.list.d/目錄內存儲庫文件的名稱必須以結尾.list。<br>
+/etc/apt/sources.list文件的常規語法採用以下格式：</p>
+<p><code>deb http://repo.tld/ubuntu distro component...</code></p>
+<ul>
+<li>該行的第一個條目定義了存檔的類型。存檔類型可以是deb或deb-src。Deb表示存儲庫中包含.deb軟件包，而deb-src表示源軟件包。</li>
+<li>第二項是存儲庫URL。</li>
+<li>第三個條目指定分發代碼名稱，例如beaver，xenial等。</li>
+<li>最後的條目是存儲庫組件或類別。默認的Ubuntu存儲庫分為四個部分-主組件，受限組件，Universe和multiverse。通常，第三方存儲庫只有一個類別。</li>
+</ul>
+<p>需要sudo訪問權限或root 用戶的身份登錄。</p>
+<h3 id="安裝add-apt-repository（未找到add-apt-repository命令）">安裝add-apt-repository（未找到add-apt-repository命令）</h3>
+<p>add-apt-repository是一個Python腳本，可讓您將APT存儲庫添加到目錄中的一個/etc/apt/sources.list或單獨的文件中/etc/apt/sources.list.d。該命令還可以用於除去已經存在的存儲庫。</p>
+<p>如果add-apt-repository您的系統上沒有，您將收到一條錯誤消息，提示“找不到add-apt-repository命令”。</p>
+<p>該add-apt-repository實用程序包含在software-properties-common包裝中。要安裝它，請運行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install software-properties-common</span><br></pre></td></tr></table></figure>
+<h3 id="使用以下方式添加存儲庫-add-apt-repository">使用以下方式添加存儲庫 add-apt-repository</h3>
+<p>該add-apt-repository命令的基本語法如下：</p>
+<blockquote>
+<p>add-apt-repository [options] repository</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:mmk2410&#x2F;intellij-idea-community</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install intellij-idea-community</span><br></pre></td></tr></table></figure>
+<p>可以通過此PPA獲得社區版本。PPA將下載IDE，因此再次安裝時間將取決於您的Internet連接</p>
+<p>PPA中刪除已安裝的IntelliJ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove intellij-idea-community </span><br><span class="line">sudo add-apt-repository --remove ppa:mmk2410&#x2F;intellij-idea-community</span><br></pre></td></tr></table></figure>
+<p><a href="https://itsfoss.com/install-intellij-ubuntu-linux/" target="_blank" rel="noopener">https://itsfoss.com/install-intellij-ubuntu-linux/</a></p>
+<h6 id="tags-linux-ubuntu-idea">tags: <code>linux</code> <code>ubuntu</code> <code>idea</code></h6>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tool/" rel="tag"># tool</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/29/scalaJson/" rel="prev" title="scala json 多層array架構">
+      <i class="fa fa-chevron-left"></i> scala json 多層array架構
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#設定檔位置"><span class="nav-number">1.</span> <span class="nav-text">設定檔位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝執行檔位置"><span class="nav-number">2.</span> <span class="nav-text">安裝執行檔位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#umake-install-path"><span class="nav-number">3.</span> <span class="nav-text">umake install path</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安裝idea"><span class="nav-number">3.1.</span> <span class="nav-text">安裝idea</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解除安裝"><span class="nav-number">3.2.</span> <span class="nav-text">解除安裝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新裝snap的idea-edge最新的idea"><span class="nav-number">4.</span> <span class="nav-text">重新裝snap的idea edge最新的idea</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt裝法"><span class="nav-number">5.</span> <span class="nav-text">apt裝法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#找apt-deb的安裝檔"><span class="nav-number">5.1.</span> <span class="nav-text">找apt&#x2F;deb的安裝檔</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安裝add-apt-repository（未找到add-apt-repository命令）"><span class="nav-number">5.2.</span> <span class="nav-text">安裝add-apt-repository（未找到add-apt-repository命令）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用以下方式添加存儲庫-add-apt-repository"><span class="nav-number">5.3.</span> <span class="nav-text">使用以下方式添加存儲庫 add-apt-repository</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tags-linux-ubuntu-idea"><span class="nav-number">5.3.0.0.1.</span> <span class="nav-text">tags: linux ubuntu idea</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Lily Chen</p>
+  <div class="site-description" itemprop="description">Let's happy every day</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lily Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
