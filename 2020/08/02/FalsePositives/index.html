@@ -4,18 +4,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Lily&#39;s coding life</title>
+  <title>False Positives和False Negative含意 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lily&#39;s coding life">
-<meta property="og:url" content="https://luckygoodlily.github.io/archives/index.html">
+  <meta name="description" content="實際 Positive Cases 實際 Negative Cases     Predicted Positive True Positive O False Positive X （假陽性）   Predicted Negative False Negative O True Negative X">
+<meta property="og:type" content="article">
+<meta property="og:title" content="False Positives和False Negative含意">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/08/02/FalsePositives/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="實際 Positive Cases 實際 Negative Cases     Predicted Positive True Positive O False Positive X （假陽性）   Predicted Negative False Negative O True Negative X">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-02T14:06:05.000Z">
+<meta property="article:modified_time" content="2020-08-02T14:09:12.929Z">
 <meta property="article:author" content="Lily Chen">
-<meta property="article:tag" content="source code">
-<meta property="article:tag" content="後端">
+<meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
@@ -74,173 +75,102 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/08/02/FalsePositives/" class="archive-article-date">
-  <time datetime="2020-08-02T14:06:05.000Z" itemprop="datePublished">8月 2</time>
+      <section id="main"><article id="post-FalsePositives" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/02/FalsePositives/" class="article-date">
+  <time datetime="2020-08-02T14:06:05.000Z" itemprop="datePublished">2020-08-02</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/knowledge/">knowledge</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/02/FalsePositives/">False Positives和False Negative含意</a>
+    <h1 class="article-title" itemprop="name">
+      False Positives和False Negative含意
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/08/02/setRootPwd/" class="archive-article-date">
-  <time datetime="2020-08-02T13:59:46.000Z" itemprop="datePublished">8月 2</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/02/setRootPwd/">如何設root密碼</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/08/02/metadata/" class="archive-article-date">
-  <time datetime="2020-08-02T13:54:57.000Z" itemprop="datePublished">8月 2</time>
-</a>
+        <div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>實際 Positive Cases</th>
+<th>實際 Negative Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Predicted Positive</td>
+<td>True Positive O</td>
+<td>False Positive X （假陽性）</td>
+</tr>
+<tr>
+<td>Predicted Negative</td>
+<td>False Negative O</td>
+<td>True Negative X</td>
+</tr>
+</tbody>
+</table>
+</div>
+<a id="more"></a>
+<p>True Positive （真正, TP）被模型預測為正的正樣本；</p>
+<p>True Negative（真負 , TN）被模型预測為的負樣本 ；</p>
+<p>False Positive （假正, FP）被模型预測為正的負樣本；</p>
+<p>False Negative（假負 , FN）被模型预測為负的正樣本；</p>
+<p>True Positive Rate（真正率 , TPR）或靈敏度（sensitivity）<br>   TPR = TP /（TP + FN）<br>   正樣本預測结果數 / 正樣本實際數</p>
+<p>True Negative Rate（真负率 , TNR）或特指度（specificity）<br>   TNR = TN /（TN + FP）<br>   負樣本预測结果數 / 負樣本實際數 </p>
+<p>False Positive Rate （假正率, FPR）<br>   FPR = FP /（FP + TN）<br>   被预測為正的負樣本结果數 /負樣本實際數 </p>
+<p>False Negative Rate（假负率 , FNR）<br>   FNR = FN /（TP + FN）<br>   被预測為負的正样本结果數 / 正樣本實際數</p>
+<p>召回率和精準度：</p>
+<p>－ 系统檢索到的相關文檔（Ａ）<br>－ 系统檢索到的不相关文檔（Ｂ）<br>－ 相關但是系统没有檢索到的文档（Ｃ）<br>－ 不相關但是被系统檢索到的文档（Ｄ）</p>
+<h6 id="tags-knowledge"><a href="#tags-knowledge" class="headerlink" title="tags: knowledge"></a>tags: <code>knowledge</code></h6>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/02/metadata/">Metadata</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/07/30/Intellijquestion/" class="archive-article-date">
-  <time datetime="2020-07-29T16:05:22.000Z" itemprop="datePublished">7月 30</time>
-</a>
+    </div>
+    <footer class="article-footer">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/30/Intellijquestion/">Ubuntu18.04.4下Intellij IDEA不能输入中文的问题</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/07/29/scalaJson/" class="archive-article-date">
-  <time datetime="2020-07-29T15:48:29.000Z" itemprop="datePublished">7月 29</time>
-</a>
+        <a data-url="https://luckygoodlily.github.io/2020/08/02/FalsePositives/" data-id="ckdd5vb5o0000pgjb1mjm1srw" class="article-share-link" data-share="baidu" data-title="False Positives和False Negative含意">分享到</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/29/scalaJson/">scala json 多層array架構</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/07/19/pythonlist/" class="archive-article-date">
-  <time datetime="2020-07-19T12:46:48.000Z" itemprop="datePublished">7月 19</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/19/pythonlist/">python 的list綜合表達式</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/07/18/writeJson/" class="archive-article-date">
-  <time datetime="2020-07-18T13:46:21.000Z" itemprop="datePublished">7月 18</time>
-</a>
+        <a href="https://luckygoodlily.github.io/2020/08/02/FalsePositives/#ds-thread" class="article-comment-link">評論</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/18/writeJson/">how to write json file</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-start">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/07/12/blog/" class="archive-article-date">
-  <time datetime="2020-07-12T08:49:57.000Z" itemprop="datePublished">7月 12</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/12/blog/">部落格的起源</a>
-    </h1>
-  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/08/02/setRootPwd/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">如何設root密碼</div>
+    </a>
   
+</nav>
 
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/08/02/FalsePositives/" data-title="False Positives和False Negative含意" data-url="https://luckygoodlily.github.io/2020/08/02/FalsePositives/"></div>
+  </section>
 </section>
       
       <aside id="sidebar">
