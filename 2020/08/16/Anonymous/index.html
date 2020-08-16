@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>scala計算時間 | Lily&#39;s coding life</title>
+  <title>匿名函數（Anonymous Function） | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="12345import java.time.Clockval clock                &#x3D; Clock.systemDefaultZone &#x2F;&#x2F;獲取時間val startMillSeconds &#x3D; clock.millis &#x2F;&#x2F;單位mill secondsval returnTimes &#x3D; (clock.mill">
+  <meta name="description" content="匿名函數使只在寫程式中是不需要為方程式命名，直接簡化寫在程式中，普遍存在於多種程式語言中。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="scala計算時間">
-<meta property="og:url" content="https://luckygoodlily.github.io/2020/08/16/calculateClock/index.html">
+<meta property="og:title" content="匿名函數（Anonymous Function）">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/08/16/Anonymous/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="12345import java.time.Clockval clock                &#x3D; Clock.systemDefaultZone &#x2F;&#x2F;獲取時間val startMillSeconds &#x3D; clock.millis &#x2F;&#x2F;單位mill secondsval returnTimes &#x3D; (clock.mill">
+<meta property="og:description" content="匿名函數使只在寫程式中是不需要為方程式命名，直接簡化寫在程式中，普遍存在於多種程式語言中。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-08-16T08:26:21.000Z">
-<meta property="article:modified_time" content="2020-08-16T08:32:22.831Z">
+<meta property="article:published_time" content="2020-08-16T09:01:20.000Z">
+<meta property="article:modified_time" content="2020-08-16T09:04:33.072Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="scala">
 <meta name="twitter:card" content="summary">
@@ -75,10 +75,10 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-calculateClock" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-Anonymous" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/08/16/calculateClock/" class="article-date">
-  <time datetime="2020-08-16T08:26:21.000Z" itemprop="datePublished">2020-08-16</time>
+    <a href="/2020/08/16/Anonymous/" class="article-date">
+  <time datetime="2020-08-16T09:01:20.000Z" itemprop="datePublished">2020-08-16</time>
 </a>
     
   <div class="article-category">
@@ -93,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      scala計算時間
+      匿名函數（Anonymous Function）
     </h1>
   
 
@@ -101,18 +101,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.time.Clock</span><br><span class="line">val clock                &#x3D; Clock.systemDefaultZone &#x2F;&#x2F;獲取時間</span><br><span class="line">val startMillSeconds &#x3D; clock.millis &#x2F;&#x2F;單位mill seconds</span><br><span class="line">val returnTimes &#x3D; (clock.millis - startMillSeconds).toString &#x2F;&#x2F;計算經過多少時間</span><br><span class="line">logger.info(s&quot;Matcher spent $returnTimes&quot;)</span><br></pre></td></tr></table></figure>
+        <p>匿名函數使只在寫程式中是不需要為方程式命名，直接簡化寫在程式中，普遍存在於多種程式語言中。</p>
+<a id="more"></a>
+<p>下面的表達式創建一個後繼函數的整數：<br>
+<code>var inc = (x:Int) =&gt; x+1</code></p>
+<p>變量inc現在可以使用以通常的方式的函數：<br>
+<code>var x = inc(7)-1</code></p>
+<p>另外，也可以用多個參數定義的函數如下：<br>
+<code>var mul = (x: Int, y: Int) =&gt; x*y</code></p>
+<p>變量mul現在可以使用以通常的方式的函數：<br>
+<code>println(mul(3, 4))</code></p>
+<p>另外，也可以用無參數定義函數如下：<br>
+<code>var userDir = () =&gt; { System.getProperty(&quot;user.dir&quot;) }</code></p>
+<p>變量userDir現在可以使用以通常的方式的函數：<br>
+<code>println( userDir )</code></p>
+<p>原本</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Timer</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">oncePerSecond</span></span>(callback: () =&gt; <span class="type">Unit</span>) &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123; callback(); <span class="type">Thread</span> sleep <span class="number">1000</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">timeFlies</span></span>() &#123;</span><br><span class="line">    println(<span class="string">"time flies like an arrow..."</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    oncePerSecond(timeFlies)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定時函式叫做 oncePerSecond ，它接受一個回呼函式做參數。該函式的型別被寫作 () =&gt; Unit ，這個型別便是所有無引數且無返回值函式的型別( Unit 這個型別就像是 C/C++ 的 void )。此程式的主函式只是呼叫定時函式並帶入回呼函式，回呼函式輸出一句話到終端上。也就是說這個程式會不斷的每秒輸出一次 “time flies like an arrow”。</p>
+<p><strong>匿名函數寫法</strong></p>
+<p>這程式還有改進空間。第一點，函式 timeFlies 只是為了能夠被傳遞進 oncePerSecond 而定義的。賦予一個只被使用一次的函式名字似乎是沒有必要的，最好能夠在傳入 oncePerSecond 時構造出這個函式。Scala 可以藉由匿名函式來達到這點。利用匿名函式的改進版本程式如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TimerAnonymous</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">oncePerSecond</span></span>(callback: () =&gt; <span class="type">Unit</span>) &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123; callback(); <span class="type">Thread</span> sleep <span class="number">1000</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    oncePerSecond(() =&gt;</span><br><span class="line">      println(<span class="string">"time flies like an arrow..."</span>))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這例子中的右箭頭 <code>=&gt;</code> 告訴我們有一個匿名函式，右箭頭將函式引數跟函式內容分開。這個例子中，在箭頭左邊那組空的括號告訴我們引數列是空的。函式內容則是跟先前的 timeFlies 裡一樣。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> addPerm = (g: <span class="type">GroupId</span>) =&gt;</span><br><span class="line">        () =&gt; permission.verify(asUser, <span class="type">FA</span>.<span class="type">Group</span>, <span class="type">PA</span>.<span class="type">Group</span>.<span class="type">AddEmail</span>, g)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">addPerm（g: <span class="type">GroupId</span>） = </span><br><span class="line">        () =&gt; permission.verify(asUser, <span class="type">FA</span>.<span class="type">Group</span>, <span class="type">PA</span>.<span class="type">Group</span>.<span class="type">AddEmail</span>, g)</span><br></pre></td></tr></table></figure>
+<h2 id="範例二">範例二</h2>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> partialKey = convertPartialAccountKey(id, email)</span><br><span class="line"><span class="type">PreferenceController</span>.domainPredefinedPreferences.flatMap(k =&gt;</span><br><span class="line">  preference.get(partialKey(k)).toIndexedSeq.map(d =&gt; (k, d))</span><br><span class="line">)</span><br><span class="line"><span class="comment">// k是string 丟入partialKey中回傳一個key回來 </span></span><br><span class="line"><span class="comment">// key是AccountKey(domainId, account, key)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">convertPartialAccountKey</span></span>(</span><br><span class="line">    account: <span class="type">AccountId</span>,</span><br><span class="line">    email: <span class="type">MailAddress</span></span><br><span class="line">  ): <span class="type">String</span> =&gt; <span class="type">AccountKey</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> groups = state.groups</span><br><span class="line">    <span class="keyword">val</span> domainId = groups.get(email).flatMap(groups.findDomain).map(_.id).getOrElse(<span class="type">GroupId</span>.<span class="type">ROOT</span>)</span><br><span class="line">    key: <span class="type">String</span> =&gt; <span class="type">AccountKey</span>(domainId, account, key)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  or</span><br><span class="line">  convertPartialAccountKey(key.id, key.email)(key.key)</span><br><span class="line"><span class="comment">//key.key:string</span></span><br></pre></td></tr></table></figure>
 <h6 id="tags-scala">tags: <code>scala</code></h6>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://luckygoodlily.github.io/2020/08/16/calculateClock/" data-id="ckdwu0al50000cnjbfze77jt1" class="article-share-link" data-share="baidu" data-title="scala計算時間">分享到</a>
+        <a data-url="https://luckygoodlily.github.io/2020/08/16/Anonymous/" data-id="ckdwv5n040000b4jbh49zebve" class="article-share-link" data-share="baidu" data-title="匿名函數（Anonymous Function）">分享到</a>
       
 
       
-        <a href="https://luckygoodlily.github.io/2020/08/16/calculateClock/#ds-thread" class="article-comment-link">評論</a>
+        <a href="https://luckygoodlily.github.io/2020/08/16/Anonymous/#ds-thread" class="article-comment-link">評論</a>
       
 
       
@@ -124,19 +147,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/08/16/scalaString/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          scala String的設計
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/08/02/FalsePositives/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/08/16/grep/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">False Positives和False Negative含意</div>
+      <div class="article-nav-title">grep 擷取字串</div>
     </a>
   
 </nav>
@@ -146,7 +160,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2020/08/16/calculateClock/" data-title="scala計算時間" data-url="https://luckygoodlily.github.io/2020/08/16/calculateClock/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/08/16/Anonymous/" data-title="匿名函數（Anonymous Function）" data-url="https://luckygoodlily.github.io/2020/08/16/Anonymous/"></div>
   </section>
 </section>
       

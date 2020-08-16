@@ -4,18 +4,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: linux | Lily&#39;s coding life</title>
+  <title>logging level 間的差異 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lily&#39;s coding life">
-<meta property="og:url" content="https://luckygoodlily.github.io/categories/linux/index.html">
+  <meta name="description" content="Logging Level 的優先順序  ALL &lt; TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="logging level 間的差異">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/08/16/log/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="Logging Level 的優先順序  ALL &lt; TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-16T08:53:36.000Z">
+<meta property="article:modified_time" content="2020-08-16T09:04:35.256Z">
 <meta property="article:author" content="Lily Chen">
-<meta property="article:tag" content="source code">
-<meta property="article:tag" content="後端">
+<meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
@@ -74,40 +75,133 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/08/02/setRootPwd/" class="archive-article-date">
-  <time datetime="2020-08-02T13:59:46.000Z" itemprop="datePublished">8月 2</time>
+      <section id="main"><article id="post-log" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/16/log/" class="article-date">
+  <time datetime="2020-08-16T08:53:36.000Z" itemprop="datePublished">2020-08-16</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/knowledge/">knowledge</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/02/setRootPwd/">如何設root密碼</a>
+    <h1 class="article-title" itemprop="name">
+      logging level 間的差異
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Logging Level 的優先順序</p>
+<blockquote>
+<p>ALL &lt; TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL &lt; OFF</p>
+</blockquote>
+<a id="more"></a>
+<p>一般而言在正式的 production environment，只會預設顯示為 WARN or ERROR，才部會一下顯示太多log。</p>
+<h2 id="常用-Logging-Level-使用時機介紹">常用 Logging Level 使用時機介紹</h2>
+<h3 id="ALL">ALL</h3>
+<p>全部的 logging level，包含自定義、與其他為在此介紹的 logging level 都會顯示。</p>
+<h3 id="TRACE">TRACE</h3>
+<p>通常會放些讓 Developer 在追 bug 時，可以補足 ERROR 或 WARN 的 context 資訊。</p>
+<ol>
+<li>使用者目前是進行什麼功能的操作</li>
+<li>使用者目前操作的步驟流程</li>
+</ol>
+<h3 id="DEBUG">DEBUG</h3>
+<p>通常會放些對於 Developer、IT、System Admin 等可以釐清問題的 log</p>
+<ol>
+<li>分析效能相關，例如執行時間</li>
+<li>分析錯誤相關</li>
+<li>預設是關閉的</li>
+</ol>
+<h3 id="INFO">INFO</h3>
+<p>通常會放些重要的成功訊息並讓 QA 可以進行確認<br>
+主要提供關鍵的狀態供快速判斷系統狀態</p>
+<ol>
+<li>service 啟動成功與否</li>
+<li>關鍵的 transactions 被執行完成與否</li>
+<li>configuration</li>
+</ol>
+<h3 id="WARN">WARN</h3>
+<p>可以用來警示的錯誤，出現時可以提供分析的資訊</p>
+<ol>
+<li>網路暫時中斷</li>
+<li>轉換的型態可能造成資料遺失</li>
+<li>定時執行的任務失敗</li>
+</ol>
+<h3 id="ERROR">ERROR</h3>
+<p>一般的錯誤，出現了就需要思考並排時間解決</p>
+<ol>
+<li>網路連線無預期中斷且無法連回</li>
+<li>傳輸資料失敗</li>
+<li>CRUD database 失敗</li>
+<li>諸如此類會影響功能的錯誤</li>
+</ol>
+<h3 id="FATAL">FATAL</h3>
+<p>最緊急的錯誤，只要一出現此類的錯誤，半夜看到也要從床上跳起來立刻給 hotfix 那種。</p>
+<ol>
+<li>會嚴重影響財損的錯誤</li>
+<li>通常此錯誤發生就會讓服務暫時停止運作</li>
+</ol>
+<h3 id="OFF">OFF</h3>
+<p>這個相當於關掉 logging 功能，不會有 log 產出。</p>
+<h2 id="總結">總結</h2>
+<p>除此之外，也可以進行檔案上的分流，將 log 檔分為 service.log 跟 service-critical.log，當你開啟 INFO level 或者 DEBUG level，可以特別將 WARN 跟 ERROR 放在 critical，才不會被大量的 DEBUG log 洗掉 WARN 跟 ERROR。</p>
+<h6 id="tags-knowledge">tags: <code>knowledge</code></h6>
 
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/08/16/log/" data-id="ckdwv5n0f0008b4jb9uidbqpo" class="article-share-link" data-share="baidu" data-title="logging level 間的差異">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/08/16/log/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/16/grep/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          grep 擷取字串
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/16/scalaflatMapAndMap/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">scalaflatMapAndMap</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/08/16/log/" data-title="logging level 間的差異" data-url="https://luckygoodlily.github.io/2020/08/16/log/"></div>
+  </section>
 </section>
       
       <aside id="sidebar">
