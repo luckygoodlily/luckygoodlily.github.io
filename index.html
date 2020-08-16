@@ -76,6 +76,111 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-scalaString" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/16/scalaString/" class="article-date">
+  <time datetime="2020-08-16T08:31:40.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/scala/">scala</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/16/scalaString/">scalaString</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="var-的String">var 的String</h2>
+<p>當<code>String</code>需要一直變動使用通常我們會直覺使用：<br>
+<code>var str=&quot;&quot;</code>值是不可變的，這就導致每次對String的操作都會生成新的String對象，不僅效率低下，還會大量浪費有限的內存空間。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val str    &#x3D; new StringBuilder() &#x2F;&#x2F;預設分配長16字節的字符緩衝區</span><br><span class="line">str.append(&quot;aaa\n&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="StringBuffer">StringBuffer</h2>
+<p>StringBuffer是可變類非線程同步，任何對它指向的字符串的操作都不會產生新的對象。 每個StringBuffer對象都有一定的緩衝區容量，當字符串大小沒有超過容量時，不會分配新的容量，當字符串大小超過容量時，會自動增加容量。</p>
+<h6 id="tags-scala">tags: <code>scala</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/08/16/scalaString/" data-id="ckdwu0alt0001cnjbh7m7eetu" class="article-share-link" data-share="baidu" data-title="scalaString">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/08/16/scalaString/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-calculateClock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/16/calculateClock/" class="article-date">
+  <time datetime="2020-08-16T08:26:21.000Z" itemprop="datePublished">2020-08-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/scala/">scala</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/16/calculateClock/">scala計算時間</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import java.time.Clock</span><br><span class="line">val clock                &#x3D; Clock.systemDefaultZone &#x2F;&#x2F;獲取時間</span><br><span class="line">val startMillSeconds &#x3D; clock.millis &#x2F;&#x2F;單位mill seconds</span><br><span class="line">val returnTimes &#x3D; (clock.millis - startMillSeconds).toString &#x2F;&#x2F;計算經過多少時間</span><br><span class="line">logger.info(s&quot;Matcher spent $returnTimes&quot;)</span><br></pre></td></tr></table></figure>
+<h6 id="tags-scala">tags: <code>scala</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/08/16/calculateClock/" data-id="ckdwu0al50000cnjbfze77jt1" class="article-share-link" data-share="baidu" data-title="scala計算時間">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/08/16/calculateClock/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-FalsePositives" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/02/FalsePositives/" class="article-date">
@@ -531,7 +636,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -540,7 +645,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標簽</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -549,7 +654,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標簽雲</h3>
     <div class="widget tagcloud">
-      <a href="/tags/knowledge/" style="font-size: 20px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/scala/" style="font-size: 10px;">scala</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
+      <a href="/tags/knowledge/" style="font-size: 15px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a>
     </div>
   </div>
 
@@ -558,7 +663,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">歸檔</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -570,6 +675,14 @@
       <ul>
         
           <li>
+            <a href="/2020/08/16/scalaString/">scalaString</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/16/calculateClock/">scala計算時間</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/02/FalsePositives/">False Positives和False Negative含意</a>
           </li>
         
@@ -579,14 +692,6 @@
         
           <li>
             <a href="/2020/08/02/metadata/">Metadata</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/30/Intellijquestion/">Ubuntu18.04.4下Intellij IDEA不能输入中文的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/29/scalaJson/">scala json 多層array架構</a>
           </li>
         
       </ul>
