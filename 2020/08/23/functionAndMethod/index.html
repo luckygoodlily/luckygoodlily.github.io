@@ -14,7 +14,7 @@
 <meta property="og:description" content="function是獨立於物件的，function 是 class (類別)的， method 是 instance (物件)的。 function 可以直接用類別名稱來呼叫。 method是依赖於一個物件的，要呼叫的話要先產生一個物件，再用物件名稱來呼叫。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-23T11:56:19.000Z">
-<meta property="article:modified_time" content="2020-08-23T12:02:18.415Z">
+<meta property="article:modified_time" content="2020-08-23T12:03:42.989Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
@@ -109,7 +109,7 @@ method是依赖於一個物件的，要呼叫的話要先產生一個物件，�
 <p>在c++中，既有method也有function,一个函数的稱呼取決於它是否是一个類的对象，同理，python也是。</p>
 <p>在java中，只有method，因为它是全物件化的语言。</p>
 <p>下面是一段 scala的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def function(data:String):</span><br><span class="line">        return data;</span><br><span class="line">class A:</span><br><span class="line">        str1 &#x3D; &quot;I&#39;m a method in class&quot;</span><br><span class="line">        def method(self):</span><br><span class="line">                return self.str1</span><br><span class="line"> </span><br><span class="line">print(function(&quot;I&#39;m a function&quot;))</span><br><span class="line">a &#x3D; A()</span><br><span class="line">print(a.method())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def function(str:String):</span><br><span class="line">        return str;</span><br><span class="line">class A:</span><br><span class="line">        str1 &#x3D; &quot;I&#39;m a method in class&quot;</span><br><span class="line">        def method(self):</span><br><span class="line">                return self.str1</span><br><span class="line"> </span><br><span class="line">print(function(&quot;I&#39;m a function&quot;))</span><br><span class="line">a &#x3D; A()</span><br><span class="line">print(a.method())</span><br></pre></td></tr></table></figure>
 <p>從上面中可以看出来兩者之間的差别:</p>
 <ol>
 <li>function是直接通過名字來使用的，它只能被傳遞參數来處理或者使用全域變數。</li>
