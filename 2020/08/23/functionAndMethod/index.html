@@ -4,18 +4,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Linux | Lily&#39;s coding life</title>
+  <title>function和method的差別 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lily&#39;s coding life">
-<meta property="og:url" content="https://luckygoodlily.github.io/tags/Linux/index.html">
+  <meta name="description" content="function是獨立於物件的，function 是 class (類別)的， method 是 instance (物件)的。 function 可以直接用類別名稱來呼叫。 method是依赖於一個物件的，要呼叫的話要先產生一個物件，再用物件名稱來呼叫。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="function和method的差別">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/08/23/functionAndMethod/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="function是獨立於物件的，function 是 class (類別)的， method 是 instance (物件)的。 function 可以直接用類別名稱來呼叫。 method是依赖於一個物件的，要呼叫的話要先產生一個物件，再用物件名稱來呼叫。">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-23T11:56:19.000Z">
+<meta property="article:modified_time" content="2020-08-23T11:59:06.555Z">
 <meta property="article:author" content="Lily Chen">
-<meta property="article:tag" content="source code">
-<meta property="article:tag" content="後端">
+<meta property="article:tag" content="knowledge">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
@@ -74,59 +75,83 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/08/16/grep/" class="archive-article-date">
-  <time datetime="2020-08-16T08:56:01.000Z" itemprop="datePublished">8月 16</time>
+      <section id="main"><article id="post-functionAndMethod" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/23/functionAndMethod/" class="article-date">
+  <time datetime="2020-08-23T11:56:19.000Z" itemprop="datePublished">2020-08-23</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/knowledge/">knowledge</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/16/grep/">grep 擷取字串</a>
+    <h1 class="article-title" itemprop="name">
+      function和method的差別
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/08/02/setRootPwd/" class="archive-article-date">
-  <time datetime="2020-08-02T13:59:46.000Z" itemprop="datePublished">8月 2</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/02/setRootPwd/">如何設root密碼</a>
-    </h1>
-  
+        <p>function是獨立於物件的，function 是 class (類別)的， method 是 instance (物件)的。 function 可以直接用類別名稱來呼叫。<br>
+method是依赖於一個物件的，要呼叫的話要先產生一個物件，再用物件名稱來呼叫。</p>
+<a id="more"></a>
+<p>雖然說 function 跟 method 一樣都可以被翻譯成『功能』，但是實用上是不一樣的</p>
+<p>在c中，只有function;</p>
+<p>在c++中，既有method也有function,一个函数的稱呼取決於它是否是一个類的对象，同理，python也是。</p>
+<p>在java中，只有method，因为它是全物件化的语言。</p>
+<p>下面是一段 scala的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def function(data:String):</span><br><span class="line">        return data;</span><br><span class="line">class A:</span><br><span class="line">        str1 &#x3D; &quot;I&#39;m a method in class&quot;</span><br><span class="line">        def method(self):</span><br><span class="line">                return self.str1</span><br><span class="line"> </span><br><span class="line">str2 &#x3D; </span><br><span class="line">print(function(&quot;I&#39;m a function&quot;))</span><br><span class="line">a &#x3D; A()</span><br><span class="line">print(a.method())</span><br></pre></td></tr></table></figure>
+<p>從上面中可以看出来兩者之間的差别:</p>
+<ol>
+<li>function是直接通過名字來使用的，它只能被傳遞參數来處理或者使用全域變數。</li>
+<li>method 是通過與一個對象相關聯的名字來使用的，它既可以被傳遞參數也可以，使用對象内部的数劇。</li>
+</ol>
+<h6 id="tags-knowledge">tags: <code>knowledge</code></h6>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/08/23/functionAndMethod/" data-id="cke71gyae0000fpjb1n6295m0" class="article-share-link" data-share="baidu" data-title="function和method的差別">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/08/23/functionAndMethod/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a></li></ul>
+
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/08/16/Anonymous/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">匿名函數（Anonymous Function）</div>
+    </a>
   
+</nav>
 
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/08/23/functionAndMethod/" data-title="function和method的差別" data-url="https://luckygoodlily.github.io/2020/08/23/functionAndMethod/"></div>
+  </section>
 </section>
       
       <aside id="sidebar">
