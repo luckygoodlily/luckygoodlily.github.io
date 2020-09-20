@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PKCS1_OAEP | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。 OAEP 滿足以下兩個目標：  添加隨機性元素，這可用於將確定性加密方案（如傳統">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PKCS1_OAEP">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。 OAEP 滿足以下兩個目標：  添加隨機性元素，這可用於將確定性加密方案（如傳統">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-20T14:19:30.000Z">
+<meta property="article:modified_time" content="2020-09-20T14:20:47.785Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="scala">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-PKCS1-OAEP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/20/PKCS1-OAEP/" class="article-date">
+  <time datetime="2020-09-20T14:19:30.000Z" itemprop="datePublished">2020-09-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/scala/">scala</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PKCS1_OAEP
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。</p>
+<p>OAEP 滿足以下兩個目標：</p>
+<ol>
+<li>添加隨機性元素，這可用於將確定性加密方案（如傳統 RSA）轉變為概率加密方案。</li>
+<li>通過確保無法反轉陷門單向置換 <code>f</code>，從而無法恢復明文的任何部分，來防止密文的部分解密（或造成其他信息泄漏）。</li>
+</ol>
+<h2 id="java-中-有這幾種PKCS1-OAEP相關RSA加密法">java 中 有這幾種PKCS1-OAEP相關RSA加密法</h2>
+<p><code>RSA/NONE/OAEPPadding</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q_f2Vd05ieb-3PNh3gwQz7mEI7pKwMzys2bYx06YzdN-ZRaKJwK0qp8-bMNPpoIR70W0GjpyAy-KVxJav821InurRKXRU8IUUtitdbW-xum1PX_ja0POMRoAu6DyVem1BCZtXxB_ikY346FFjQxjg-3awSrOvMDxAJTLg1uHLCeGFLIArfDJA7YVvlIQQV_n41awtA_cZLfa2SGWdY4a0BuKHHTUP4PNiKDGu0lTjG-lo1cJNjpKkcpBojbg-f-L1t6uE9_bIvxfWOLwhQlMypFteaV1i6ZrCQEnpYw_vUqbbgWwbb3u_AHGtolORzlmzWyeUpWxdZYzYt9AourU9g</span><br></pre></td></tr></table></figure>
+<p><code>RSA/ECB/PKCS1Padding</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cwBYU0pu12a1jG6tFxFfauD56sNsnh6ERrOt2qNrGTlNmPTbr7ckVQ2IGv0NDnhZ4o5tXiJmSen3tGu3RDwfQkxK0zn75lkHr9GdmO5sOpXIVDTlZLvTiOHAzzQwpNhzhcqUfhRm1mpwScwOtFvltWYXDZQgQGYC_7YmzPdXw7S35Gutmq-kEW9uqsmnvpfyhP4NBufFcTcLvXHH0UzfUmnYnrcWyp3Re9ijpdaUxRvpeS517wm5VniWeZ2CzuA0ApGe6uXKggyf5IeKbhnSyBikUjV6U7R_paGHfBCydxQmHWgr-1P7TVj0VyJbgo4cGOQk5P8t7oGMYq9OhnICMg</span><br></pre></td></tr></table></figure>
+<p><code>RSA/ECB/OAEPWithSHA1AndMGF1Padding</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O7SpqSnmdn3eLNNRUFh2Aipw8mnE2E75xZAncYxe_xg_xMM16QV9y9ViIk_BWe0g0PB6MIS70VSCUFv4FPtwcVAcu0TMDBRVwo6xyMOoKT7u5dmpzEbl6F1KgjNpng0hBtAGBSrxsTdrylLlmrsgc_Sz1SUT5s-OQ_vvK4aZX7bzvgyv4NhDyT45sGO-dGCoUfRz8vPsRZKyTv8gTMnTU0VcAX6kEASqIvR_geRP-keMw7QciN5WCqMhngmqLvG_bnans1nEw5R0CLXho6UGGWCJOb_Xb8JAm1p9ckTRComrnYmx3l6zd1vXM9O4aHHHT3HENn_cRd-Z8LzLWpWy8w</span><br></pre></td></tr></table></figure>
+<p><code>RSA/ECB/OAEPWithSHA-256AndMGF1Padding</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C-P3V4sW3H6_0OitTbgUHqCaXf_WurHfFj9yb_J-vcAhXdtFUY4ZyDCzIR8gl1BbvtikoE7lTAVk8DaDpZoBdI_7QWztQSQyz0nX7yFE5l1ZxNyBID30Z2C46RJNowGyslPavxzHKBwG3gykRDeDgnBJf0K1QFktoEdUhfTXwVivqK7xKqmhkcDiU-wf6NhYtQOkxZfqAvYMsdbBLs20TNhPBUIi6ZCL1noMP9TmhMsQQNQ1FnrvoghJoAJTa6yAK5lKRgHR4Cr4A7IbyXqAMi4Gpzs-MvyixvcEqzE2z0RUlaC6kcpNNbDpgD8bS__DlXQdhmn_ozEYvPek9VLtQA</span><br></pre></td></tr></table></figure>
+<p>The correct cipher suit for encrypting in Java:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cipher cipher &#x3D; Cipher.getInstance(&quot;RSA&#x2F;ECB&#x2F;OAEPWithSHA-1AndMGF1Padding&quot;)</span><br></pre></td></tr></table></figure>
+<p>see <a href="https://docs.oracle.com/javase/8/docs/api/index.html?javax/crypto/Cipher.html" target="_blank" rel="noopener">doc</a></p>
+<h2 id="SHA-1">SHA-1</h2>
+<p>(英語：Secure Hash Algorithm 1，中文名：安全雜湊演算法1）是一種密碼雜湊函式，SHA-1可以生成一個被稱為訊息摘要的160位（20位元組）雜湊值，分組長度為512位元，雜湊值通常的呈現形式為40個十六進位數。分組長度為512位元。</p>
+<h6 id="tags-scala">tags: <code>scala</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/" data-id="ckfb716f30001p8jbe4to7z9f" class="article-share-link" data-share="baidu" data-title="PKCS1_OAEP">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/20/GPG/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          GPG 做鑰匙
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/20/pemFile/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">Bouncy Castle 是產生 PEM file</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/09/20/PKCS1-OAEP/" data-title="PKCS1_OAEP" data-url="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/knowledge/" style="font-size: 17.5px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/20/GPG/">GPG 做鑰匙</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/PKCS1-OAEP/">PKCS1_OAEP</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/pemFile/">Bouncy Castle 是產生 PEM file</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/RSA/">RSA</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/cryptography/">密碼學的概述</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

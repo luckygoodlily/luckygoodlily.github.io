@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什麼事Redis Redis是一個使用ANSI C編寫。Redis 代表 Remote Dictionary Server，是快速的開放原始碼記憶體內鍵值資料存放區，可做為資料庫、快取、訊息代理程式和佇列使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/09/20/redis/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="什麼事Redis Redis是一個使用ANSI C編寫。Redis 代表 Remote Dictionary Server，是快速的開放原始碼記憶體內鍵值資料存放區，可做為資料庫、快取、訊息代理程式和佇列使用。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-20T14:08:17.000Z">
+<meta property="article:modified_time" content="2020-09-20T14:10:39.867Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="knowledge">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/20/redis/" class="article-date">
+  <time datetime="2020-09-20T14:08:17.000Z" itemprop="datePublished">2020-09-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/knowledge/">knowledge</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redis
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什麼事Redis">什麼事Redis</h2>
+<p>Redis是一個使用ANSI C編寫。Redis 代表 Remote Dictionary Server，是快速的開放原始碼記憶體內鍵值資料存放區，可做為資料庫、快取、訊息代理程式和佇列使用。</p>
+<a id="more"></a>
+<h2 id="Redis-運作原理？">Redis 運作原理？</h2>
+<p>所有 Redis 資料都位於記憶體（In-memory）內，而資料庫的資料則存放在磁碟或 SSD上。省去存取磁碟的時間，Redis 這類記憶體內資料存放區可避免搜尋時間延遲，還能在幾微秒的時間內存取資料。Redis 多樣化的資料結構、高可用性、交易、磁碟持久性和叢集支援功能。</p>
+<h2 id="Redis-的優勢">Redis 的優勢</h2>
+<h3 id="記憶體內資料存放區">記憶體內資料存放區</h3>
+<p>所有 <code>Redis</code> 資料都放在伺服器的主要記憶體內，與 <code>MySQL</code>、<code>MongoDB</code> 和其他將大多數資料存放在磁碟或 SSD 的資料庫並不相同。使用傳統磁碟的資料庫需要在磁碟來回處理才能執行大多數的操作，而 Redis 這類記憶體內資料存放區則不受此限制。這樣它們便能夠支援更大規模的操作，而且回應時間更快。這項優勢提供超快速的效能，平均讀取和寫入操作時間低於一毫秒，並支援每秒百萬個操作。</p>
+<h3 id="彈性的資料結構">彈性的資料結構</h3>
+<p>簡易的鍵值資料存放區提供的資料結構有限，而 Redis 則提供多樣化的資料結構以滿足應用程式的需要。Redis 資料類型包括：</p>
+<p>字串 – 文字或二進位資料，最大 512 MB<br>
+清單 – 按新增順序排列的字串集合<br>
+資料集 – 未排序的字串集合，可與其他資料集類型交叉、合併和區分<br>
+排序資料集 – 依數值排列的資料集<br>
+雜湊 – 存放欄位和值清單的資料結構<br>
+點陣圖 – 提供位元層級操作的資料類型<br>
+HyperLogLogs – 用來評估資料集獨特項目的概率資料結構</p>
+<h3 id="簡單易用">簡單易用</h3>
+<p>Redis 簡化程式碼，讓您只要撰寫幾行程式碼即可存放、存取和使用應用程式的資料。例如，如果應用程式資料以 hashmap 的形式存放，且您想要將該資料存放到資料存放區，只要使用 Redis 雜湊資料結構存放資料即可。如果在沒有雜湊資料結構的資料存放區進行類似的任務，則需要撰寫許多行的程式碼才能將格式轉換為另一種格式。Redis 開發人員可使用超過一百種開放原始碼用戶端。支援的語言包含 Java、Python、PHP、C、C++、C#、JavaScript、Node.js、Ruby、R、Go 等等。</p>
+<h3 id="複寫和持續性">複寫和持續性</h3>
+<p>Redis 採用主要-複本架構，並支援非同步複寫，可將資料複寫到多部複本伺服器。這不但可提升讀取效能 (因為請求可分割到多部伺服器)，還能在主伺服器發生故障時快速恢復。至於持續性，Redis 支援時間點備份 (將 Redis 資料集複製到磁碟)。</p>
+<h3 id="高可用性和可擴展性">高可用性和可擴展性</h3>
+<p>Redis 在單一節點的主要或叢集拓撲提供主要-複本架構。這可讓您建立高度可用解決方案，以提供一致的效能和可靠性。需要調整叢集大小時，還可利用擴展和縮減或擴增等各種選項。這可讓您的叢集隨著需要擴展。</p>
+<h3 id="可擴展性">可擴展性</h3>
+<p>Redis 是開放原始碼專案，由充滿活力的社群所支援。由於 Redis 使用開放式標準、支援開放資料格式並含有豐富的用戶端，因此沒有廠商或技術鎖定的問題。</p>
+<h6 id="tags-knowledge">tags: <code>knowledge</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/09/20/redis/" data-id="ckfb716fd000hp8jbd42hadxd" class="article-share-link" data-share="baidu" data-title="Redis">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/09/20/redis/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/20/md5Hash/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          md5Hash
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/20/linuxStore/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">linux存取位置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/09/20/redis/" data-title="Redis" data-url="https://luckygoodlily.github.io/2020/09/20/redis/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/knowledge/" style="font-size: 17.5px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/20/GPG/">GPG 做鑰匙</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/PKCS1-OAEP/">PKCS1_OAEP</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/pemFile/">Bouncy Castle 是產生 PEM file</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/RSA/">RSA</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/cryptography/">密碼學的概述</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

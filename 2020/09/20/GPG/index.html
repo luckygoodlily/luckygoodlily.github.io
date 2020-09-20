@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>GPG 做鑰匙 | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介紹 GNU Privacy Guard（GnuPG或GPG）是一個密碼學軟體，用於加密、簽章通信內容及管理非對稱密碼學的金鑰。GnuPG是自由軟體，遵循IETF訂定的OpenPGP技術標準設計，並與PGP保持相容。 PGP 基本上使用了以下方式的組合：  雜湊值 (hash) 壓縮 對稱加密 公鑰加密，這個在 HTTPS 的 Diffie-Hellman 那邊有講到。  GPG工作原理 GPG">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPG 做鑰匙">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/09/20/GPG/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="介紹 GNU Privacy Guard（GnuPG或GPG）是一個密碼學軟體，用於加密、簽章通信內容及管理非對稱密碼學的金鑰。GnuPG是自由軟體，遵循IETF訂定的OpenPGP技術標準設計，並與PGP保持相容。 PGP 基本上使用了以下方式的組合：  雜湊值 (hash) 壓縮 對稱加密 公鑰加密，這個在 HTTPS 的 Diffie-Hellman 那邊有講到。  GPG工作原理 GPG">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-20T14:20:58.000Z">
+<meta property="article:modified_time" content="2020-09-20T14:24:44.601Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="source code">
+<meta property="article:tag" content="後端">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-GPG" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/20/GPG/" class="article-date">
+  <time datetime="2020-09-20T14:20:58.000Z" itemprop="datePublished">2020-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GPG 做鑰匙
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介紹">介紹</h2>
+<p>GNU Privacy Guard（GnuPG或GPG）是一個密碼學軟體，用於加密、簽章通信內容及管理<code>非對稱密碼學</code>的金鑰。GnuPG是自由軟體，遵循IETF訂定的OpenPGP技術標準設計，並與PGP保持相容。</p>
+<p>PGP 基本上使用了以下方式的組合：</p>
+<ul>
+<li>雜湊值 (hash)</li>
+<li>壓縮</li>
+<li>對稱加密</li>
+<li>公鑰加密，這個在 HTTPS 的 Diffie-Hellman 那邊有講到。</li>
+</ul>
+<h2 id="GPG工作原理">GPG工作原理</h2>
+<p>GPG 執行前，通信雙方每個人都擁有自己的的非對稱加密的秘鑰對，也就是公鑰和私鑰。雙方提前共享了各種的公鑰給對方。</p>
+<p>如果要安全的發送信息，發送方Alice 需要用自己的私鑰和接收方Bob 的公鑰來加密數據。Bob 需要Alice 的公鑰和自己的私鑰來解密信息。這樣不但可以解密Alice 的信息，而且可以保證信息的確是Alice 發出的。熟悉非對稱加密的朋友可以看出這個過程同時包含了加密通信和數字簽名兩個操作。</p>
+<p>這就是GPG 工作的基本流程了。加密後的數據Alice 可以通過Email 發送，也可以放到一個地方去讓Bob 下載。</p>
+<p>公鑰和私鑰是互相工作的，即其中一個加密另個一則可以解密。公鑰加密、私鑰解密，私鑰解密、公鑰解密，這便是非對稱加密的本質。</p>
+<h2 id="GPG-產生key">GPG 產生key</h2>
+<p>$ gpg --full-generate-key</p>
+<h2 id="刪除金鑰-–-Delete">刪除金鑰 – Delete</h2>
+<h3 id="刪除Public-Key">刪除Public Key:</h3>
+<p>$ gpg --delete-keys “{User-ID}”</p>
+<h3 id="刪除Private-Key">刪除Private Key:</h3>
+<p>$ gpg --delete-secret-keys “{User-ID}”</p>
+<h2 id="匯出金鑰-–-Export">匯出金鑰 – Export</h2>
+<h3 id="匯出Public-Key">匯出Public Key:</h3>
+<p>$ gpg --export -a “{User-ID}” &gt; public.key</p>
+<p>金鑰建立好之後，可將公鑰匯出，並將公鑰散佈出去，讓所有需要加密傳送檔案給你的人使用：(一樣？)</p>
+<p>$ gpg --armor --output pubkey.txt --export ‘G.T.Wang’</p>
+<h3 id="匯出Private-Key">匯出Private Key:</h3>
+<p>$ gpg --export-secret-key -a “{User-ID}” &gt; private.key</p>
+<h2 id="參考文章">參考文章</h2>
+<p><a href="https://newtoypia.blogspot.com/2013/12/gnupg-pgp.html" target="_blank" rel="noopener">https://newtoypia.blogspot.com/2013/12/gnupg-pgp.html</a><br>
+<a href="https://blog.gtwang.org/linux/how-to-encrypt-data-in-linux-using-gpg-and-open-ssl/2/" target="_blank" rel="noopener">https://blog.gtwang.org/linux/how-to-encrypt-data-in-linux-using-gpg-and-open-ssl/2/</a><br>
+<a href="https://code.yidas.com/pgp-gpg-commands/" target="_blank" rel="noopener">https://code.yidas.com/pgp-gpg-commands/</a></p>
+<h6 id="tags-knowledge">tags: <code>knowledge</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/09/20/GPG/" data-id="ckfb716em0000p8jb9kzeflvt" class="article-share-link" data-share="baidu" data-title="GPG 做鑰匙">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/09/20/GPG/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/20/PKCS1-OAEP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">PKCS1_OAEP</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/09/20/GPG/" data-title="GPG 做鑰匙" data-url="https://luckygoodlily.github.io/2020/09/20/GPG/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/knowledge/" style="font-size: 17.5px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 10px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/20/GPG/">GPG 做鑰匙</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/PKCS1-OAEP/">PKCS1_OAEP</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/pemFile/">Bouncy Castle 是產生 PEM file</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/RSA/">RSA</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/20/cryptography/">密碼學的概述</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
