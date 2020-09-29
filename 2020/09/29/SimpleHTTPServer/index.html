@@ -4,19 +4,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>PKCS1_OAEP | Lily&#39;s coding life</title>
+  <title>SimpleHTTPServer | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。">
+  <meta name="description" content="假設你的電腦 IP 位址為 192.168.0.1，而想要分享 &#x2F;home&#x2F;seal 中的資料，則先切換到該目錄中：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PKCS1_OAEP">
-<meta property="og:url" content="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/index.html">
+<meta property="og:title" content="SimpleHTTPServer">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/09/29/SimpleHTTPServer/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。">
+<meta property="og:description" content="假設你的電腦 IP 位址為 192.168.0.1，而想要分享 &#x2F;home&#x2F;seal 中的資料，則先切換到該目錄中：">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-09-20T14:19:30.000Z">
-<meta property="article:modified_time" content="2020-09-20T14:27:46.223Z">
+<meta property="article:published_time" content="2020-09-29T15:50:24.000Z">
+<meta property="article:modified_time" content="2020-09-29T15:58:10.453Z">
 <meta property="article:author" content="Lily Chen">
-<meta property="article:tag" content="scala">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
@@ -75,14 +75,14 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-PKCS1-OAEP" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-SimpleHTTPServer" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/20/PKCS1-OAEP/" class="article-date">
-  <time datetime="2020-09-20T14:19:30.000Z" itemprop="datePublished">2020-09-20</time>
+    <a href="/2020/09/29/SimpleHTTPServer/" class="article-date">
+  <time datetime="2020-09-29T15:50:24.000Z" itemprop="datePublished">2020-09-29</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/scala/">scala</a>
+    <a class="article-category-link" href="/categories/python/">python</a>
   </div>
 
   </div>
@@ -93,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      PKCS1_OAEP
+      SimpleHTTPServer
     </h1>
   
 
@@ -101,42 +101,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。</p>
+        <p>假設你的電腦 IP 位址為 192.168.0.1，而想要分享 <code>/home/seal</code> 中的資料，則先切換到該目錄中：</p>
 <a id="more"></a>
-<p>OAEP 滿足以下兩個目標：</p>
-<ol>
-<li>添加隨機性元素，這可用於將確定性加密方案（如傳統 RSA）轉變為概率加密方案。</li>
-<li>通過確保無法反轉陷門單向置換 <code>f</code>，從而無法恢復明文的任何部分，來防止密文的部分解密（或造成其他信息泄漏）。</li>
-</ol>
-<h2 id="java-中-有這幾種PKCS1-OAEP相關RSA加密法">java 中 有這幾種PKCS1-OAEP相關RSA加密法</h2>
-<p><code>RSA/NONE/OAEPPadding</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q_f2Vd05ieb-3PNh3gwQz7mEI7pKwMzys2bYx06YzdN-ZRaKJwK0qp8-bMNPpoIR70W0GjpyAy-KVxJav821InurRKXRU8IUUtitdbW-xum1PX_ja0POMRoAu6DyVem1BCZtXxB_ikY346FFjQxjg-3awSrOvMDxAJTLg1uHLCeGFLIArfDJA7YVvlIQQV_n41awtA_cZLfa2SGWdY4a0BuKHHTUP4PNiKDGu0lTjG-lo1cJNjpKkcpBojbg-f-L1t6uE9_bIvxfWOLwhQlMypFteaV1i6ZrCQEnpYw_vUqbbgWwbb3u_AHGtolORzlmzWyeUpWxdZYzYt9AourU9g</span><br></pre></td></tr></table></figure>
-<p><code>RSA/ECB/PKCS1Padding</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cwBYU0pu12a1jG6tFxFfauD56sNsnh6ERrOt2qNrGTlNmPTbr7ckVQ2IGv0NDnhZ4o5tXiJmSen3tGu3RDwfQkxK0zn75lkHr9GdmO5sOpXIVDTlZLvTiOHAzzQwpNhzhcqUfhRm1mpwScwOtFvltWYXDZQgQGYC_7YmzPdXw7S35Gutmq-kEW9uqsmnvpfyhP4NBufFcTcLvXHH0UzfUmnYnrcWyp3Re9ijpdaUxRvpeS517wm5VniWeZ2CzuA0ApGe6uXKggyf5IeKbhnSyBikUjV6U7R_paGHfBCydxQmHWgr-1P7TVj0VyJbgo4cGOQk5P8t7oGMYq9OhnICMg</span><br></pre></td></tr></table></figure>
-<p><code>RSA/ECB/OAEPWithSHA1AndMGF1Padding</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O7SpqSnmdn3eLNNRUFh2Aipw8mnE2E75xZAncYxe_xg_xMM16QV9y9ViIk_BWe0g0PB6MIS70VSCUFv4FPtwcVAcu0TMDBRVwo6xyMOoKT7u5dmpzEbl6F1KgjNpng0hBtAGBSrxsTdrylLlmrsgc_Sz1SUT5s-OQ_vvK4aZX7bzvgyv4NhDyT45sGO-dGCoUfRz8vPsRZKyTv8gTMnTU0VcAX6kEASqIvR_geRP-keMw7QciN5WCqMhngmqLvG_bnans1nEw5R0CLXho6UGGWCJOb_Xb8JAm1p9ckTRComrnYmx3l6zd1vXM9O4aHHHT3HENn_cRd-Z8LzLWpWy8w</span><br></pre></td></tr></table></figure>
-<p><code>RSA/ECB/OAEPWithSHA-256AndMGF1Padding</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C-P3V4sW3H6_0OitTbgUHqCaXf_WurHfFj9yb_J-vcAhXdtFUY4ZyDCzIR8gl1BbvtikoE7lTAVk8DaDpZoBdI_7QWztQSQyz0nX7yFE5l1ZxNyBID30Z2C46RJNowGyslPavxzHKBwG3gykRDeDgnBJf0K1QFktoEdUhfTXwVivqK7xKqmhkcDiU-wf6NhYtQOkxZfqAvYMsdbBLs20TNhPBUIi6ZCL1noMP9TmhMsQQNQ1FnrvoghJoAJTa6yAK5lKRgHR4Cr4A7IbyXqAMi4Gpzs-MvyixvcEqzE2z0RUlaC6kcpNNbDpgD8bS__DlXQdhmn_ozEYvPek9VLtQA</span><br></pre></td></tr></table></figure>
-<p>The correct cipher suit for encrypting in Java:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cipher cipher &#x3D; Cipher.getInstance(&quot;RSA&#x2F;ECB&#x2F;OAEPWithSHA-1AndMGF1Padding&quot;)</span><br></pre></td></tr></table></figure>
-<p>see <a href="https://docs.oracle.com/javase/8/docs/api/index.html?javax/crypto/Cipher.html" target="_blank" rel="noopener">doc</a></p>
-<h2 id="SHA-1">SHA-1</h2>
-<p>(英語：Secure Hash Algorithm 1，中文名：安全雜湊演算法1）是一種密碼雜湊函式，SHA-1可以生成一個被稱為訊息摘要的160位（20位元組）雜湊值，分組長度為512位元，雜湊值通常的呈現形式為40個十六進位數。分組長度為512位元。</p>
-<h6 id="tags-scala">tags: <code>scala</code></h6>
+<blockquote>
+<p>cd /home/seal<br>
+再啟動 Python 的網頁伺服器：</p>
+</blockquote>
+<p><code>python -m SimpleHTTPServer</code><br>
+就這樣一行指令就完成了！非常方便。執行這行指令應該會看到這樣的輸出訊息：</p>
+<p>Serving HTTP on 0.0.0.0 port 8000 …</p>
+<p>這個訊息是告訴你網頁伺服器所開啟的 port 是 8000，這時候你可以開啟瀏覽器測試一下，再瀏覽器上輸入以下的網址：</p>
+<p><a href="http://192.168.0.1:8000/" target="_blank" rel="noopener">http://192.168.0.1:8000/</a><br>
+這樣就可以看到分享的網頁了。如果是在自己的電腦上要看自己的伺服器所分享的網頁，也可以輸入這樣的網址：</p>
+<p><a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a><br>
+如果被分享的目錄中有 index.html 這個網頁檔，則開啟這個目錄時，預設就會顯示這個網頁檔，而如果這個檔案不存在，則會自動顯示該目錄中的檔案列表。</p>
+<p>如果你想要更改伺服器所使用的 port，則可以直接在指令的最後面指定 port number：<br>
+<code>python -m SimpleHTTPServer 8080</code></p>
+<p><a href="https://blog.gtwang.org/web-development/python-simplehttpserver-web-server/" target="_blank" rel="noopener">網站</a></p>
+<h6 id="tags-python">tags: <code>python</code></h6>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/" data-id="ckfb716f30001p8jbe4to7z9f" class="article-share-link" data-share="baidu" data-title="PKCS1_OAEP">分享到</a>
+        <a data-url="https://luckygoodlily.github.io/2020/09/29/SimpleHTTPServer/" data-id="ckfo5au650000mwjbaligberz" class="article-share-link" data-share="baidu" data-title="SimpleHTTPServer">分享到</a>
       
 
       
-        <a href="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/#ds-thread" class="article-comment-link">評論</a>
+        <a href="https://luckygoodlily.github.io/2020/09/29/SimpleHTTPServer/#ds-thread" class="article-comment-link">評論</a>
       
 
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
 
     </footer>
   </div>
@@ -144,19 +140,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/09/20/GPG/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          GPG 做鑰匙
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/09/20/pemFile/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/09/29/httppost/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Bouncy Castle 是產生 PEM file</div>
+      <div class="article-nav-title">Http Post 使用步驟</div>
     </a>
   
 </nav>
@@ -166,7 +153,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2020/09/20/PKCS1-OAEP/" data-title="PKCS1_OAEP" data-url="https://luckygoodlily.github.io/2020/09/20/PKCS1-OAEP/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/09/29/SimpleHTTPServer/" data-title="SimpleHTTPServer" data-url="https://luckygoodlily.github.io/2020/09/29/SimpleHTTPServer/"></div>
   </section>
 </section>
       
