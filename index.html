@@ -100,38 +100,11 @@
       
         <h2 id="介紹">介紹</h2>
 <p>GNU Privacy Guard（GnuPG或GPG）是一個密碼學軟體，用於加密、簽章通信內容及管理<code>非對稱密碼學</code>的金鑰。GnuPG是自由軟體，遵循IETF訂定的OpenPGP技術標準設計，並與PGP保持相容。</p>
-<p>PGP 基本上使用了以下方式的組合：</p>
-<ul>
-<li>雜湊值 (hash)</li>
-<li>壓縮</li>
-<li>對稱加密</li>
-<li>公鑰加密，這個在 HTTPS 的 Diffie-Hellman 那邊有講到。</li>
-</ul>
-<h2 id="GPG工作原理">GPG工作原理</h2>
-<p>GPG 執行前，通信雙方每個人都擁有自己的的非對稱加密的秘鑰對，也就是公鑰和私鑰。雙方提前共享了各種的公鑰給對方。</p>
-<p>如果要安全的發送信息，發送方Alice 需要用自己的私鑰和接收方Bob 的公鑰來加密數據。Bob 需要Alice 的公鑰和自己的私鑰來解密信息。這樣不但可以解密Alice 的信息，而且可以保證信息的確是Alice 發出的。熟悉非對稱加密的朋友可以看出這個過程同時包含了加密通信和數字簽名兩個操作。</p>
-<p>這就是GPG 工作的基本流程了。加密後的數據Alice 可以通過Email 發送，也可以放到一個地方去讓Bob 下載。</p>
-<p>公鑰和私鑰是互相工作的，即其中一個加密另個一則可以解密。公鑰加密、私鑰解密，私鑰解密、公鑰解密，這便是非對稱加密的本質。</p>
-<h2 id="GPG-產生key">GPG 產生key</h2>
-<p>$ gpg --full-generate-key</p>
-<h2 id="刪除金鑰-–-Delete">刪除金鑰 – Delete</h2>
-<h3 id="刪除Public-Key">刪除Public Key:</h3>
-<p>$ gpg --delete-keys “{User-ID}”</p>
-<h3 id="刪除Private-Key">刪除Private Key:</h3>
-<p>$ gpg --delete-secret-keys “{User-ID}”</p>
-<h2 id="匯出金鑰-–-Export">匯出金鑰 – Export</h2>
-<h3 id="匯出Public-Key">匯出Public Key:</h3>
-<p>$ gpg --export -a “{User-ID}” &gt; public.key</p>
-<p>金鑰建立好之後，可將公鑰匯出，並將公鑰散佈出去，讓所有需要加密傳送檔案給你的人使用：(一樣？)</p>
-<p>$ gpg --armor --output pubkey.txt --export ‘G.T.Wang’</p>
-<h3 id="匯出Private-Key">匯出Private Key:</h3>
-<p>$ gpg --export-secret-key -a “{User-ID}” &gt; private.key</p>
-<h2 id="參考文章">參考文章</h2>
-<p><a href="https://newtoypia.blogspot.com/2013/12/gnupg-pgp.html" target="_blank" rel="noopener">https://newtoypia.blogspot.com/2013/12/gnupg-pgp.html</a><br>
-<a href="https://blog.gtwang.org/linux/how-to-encrypt-data-in-linux-using-gpg-and-open-ssl/2/" target="_blank" rel="noopener">https://blog.gtwang.org/linux/how-to-encrypt-data-in-linux-using-gpg-and-open-ssl/2/</a><br>
-<a href="https://code.yidas.com/pgp-gpg-commands/" target="_blank" rel="noopener">https://code.yidas.com/pgp-gpg-commands/</a></p>
-<h6 id="tags-knowledge">tags: <code>knowledge</code></h6>
-
+        
+          <p class="article-more-link">
+            <a href="/2020/09/20/GPG/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -178,27 +151,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在密碼學中，最優非對稱加密填充（英語：Optimal Asymmetric Encryption Padding，縮寫：OAEP）是一種經常與RSA加密一起使用的填充方案。OAEP 由 Mihir Bellare 和 Phillip Rogaway 發明，隨後在 PKCS#1 v2 和 RFC 2437中得到標準化。</p>
-<p>OAEP 滿足以下兩個目標：</p>
-<ol>
-<li>添加隨機性元素，這可用於將確定性加密方案（如傳統 RSA）轉變為概率加密方案。</li>
-<li>通過確保無法反轉陷門單向置換 <code>f</code>，從而無法恢復明文的任何部分，來防止密文的部分解密（或造成其他信息泄漏）。</li>
-</ol>
-<h2 id="java-中-有這幾種PKCS1-OAEP相關RSA加密法">java 中 有這幾種PKCS1-OAEP相關RSA加密法</h2>
-<p><code>RSA/NONE/OAEPPadding</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q_f2Vd05ieb-3PNh3gwQz7mEI7pKwMzys2bYx06YzdN-ZRaKJwK0qp8-bMNPpoIR70W0GjpyAy-KVxJav821InurRKXRU8IUUtitdbW-xum1PX_ja0POMRoAu6DyVem1BCZtXxB_ikY346FFjQxjg-3awSrOvMDxAJTLg1uHLCeGFLIArfDJA7YVvlIQQV_n41awtA_cZLfa2SGWdY4a0BuKHHTUP4PNiKDGu0lTjG-lo1cJNjpKkcpBojbg-f-L1t6uE9_bIvxfWOLwhQlMypFteaV1i6ZrCQEnpYw_vUqbbgWwbb3u_AHGtolORzlmzWyeUpWxdZYzYt9AourU9g</span><br></pre></td></tr></table></figure>
-<p><code>RSA/ECB/PKCS1Padding</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cwBYU0pu12a1jG6tFxFfauD56sNsnh6ERrOt2qNrGTlNmPTbr7ckVQ2IGv0NDnhZ4o5tXiJmSen3tGu3RDwfQkxK0zn75lkHr9GdmO5sOpXIVDTlZLvTiOHAzzQwpNhzhcqUfhRm1mpwScwOtFvltWYXDZQgQGYC_7YmzPdXw7S35Gutmq-kEW9uqsmnvpfyhP4NBufFcTcLvXHH0UzfUmnYnrcWyp3Re9ijpdaUxRvpeS517wm5VniWeZ2CzuA0ApGe6uXKggyf5IeKbhnSyBikUjV6U7R_paGHfBCydxQmHWgr-1P7TVj0VyJbgo4cGOQk5P8t7oGMYq9OhnICMg</span><br></pre></td></tr></table></figure>
-<p><code>RSA/ECB/OAEPWithSHA1AndMGF1Padding</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O7SpqSnmdn3eLNNRUFh2Aipw8mnE2E75xZAncYxe_xg_xMM16QV9y9ViIk_BWe0g0PB6MIS70VSCUFv4FPtwcVAcu0TMDBRVwo6xyMOoKT7u5dmpzEbl6F1KgjNpng0hBtAGBSrxsTdrylLlmrsgc_Sz1SUT5s-OQ_vvK4aZX7bzvgyv4NhDyT45sGO-dGCoUfRz8vPsRZKyTv8gTMnTU0VcAX6kEASqIvR_geRP-keMw7QciN5WCqMhngmqLvG_bnans1nEw5R0CLXho6UGGWCJOb_Xb8JAm1p9ckTRComrnYmx3l6zd1vXM9O4aHHHT3HENn_cRd-Z8LzLWpWy8w</span><br></pre></td></tr></table></figure>
-<p><code>RSA/ECB/OAEPWithSHA-256AndMGF1Padding</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C-P3V4sW3H6_0OitTbgUHqCaXf_WurHfFj9yb_J-vcAhXdtFUY4ZyDCzIR8gl1BbvtikoE7lTAVk8DaDpZoBdI_7QWztQSQyz0nX7yFE5l1ZxNyBID30Z2C46RJNowGyslPavxzHKBwG3gykRDeDgnBJf0K1QFktoEdUhfTXwVivqK7xKqmhkcDiU-wf6NhYtQOkxZfqAvYMsdbBLs20TNhPBUIi6ZCL1noMP9TmhMsQQNQ1FnrvoghJoAJTa6yAK5lKRgHR4Cr4A7IbyXqAMi4Gpzs-MvyixvcEqzE2z0RUlaC6kcpNNbDpgD8bS__DlXQdhmn_ozEYvPek9VLtQA</span><br></pre></td></tr></table></figure>
-<p>The correct cipher suit for encrypting in Java:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cipher cipher &#x3D; Cipher.getInstance(&quot;RSA&#x2F;ECB&#x2F;OAEPWithSHA-1AndMGF1Padding&quot;)</span><br></pre></td></tr></table></figure>
-<p>see <a href="https://docs.oracle.com/javase/8/docs/api/index.html?javax/crypto/Cipher.html" target="_blank" rel="noopener">doc</a></p>
-<h2 id="SHA-1">SHA-1</h2>
-<p>(英語：Secure Hash Algorithm 1，中文名：安全雜湊演算法1）是一種密碼雜湊函式，SHA-1可以生成一個被稱為訊息摘要的160位（20位元組）雜湊值，分組長度為512位元，雜湊值通常的呈現形式為40個十六進位數。分組長度為512位元。</p>
-<h6 id="tags-scala">tags: <code>scala</code></h6>
-
+        
+          <p class="article-more-link">
+            <a href="/2020/09/20/PKCS1-OAEP/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -301,34 +258,11 @@
       
         <h2 id="PGP-vs-RSA：可能使用不同的算法">PGP vs RSA：可能使用不同的算法</h2>
 <p>PGP可以使用多種加密算法來生成其密鑰。Rivest–Shamir–Adleman（RSA）就是其中之一。RSA以其開發人員Ron Rivest，Adi Shamir和Leonard Adleman的名字命名，他們於1978年開發了該算法。</p>
-<p>RSA是最早發布的非對稱加密算法之一。它的私鑰和公鑰均可用於加密和解密數據。哪個用於加密，另一個用於解密。</p>
-<ol>
-<li>私鑰加密 公鑰解密</li>
-<li>公鑰加密 私鑰解密</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">private val keyMap: mutable.HashMap[Integer, String]&#x3D; new mutable.HashMap()</span><br><span class="line"></span><br><span class="line">genKeyPair() &#x2F;&#x2F;生成公鑰和私鑰</span><br><span class="line"></span><br><span class="line">val message &#x3D; &quot;20200915&quot; &#x2F;&#x2F;加密字符串</span><br><span class="line">println(&quot;随機生成的公鑰为:&quot; + keyMap.get(0))</span><br><span class="line">println(&quot;随機生成的私鑰为:&quot; + keyMap.get(1))</span><br><span class="line"></span><br><span class="line">println(&quot;公鑰加密，私鑰解密:&quot;)</span><br><span class="line">val messageEn &#x3D; encrypt(message, keyMap.get(0).get)</span><br><span class="line">println(message + &quot;\t加密後的字符串:&quot; + messageEn)</span><br><span class="line">val messageDe &#x3D; decrypt(messageEn, keyMap.get(1).get)</span><br><span class="line">println(&quot;解密後的字符串:&quot; + messageDe)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">println(&quot;私鑰加密，公鑰解密:&quot;);</span><br><span class="line">val messageEn1 &#x3D; encrypt(message, keyMap.get(1).get)</span><br><span class="line">println(message + &quot;\t加密後的字符串为:&quot; + messageEn)</span><br><span class="line">val messageDe1 &#x3D; decrypt(messageEn, keyMap.get(0).get)</span><br><span class="line">println(&quot;解密後的字符串为:&quot; + messageDe1)</span><br></pre></td></tr></table></figure>
-<p>根據金鑰位數不同，一次可被加密的長度也是不同的，在下面使用了2048的加密位數，那麼一次加密只能256位元組。</p>
-<h2 id="随機生成密鑰對">随機生成密鑰對</h2>
-<p>產生了可以直接使用的公鑰、私鑰了。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">def genKeyPair() &#x3D; &#123; &#x2F;&#x2F; KeyPairGenerator生成公私鑰，基于RSA算法生成对象</span><br><span class="line">   try &#123;</span><br><span class="line">     val keyPairGen &#x3D; KeyPairGenerator.getInstance(&quot;RSA&quot;, new BouncyCastleProvider())</span><br><span class="line">     &#x2F;&#x2F; 初始化密鑰對生成器，密鑰大小为96-1024位</span><br><span class="line">     keyPairGen.initialize(2048, new SecureRandom())</span><br><span class="line">     &#x2F;&#x2F; 生成一个密鑰對，保存在keyPair中</span><br><span class="line">     val keyPair &#x3D; keyPairGen.generateKeyPair</span><br><span class="line">     val privateKey:RSAPrivateKey &#x3D; keyPair.getPrivate.asInstanceOf[RSAPrivateKey] &#x2F;&#x2F; 得到私鑰</span><br><span class="line">     val publicKey:RSAPublicKey &#x3D; keyPair.getPublic.asInstanceOf[RSAPublicKey] &#x2F;&#x2F; 得到公鑰</span><br><span class="line">     val publicKeyString &#x3D; new String(Base64.encode(publicKey.getEncoded()))</span><br><span class="line">     &#x2F;&#x2F; 得到私鑰字符串</span><br><span class="line"></span><br><span class="line">     val privateKeyString &#x3D; new String(Base64.encode(privateKey.getEncoded()))</span><br><span class="line">     &#x2F;&#x2F; 将公鑰和私鑰保存到Map</span><br><span class="line">     keyMap.put(0, publicKeyString) &#x2F;&#x2F;0表示公鑰</span><br><span class="line"></span><br><span class="line">     keyMap.put(1, privateKeyString) &#x2F;&#x2F;1表示私鑰</span><br><span class="line">   &#125; catch &#123;</span><br><span class="line">     case e:NoSuchAlgorithmException &#x3D;&gt; e.getMessage</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="RSA公鑰加密">RSA公鑰加密</h2>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def encrypt(str: String, publicKey: String):String &#x3D; &#123; &#x2F;&#x2F;base64编码的公鑰</span><br><span class="line">    try &#123;</span><br><span class="line">      &#x2F;&#x2F; 對公鑰解密</span><br><span class="line">      val decoded: Array[Byte] &#x3D; Base64.decode(publicKey)</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 取得公鑰</span><br><span class="line">      val pubKey:RSAPublicKey &#x3D; KeyFactory.getInstance(&quot;RSA&quot;, new BouncyCastleProvider()).generatePublic(new X509EncodedKeySpec(decoded)).asInstanceOf[RSAPublicKey]</span><br><span class="line">      </span><br><span class="line">      &#x2F;&#x2F;RSA加密</span><br><span class="line">      val cipher &#x3D; Cipher.getInstance(&quot;RSA&quot;, new BouncyCastleProvider())</span><br><span class="line">      cipher.init(Cipher.ENCRYPT_MODE, pubKey)</span><br><span class="line">      val outStr &#x3D; Base64.toBase64String(cipher.doFinal(str.getBytes(&quot;UTF-8&quot;)))</span><br><span class="line">      outStr &#x2F;&#x2F; 密文</span><br><span class="line">    &#125; catch &#123;</span><br><span class="line">      case e:Exception &#x3D;&gt; e.getMessage</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="金鑰的儲存">金鑰的儲存</h3>
-<p>需要使用檔案來儲存的，查詢文件，發現金鑰可以轉化為位元組，同時位元組也能轉化回金鑰。到這裡發現問題很簡單了。<br>
-但是這裡要注意的是，轉化為位元組儲存到檔案是簡單的，但是從檔案讀取到位元組( Array[Byte])，一次讀取可能不能讀取完整整個檔案，需要多次讀取，那麼多次讀取的位元組放到哪裡呢，在這裡我使用了將讀取的位元組轉換為字串( String )，進行拼接之後再還原回字節。<br>
-所以我們需要將位元組轉到到字串再轉化回來，這其實是個困難的過程，Array[Byte]原長度和轉化後的長度是不一樣的。這裡的解決方式是，將位元組進行Base64編碼再轉為字串，轉回的時候則進行相應的Base64解碼操作。</p>
-<h2 id="RSA私鑰解密">RSA私鑰解密</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def decrypt(str: String, privateKey: String):String &#x3D; &#123; &#x2F;&#x2F;64位解码加密后的字符串</span><br><span class="line">  try &#123;</span><br><span class="line">  val inputByte &#x3D; Base64.decode(str.getBytes(&quot;UTF-8&quot;))</span><br><span class="line">  &#x2F;&#x2F;base64编码的私钥</span><br><span class="line">  val decoded &#x3D; Base64.decode(privateKey)</span><br><span class="line">  &#x2F;&#x2F;取得私鑰</span><br><span class="line">  val priKey:RSAPrivateKey &#x3D; KeyFactory.getInstance(&quot;RSA&quot;, new BouncyCastleProvider()).generatePrivate(new PKCS8EncodedKeySpec(decoded)).asInstanceOf[RSAPrivateKey]</span><br><span class="line">  &#x2F;&#x2F;RSA解密</span><br><span class="line">  val cipher &#x3D; Cipher.getInstance(&quot;RSA&quot;, new BouncyCastleProvider())</span><br><span class="line">  cipher.init(Cipher.DECRYPT_MODE, priKey)</span><br><span class="line">  val outStr &#x3D; new String(cipher.doFinal(inputByte))</span><br><span class="line">  outStr &#x2F;&#x2F; 明文</span><br><span class="line">&#125; catch &#123;</span><br><span class="line">  case e:Exception &#x3D;&gt; e.getMessage</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="密文的儲存、讀取">密文的儲存、讀取</h3>
-<p>密文的儲存可以需要進行Base64的編碼解碼，也可以不需要。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cipher.doFinal( (&quot;XXX&quot; + &quot;\r\n\r\n&quot;).getBytes())</span><br></pre></td></tr></table></figure>
-<p>既然要對密文進行解密，那麼私鑰或者公鑰是一定已經有的，在獲取金鑰之後，我們可以計算出每段加密完成之後密文的位元組數，每次按照這個位元組數進行檔案的讀取，讀取後直接解密成字串即可。</p>
-<h2 id="參考文章">參考文章</h2>
-<p><a href="https://blog.csdn.net/qy20115549/article/details/83105736" target="_blank" rel="noopener">https://blog.csdn.net/qy20115549/article/details/83105736</a><br>
-<a href="https://www.itread01.com/articles/1476507017.html" target="_blank" rel="noopener">https://www.itread01.com/articles/1476507017.html</a><br>
-<a href="https://tsai-cookie.blogspot.com/2016/02/rsa-encryption-in-java.html" target="_blank" rel="noopener">https://tsai-cookie.blogspot.com/2016/02/rsa-encryption-in-java.html</a></p>
-<h6 id="tags-scala">tags: <code>scala</code></h6>
-
+        
+          <p class="article-more-link">
+            <a href="/2020/09/20/RSA/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
