@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Elasticsearch | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="_cat系列提供了一系列查詢Elasticsearch叢集狀態的介面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/11/01/Elasticsearch/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="_cat系列提供了一系列查詢Elasticsearch叢集狀態的介面。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/LzyS7uc.png">
+<meta property="article:published_time" content="2020-11-01T13:25:36.000Z">
+<meta property="article:modified_time" content="2020-11-01T13:38:24.463Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/LzyS7uc.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-Elasticsearch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/01/Elasticsearch/" class="article-date">
+  <time datetime="2020-11-01T13:25:36.000Z" itemprop="datePublished">2020-11-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tool/">tool</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Elasticsearch
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>_cat系列提供了一系列查詢Elasticsearch叢集狀態的介面。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;_cat&#x2F;allocation      #檢視單節點的shard分配整體情況</span><br><span class="line">&#x2F;_cat&#x2F;shards          #檢視各shard的詳細情況</span><br><span class="line">&#x2F;_cat&#x2F;shards&#x2F;&#123;index&#125;  #檢視指定分片的詳細情況</span><br><span class="line">&#x2F;_cat&#x2F;master          #檢視master節點資訊</span><br><span class="line">&#x2F;_cat&#x2F;nodes           #檢視所有節點資訊</span><br><span class="line">&#x2F;_cat&#x2F;indices         #檢視叢集中所有index的詳細資訊</span><br><span class="line">&#x2F;_cat&#x2F;indices&#x2F;&#123;index&#125; #檢視叢集中指定index的詳細資訊</span><br><span class="line">&#x2F;_cat&#x2F;segments        #檢視各index的segment詳細資訊,包括segment名, 所屬shard, 記憶體(磁碟)佔用大小, 是否刷盤</span><br><span class="line">&#x2F;_cat&#x2F;segments&#x2F;&#123;index&#125;#檢視指定index的segment詳細資訊</span><br><span class="line">&#x2F;_cat&#x2F;count           #檢視當前叢集的doc數量</span><br><span class="line">&#x2F;_cat&#x2F;count&#x2F;&#123;index&#125;   #檢視指定索引的doc數量</span><br><span class="line">&#x2F;_cat&#x2F;recovery        #檢視叢集內每個shard的recovery過程.調整replica。</span><br><span class="line">&#x2F;_cat&#x2F;recovery&#x2F;&#123;index&#125;#檢視指定索引shard的recovery過程</span><br><span class="line">&#x2F;_cat&#x2F;health          #檢視叢集當前狀態：紅、黃、綠</span><br><span class="line">&#x2F;_cat&#x2F;pending_tasks   #檢視當前叢集的pending task</span><br><span class="line">&#x2F;_cat&#x2F;aliases         #檢視叢集中所有alias資訊,路由配置等</span><br><span class="line">&#x2F;_cat&#x2F;aliases&#x2F;&#123;alias&#125; #檢視指定索引的alias資訊</span><br><span class="line">&#x2F;_cat&#x2F;thread_pool     #檢視叢集各節點內部不同型別的threadpool的統計資訊,</span><br><span class="line">&#x2F;_cat&#x2F;plugins         #檢視叢集各個節點上的plugin資訊</span><br><span class="line">&#x2F;_cat&#x2F;fielddata       #檢視當前叢集各個節點的fielddata記憶體使用情況</span><br><span class="line">&#x2F;_cat&#x2F;fielddata&#x2F;&#123;fields&#125;     #檢視指定field的記憶體使用情況,裡面傳field屬性對應的值</span><br><span class="line">&#x2F;_cat&#x2F;nodeattrs              #檢視單節點的自定義屬性</span><br><span class="line">&#x2F;_cat&#x2F;repositories           #輸出叢集中註冊快照儲存庫</span><br><span class="line">&#x2F;_cat&#x2F;templates              #輸出當前正在存在的模板資訊</span><br></pre></td></tr></table></figure>
+<p>每個命令都支援使用?v引數，讓輸出內容表格顯示錶頭; pretty則讓輸出縮排更規範</p>
+<h2 id="索引計數">索引計數</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl localhost:9200&#x2F;_cat&#x2F;indices?v</span><br><span class="line">health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open   mp_quarantine_20200805024727 Y-m2zDefSN6-5XEkD_Obxw   5   1         50            0    863.4kb        863.4kb</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET 127.0.0.1:9200&#x2F;_cat&#x2F;indices</span><br><span class="line">yellow open mp_quarantine_20201016065834 EesB3epRQN65Xf8sPUsiUQ 5 1     0 0   1.2kb   1.2kb</span><br><span class="line">yellow open mp_index_20201016065832      YpQucaVATGqQPtT4Y6i5Eg 5 1 21332 0 601.1mb 601.1mb</span><br></pre></td></tr></table></figure>
+<h2 id="檢查-Server-狀態">檢查 Server 狀態</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl localhost:9200</span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;mo5tPbq&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;we6_RUW9TnuUt45iBSDTPA&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;6.4.3&quot;,</span><br><span class="line">    &quot;build_flavor&quot; : &quot;oss&quot;,</span><br><span class="line">    &quot;build_type&quot; : &quot;tar&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;fe40335&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2018-10-30T23:17:19.084789Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;7.4.0&quot;,</span><br><span class="line">    &quot;minimum_wire_compatibility_version&quot; : &quot;5.6.0&quot;,</span><br><span class="line">    &quot;minimum_index_compatibility_version&quot; : &quot;5.0.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="列出ElasticSearch服务器上的所有索引？">列出ElasticSearch服务器上的所有索引？</h2>
+<p>想列出ElasticSearch服务器上的所有索引</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET 127.0.0.1:9200&#x2F;</span><br></pre></td></tr></table></figure>
+<h2 id="smail-console下這個就會把索引清空">smail console下這個就會把索引清空</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE &quot;127.0.0.1:9200&#x2F;_all&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="列出Index下所有Types">列出Index下所有Types</h2>
+<p>檢視叢集中所有index的詳細資訊</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET 127.0.0.1:9200&#x2F;_cat&#x2F;indices</span><br><span class="line">yellow open mp_quarantine_20201016065834 EesB3epRQN65Xf8sPUsiUQ 5 1     0 0   1.2kb   1.2kb</span><br><span class="line">yellow open mp_index_20201016065832      YpQucaVATGqQPtT4Y6i5Eg 5 1 21332 0 601.1mb 601.1mb</span><br></pre></td></tr></table></figure>
+<p>條件過濾</p>
+<p>_cat/indices?v&amp;health=yellow   #查詢健康狀態為yellow的索引</p>
+<h2 id="列某個索引mail">列某個索引mail</h2>
+<p>curl -XGET 127.0.0.1:9200/mp_index_20201016065832/mail/766596615707295744</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"_index"</span>:<span class="string">"mp_index_20201016065832"</span>,<span class="attr">"_type"</span>:<span class="string">"mail"</span>,<span class="attr">"_id"</span>:<span class="string">"766596615707295744"</span>,<span class="attr">"_version"</span>:<span class="number">1</span>,<span class="attr">"found"</span>:<span class="literal">true</span>,<span class="attr">"_source"</span>:&#123;<span class="attr">"IMPORT_TO_DOMAIN"</span>:[<span class="string">"4194306"</span>],<span class="attr">"TO_GROUP"</span>:<span class="string">"4194306"</span>,<span class="attr">"IMPORT_EXTRACTED_GROUP_COUNT"</span>:<span class="number">1</span>,<span class="attr">"FROM"</span>:<span class="string">"lily@********"</span>,<span class="attr">"SMTP_TO"</span>:<span class="string">"importer@localhost"</span>,<span class="attr">"COMMENT"</span>:<span class="string">""</span>,<span class="attr">"IMPORT_FROM_DOMAIN"</span>:<span class="string">"4194306"</span>,<span class="attr">"IMPORT_TO_GROUP"</span>:[<span class="string">"4194306"</span>],<span class="attr">"SMTP_TX_ID"</span>:<span class="string">"0AA37F8F53C00000"</span>,<span class="attr">"STATUS"</span>:<span class="string">"Imported"</span>,<span class="attr">"IMPORT_EXTRACTED_RECIPIENTS"</span>:[<span class="string">"root@localhost"</span>],<span class="attr">"MESSAGE_ID"</span>:<span class="string">"&lt;OF63DFEE1A.92C73B06-ON88258604.0003C426@********&gt;"</span>,<span class="attr">"BLOCK_CAUSE"</span>:<span class="string">""</span>,<span class="attr">"SMTP_TO_COUNT"</span>:<span class="number">1</span>,<span class="attr">"PARSE_ERROR"</span>:[],<span class="attr">"ATTACHMENT_NAME"</span>:[],<span class="attr">"TO_DOMAIN"</span>:<span class="string">"4194306"</span>,<span class="attr">"CC"</span>:<span class="string">""</span>,<span class="attr">"FROM_GROUP"</span>:<span class="string">"4194306"</span>,<span class="attr">"BCC"</span>:[],<span class="attr">"IMPORT_EXTRACTED_DOMAIN_COUNT"</span>:<span class="number">1</span>,<span class="attr">"IMPORT_EXTRACTED_DOMAIN"</span>:[<span class="string">"4194306"</span>],<span class="attr">"SMTP_FROM"</span>:<span class="string">"lily@********"</span>,<span class="attr">"SIZE"</span>:<span class="number">568</span>,<span class="attr">"FROM_DOMAIN"</span>:<span class="string">"4194306"</span>,<span class="attr">"SMTP_HOSTNAME"</span>:<span class="string">"********"</span>,<span class="attr">"SOURCE_TAG"</span>:<span class="string">"********-receiver"</span>,<span class="attr">"IMPORT_EXTRACTED_GROUP"</span>:[<span class="string">"4194306"</span>],<span class="attr">"ATTACHMENT_TYPE"</span>:[],<span class="attr">"DATE"</span>:<span class="number">1602895268000</span>,<span class="attr">"PARSE_LIMIT_EXCEEDED"</span>:<span class="literal">false</span>,<span class="attr">"IMPORT_OWNER"</span>:<span class="string">"4194305"</span>,<span class="attr">"SMTP_TIMESTAMP"</span>:<span class="number">1602841275727</span>,<span class="attr">"SUBJECT"</span>:<span class="string">"5555"</span>,<span class="attr">"TO"</span>:<span class="string">""</span>,<span class="attr">"ATTACHMENT_STATUS"</span>:[],<span class="attr">"IMPORT_FROM_GROUP"</span>:<span class="string">"4194306"</span>,<span class="attr">"SMTP_IP"</span>:<span class="string">"********"</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更新index內容">更新index內容</h2>
+<p>找到mp_index_的檔案名稱<br>
+766596615707295744從界面找id是什麼，或all.log找</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> update index</span><br><span class="line">curl -XPOST &quot;127.0.0.1:9200&#x2F;mp_index_20201016065832&#x2F;mail&#x2F;767575904921583616&#x2F;_update&quot; -H &#39;Content-Type: application&#x2F;json&#39; -d &#39;&#123;&quot;doc&quot;:&#123;&quot;PARSE_ERROR&quot;:[1]&#125;&#125;&#39;</span><br></pre></td></tr></table></figure>
+<p>doc是讓es用已存在的source<br>
+source則是替換掉<br>
+<img src="https://i.imgur.com/LzyS7uc.png" alt=""></p>
+<h2 id="建立-Index">建立 Index</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT localhost:9200&#x2F;[IndexName]?pretty</span><br><span class="line">----------------------------</span><br><span class="line">成功的話，回傳下面訊息</span><br><span class="line">&#123;</span><br><span class="line">  &quot;acknowledged&quot; : true</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">----------------------------</span><br><span class="line">失敗的話，通常是index已經存在，則是下面訊息</span><br><span class="line">&#123;</span><br><span class="line">  &quot;error&quot; : &#123;</span><br><span class="line">    &quot;root_cause&quot; : [ &#123;</span><br><span class="line">      &quot;type&quot; : &quot;index_already_exists_exception&quot;,</span><br><span class="line">      &quot;reason&quot; : &quot;already exists&quot;,</span><br><span class="line">      &quot;index&quot; : &quot;customer&quot;</span><br><span class="line">    &#125; ],</span><br><span class="line">    &quot;type&quot; : &quot;index_already_exists_exception&quot;,</span><br><span class="line">    &quot;reason&quot; : &quot;already exists&quot;,</span><br><span class="line">    &quot;index&quot; : &quot;customer&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;status&quot; : 400</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="刪除-Index">刪除 Index</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE &quot;127.0.0.1:9200&#x2F;_all&quot;</span><br><span class="line">curl -XDELETE localhost:9200&#x2F;[IndexName]?pretty</span><br><span class="line">----------------------------</span><br><span class="line">成功的話，回傳下面訊息</span><br><span class="line">&#123;</span><br><span class="line">  &quot;acknowledged&quot; : true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://soarlin.github.io/2016/11/13/elasticsearch-note-operation/#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89-index" target="_blank" rel="noopener">教學</a><br>
+<a href="https://blog.techbridge.cc/2019/02/01/linux-curl-command-tutorial/" target="_blank" rel="noopener">https://blog.techbridge.cc/2019/02/01/linux-curl-command-tutorial/</a></p>
+<p><a href="https://www.itread01.com/content/1567612872.html" target="_blank" rel="noopener">教學</a></p>
+<h6 id="tags-tool">tags: <code>tool</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/11/01/Elasticsearch/" data-id="ckgz5u4jn0001iojbgjmuhtye" class="article-share-link" data-share="baidu" data-title="Elasticsearch">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/11/01/Elasticsearch/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/" rel="tag">tool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/01/Timestamptodate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          Timestamp to date 換算
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/01/pythonSendmail/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">python自動寄信</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/11/01/Elasticsearch/" data-title="Elasticsearch" data-url="https://luckygoodlily.github.io/2020/11/01/Elasticsearch/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/internet/" style="font-size: 10px;">internet</a> <a href="/tags/knowledge/" style="font-size: 18px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 14px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 12px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/01/devecote/">devecote</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/Timestamptodate/">Timestamp to date 換算</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/Elasticsearch/">Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/pythonSendmail/">python自動寄信</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/nodeJSSendmail/">nodeJS自動寄信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
