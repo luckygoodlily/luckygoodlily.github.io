@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>git 重要指令 | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="更新mailpatform要gitKraken pull git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 重要指令">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/11/09/git/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="更新mailpatform要gitKraken pull git">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-11-09T15:35:47.000Z">
+<meta property="article:modified_time" content="2020-11-09T15:57:28.607Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/11/09/git/" class="article-date">
+  <time datetime="2020-11-09T15:35:47.000Z" itemprop="datePublished">2020-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/git/">git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      git 重要指令
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>更新mailpatform要gitKraken pull git<br><a id="more"></a></p>
+<h2 id="加branch"><a href="#加branch" class="headerlink" title="加branch"></a>加branch</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">git checkout -b newbr e7fcb8846bf049c1949cb0489a746ee9b6a8bac3 (id)</span></span><br><span class="line">id可以不用</span><br><span class="line">or</span><br><span class="line"><span class="meta">$</span><span class="bash">git branch newbr e7fcb8846bf049c1949cb0489a746ee9b6a8bac3</span></span><br><span class="line">新增分支</span><br><span class="line">git branch cat 方法二</span><br></pre></td></tr></table></figure>
+<h2 id="看有哪些分枝"><a href="#看有哪些分枝" class="headerlink" title="看有哪些分枝"></a>看有哪些分枝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch 檢視分支</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch --remote</span></span><br><span class="line">  origin/HEAD -&gt; origin/master</span><br><span class="line">  origin/master</span><br><span class="line">  origin/refactoring</span><br><span class="line">使用 --remote 或 -r 參數可以顯示遠端的分支</span><br></pre></td></tr></table></figure>
+<h2 id="刪除分枝"><a href="#刪除分枝" class="headerlink" title="刪除分枝"></a>刪除分枝</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d dog</span><br><span class="line">Deleted branch dog (was e12d8ef).</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用-d參數不給刪。這時只要改用-D參數就可以強制刪除:</span><br><span class="line">$ git branch -D cat</span><br><span class="line">Deleted branch cat (was b174a5a).</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git commit -m</span><br><span class="line">git commit --amend -m "Welcome To Facebook"</span><br><span class="line">//改commit --amend -m</span><br><span class="line">git log 看紀錄</span><br></pre></td></tr></table></figure>
+<h2 id="分支改名字"><a href="#分支改名字" class="headerlink" title="分支改名字"></a>分支改名字</h2><p>把cat分支改成tiger分支,使用的是-m<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -m cat tiger</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="看有改動哪些檔案"><a href="#看有改動哪些檔案" class="headerlink" title="看有改動哪些檔案"></a>看有改動哪些檔案</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add 檔案路徑+名稱 檔案路徑+名稱</span><br><span class="line">紅色的代表還沒上傳</span><br></pre></td></tr></table></figure>
+<h2 id="上傳步驟"><a href="#上傳步驟" class="headerlink" title="上傳步驟"></a>上傳步驟</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line"></span><br><span class="line">git commit -m ''</span><br><span class="line">git push orgin newbr</span><br><span class="line">git reset --hard commit_id 退版</span><br></pre></td></tr></table></figure>
+<h2 id="設定主版project"><a href="#設定主版project" class="headerlink" title="設定主版project"></a>設定主版project</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> ssh://  我fork出來的gitlab上資料</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin https://github.com/****  (url為遠端地址，把剛剛複製的網址貼上即可)</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add upstream ssh://git...... 原始project 需要先到mailplatform下</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v //可以看到更完整的設定資訊。</span></span><br><span class="line"><span class="meta">//$</span><span class="bash"> git checkout master</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改-remote"><a href="#修改-remote" class="headerlink" title="修改 remote"></a>修改 remote</h3><h4 id="直接修改"><a href="#直接修改" class="headerlink" title="直接修改"></a>直接修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git:&#x2F;&#x2F;new.url.here</span><br></pre></td></tr></table></figure>
+<h4 id="先刪除在修改"><a href="#先刪除在修改" class="headerlink" title="先刪除在修改"></a>先刪除在修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote remove origin</span><br><span class="line">git remote add origin yourRemoteUrl</span><br></pre></td></tr></table></figure>
+<h2 id="轉換分支"><a href="#轉換分支" class="headerlink" title="轉換分支"></a>轉換分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout 分支</span></span><br></pre></td></tr></table></figure>
+<h2 id="更新版本下來"><a href="#更新版本下來" class="headerlink" title="更新版本下來"></a>更新版本下來</h2><p>在master下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull upstream master</span><br></pre></td></tr></table></figure></p>
+<h2 id="更新我的分支和遠端版本一致"><a href="#更新我的分支和遠端版本一致" class="headerlink" title="更新我的分支和遠端版本一致"></a>更新我的分支和遠端版本一致</h2><p><code>分枝下</code> ex:newUnitTest<br>不要的直接刪掉，或pick改drop<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rebase -i master </span></span><br><span class="line"><span class="meta">$</span><span class="bash">./mill mill.scalalib.GenIdea/idea 更新一下idea</span></span><br><span class="line"><span class="meta">$</span><span class="bash">./mill clean</span></span><br><span class="line"><span class="meta">$</span><span class="bash">./mill __.compile</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="如果有衝突就解衝突"><a href="#如果有衝突就解衝突" class="headerlink" title="如果有衝突就解衝突"></a>如果有衝突就解衝突</h3><p>idea到那個檔案，按右鍵-&gt;Git-&gt;compare with same repo version<br>回git</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rebase --<span class="built_in">continue</span>到處理好rebase</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status 看狀況</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add東西</span></span><br></pre></td></tr></table></figure>
+<p>衝突是就的檔案改新名稱和改位置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">直接先全部加進來</span><br><span class="line"><span class="meta">$</span><span class="bash"> git add .</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git rebase --<span class="built_in">continue</span></span></span><br><span class="line">更新一下mill idea</span><br></pre></td></tr></table></figure></p>
+<h2 id="整理commit-上傳git"><a href="#整理commit-上傳git" class="headerlink" title="整理commit 上傳git"></a>整理commit 上傳git</h2><p><a href="https://zerodie.github.io/blog/2012/01/19/git-rebase-i/" target="_blank" rel="noopener">如何合併多個</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i 序號 (可以先按tab看序號)</span><br><span class="line"><span class="meta">$</span><span class="bash"> git push -f origin name強至覆蓋遠端</span></span><br></pre></td></tr></table></figure>
+<p>squash下面的留最上面的(最舊的)</p>
+<h2 id="git-用壞整修"><a href="#git-用壞整修" class="headerlink" title="git 用壞整修"></a>git 用壞整修</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reflog 查紀錄</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git stash -push m <span class="string">"temp"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git reflog</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git diff controller-server/src/<span class="built_in">test</span>/scala/com/sn/mailplatform/controller/user/AccountControllerImplTest.scala</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> git stash push -m <span class="string">"newUnit"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git reset HEAD&#123;&#125; 從git reflog查 不能過加--hard</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git merge --abort停止merge</span></span><br></pre></td></tr></table></figure>
+<h2 id="git-用壞回到上個成功的某指令"><a href="#git-用壞回到上個成功的某指令" class="headerlink" title="git 用壞回到上個成功的某指令"></a>git 用壞回到上個成功的某指令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reflog 查要哪個head</span></span><br><span class="line">or</span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> -g //也可以看到 Reflog 喔！</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git reset/checkout HEAD@&#123;1&#125; --hard   </span></span><br><span class="line">or</span><br><span class="line"><span class="meta">$</span><span class="bash"> git reset e12d8ef^ //^表示前一次 ^^表示前兩次</span></span><br><span class="line"></span><br><span class="line">//e12d8ef不好記 可用HEAD 因為HEAD剛好指向e12d8ef</span><br><span class="line">//倒退五次，通常不會寫 `e12d8ef^^^^^`，而會寫成 `e12d8ef~5`</span><br><span class="line">或</span><br><span class="line"><span class="meta">$</span><span class="bash"> git reset HEAD^</span></span><br></pre></td></tr></table></figure>
+<p>mixed 模式<br>—mixed 是預設的參數，如果沒有特別加參數，git reset 指令將會使用 —mixed 模式。這個模式會把暫存區的檔案丟掉，但不會動到工作目錄的檔案，也就是說 Commit 拆出來的檔案會留在工作目錄，但不會留在暫存區。</p>
+<p>soft 模式<br>這個模式下的 reset，工作目錄跟暫存區的檔案都不會被丟掉，所以看起來就只有 HEAD 的移動而已。也因此，Commit 拆出來的檔案會直接放在暫存區。</p>
+<p>hard 模式<br>在這個模式下，不管是工作目錄以及暫存區的檔案都會丟掉。</p>
+<h2 id="看有哪些commit"><a href="#看有哪些commit" class="headerlink" title="看有哪些commit"></a>看有哪些commit</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure>
+<h2 id="更改git-rebase編輯模式"><a href="#更改git-rebase編輯模式" class="headerlink" title="更改git rebase編輯模式"></a>更改git rebase編輯模式</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor vim</span><br></pre></td></tr></table></figure>
+<p>change editor from nano to vim and can use :wq to rewrite</p>
+<h2 id="刪commit"><a href="#刪commit" class="headerlink" title="刪commit"></a>刪commit</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i 按tab看序號（要刪的前一個）</span><br><span class="line">把其改成drop</span><br></pre></td></tr></table></figure>
+<h2 id="看git歷史紀錄"><a href="#看git歷史紀錄" class="headerlink" title="看git歷史紀錄"></a>看git歷史紀錄</h2><p>它会输出提交历史.各个分支的指向以及项目的分支分叉情况…<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --decorate --graph --all</span><br></pre></td></tr></table></figure></p>
+<h2 id="看比較精簡的資訊"><a href="#看比較精簡的資訊" class="headerlink" title="看比較精簡的資訊"></a>看比較精簡的資訊</h2><p>都得要輸入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --graph</span><br></pre></td></tr></table></figure></p>
+<h2 id="更改git-rebase-預設編輯器"><a href="#更改git-rebase-預設編輯器" class="headerlink" title="更改git rebase 預設編輯器"></a>更改git rebase 預設編輯器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.editor vim</span><br></pre></td></tr></table></figure>
+<p>change editor from nano to vim</p>
+<h2 id="其它方便的設定"><a href="#其它方便的設定" class="headerlink" title="其它方便的設定"></a>其它方便的設定</h2><p>$ vim ~/.gitconfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line">  co &#x3D; checkout</span><br><span class="line">  br &#x3D; branch</span><br><span class="line">  st &#x3D; status</span><br><span class="line">  cm&#x3D; commit -m</span><br><span class="line">  bm&#x3D; branch -m &#x2F;&#x2F;分支改名字</span><br><span class="line">  re &#x3D; rebase</span><br><span class="line">  amend &#x3D; commit --amend --no-edit</span><br><span class="line">  l &#x3D; log --oneline --graph</span><br><span class="line">  ls &#x3D; log --graph --pretty&#x3D;format:&quot;%h &lt;%an&gt; %ar %s&quot;</span><br></pre></td></tr></table></figure>
+<p>git co<br>git br<br>git st….</p>
+<h2 id="HEAD-是什麼東西？"><a href="#HEAD-是什麼東西？" class="headerlink" title="HEAD 是什麼東西？"></a>HEAD 是什麼東西？</h2><p>HEAD 是一個指標，指向某一個分支，通常你可以把 HEAD 當做「目前所在分支」看待。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git&#x2F;HEAD</span><br><span class="line">ref: refs&#x2F;heads&#x2F;newUnitest</span><br></pre></td></tr></table></figure>
+<p>從這個檔案看起來，HEAD 目前正指向著 master 分支。如果有興趣再深入看一下 refs/heads/master 的內容就會發現，其實所謂的 Master 分支也不過就是一個 40 個字元的檔案罷了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat .git&#x2F;refs&#x2F;heads&#x2F;newUnitest</span><br><span class="line">e12d8ef0e8b9deae8bf115c5ce51dbc2e09c8904</span><br></pre></td></tr></table></figure>
+<h2 id="追加檔案到最近一次的-Commit"><a href="#追加檔案到最近一次的-Commit" class="headerlink" title="追加檔案到最近一次的 Commit"></a>追加檔案到最近一次的 Commit</h2><blockquote>
+<p>剛剛完成 Commit,但發現有一個檔案忘了加到,又不想為了這個檔案重新再發一次Commit…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure><br>假設它剛加進來,它的狀態還是Untracked。流程上一樣,還是使用<code>git add</code>先把檔案加到暫存區:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add cinderella.html</span><br></pre></td></tr></table></figure><br>接著在 Commit 的時候加上—<br>參數:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --no-edit</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="在commit建立tag"><a href="#在commit建立tag" class="headerlink" title="在commit建立tag"></a>在commit建立tag</h2><p>我想在<code>add lion and tiger</code>這個 Commit(51d54ff)打上一個big_cats的標籤:<br>51d54ff add lion and tiger<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag big_cats 51d54ff</span><br></pre></td></tr></table></figure><br>-&gt;51d54ff (tag: big_cats) add lion and tiger</p>
+<h2 id="刪除tag"><a href="#刪除tag" class="headerlink" title="刪除tag"></a>刪除tag</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -d big_cats</span><br></pre></td></tr></table></figure>
+<h2 id="使用-Stash存作到一半的東西"><a href="#使用-Stash存作到一半的東西" class="headerlink" title="使用 Stash存作到一半的東西"></a>使用 Stash存作到一半的東西</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br><span class="line"></span><br><span class="line">$ git stash list 看有哪些stash</span><br><span class="line">stash@&#123;0&#125;: WIP on dog: 053fb21 add dog 2</span><br><span class="line">stash@&#123;1&#125;: WIP on cat: b174a5a add cat 2</span><br></pre></td></tr></table></figure>
+<p>這個<code>stash@{2}</code>應該是我剛剛最一開始做一半的進度,所以我要把它撿回來做:<br>$ git stash pop stash@{2}</p>
+<p>說明如下:</p>
+<ol>
+<li>使用pop指令,可以把某個 Stash 拿出來並套用在目前的分支上。套用成功之後,那個套用過的 Stash 就會被刪除。</li>
+<li>如果後面沒有指定要 pop 哪一個 Stash,會從編號最小的,也就是stash@{0}開始拿(也就是最後疊上去的那次)。<br>Stash 撿回來用:<br>$ git stash apply stash@{0}</li>
+</ol>
+<p>這是指會把stash@{0}這個 Stash 拿來套用在現在的分支上,但 Stash 不會刪除,還是會留在Stash 列表上。<br><strong>所以你可把pop指令看成「applyStash +dropStash」。</strong><br>不要Stash :<br>$ git stash drop stash@{0}</p>
+<h2 id="git-error"><a href="#git-error" class="headerlink" title="git error"></a>git error</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git-lfs filter-process: 1: git-lfs filter-process: git-lfs: not found</span><br><span class="line">fatal: The remote end hung up unexpectedly</span><br></pre></td></tr></table></figure>
+<p>sudo apt-get install git-all<br>sudo apt-get install git-lfs </p>
+<h2 id="等等，這行程式誰寫的？"><a href="#等等，這行程式誰寫的？" class="headerlink" title="等等，這行程式誰寫的？"></a>等等，這行程式誰寫的？</h2><p>在 Git 可使用 git blame 指令幫你抓出兇手：<br><code>$ git blame index.html</code></p>
+<p>如果檔案太大，也可加上 -L 參數，只顯示指定行數的內容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git blame -L 5,10 index.html</span><br></pre></td></tr></table></figure>
+<h2 id="Ubuntu-18-04安裝OpenJDK-11"><a href="#Ubuntu-18-04安裝OpenJDK-11" class="headerlink" title="Ubuntu 18.04安裝OpenJDK 11"></a>Ubuntu 18.04安裝OpenJDK 11</h2><h6 id="tags-git"><a href="#tags-git" class="headerlink" title="tags: git"></a>tags: <code>git</code></h6>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/11/09/git/" data-id="ckhaqmhjj0001dkjb9ma1f2h2" class="article-share-link" data-share="baidu" data-title="git 重要指令">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/11/09/git/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/09/htop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          htop 介紹
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/01/devecote/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">devecote</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/11/09/git/" data-title="git 重要指令" data-url="https://luckygoodlily.github.io/2020/11/09/git/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 10px;">internet</a> <a href="/tags/knowledge/" style="font-size: 18px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 14px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 12px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/10/askQuestion/">正確的發問</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/10/word1106/">單字學習 20201106</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/09/htop/">htop 介紹</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/09/git/">git 重要指令</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/devecote/">devecote</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
