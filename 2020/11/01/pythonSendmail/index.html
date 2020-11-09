@@ -6,15 +6,15 @@
   
   <title>python自動寄信 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="python寄信 相關code">
+  <meta name="description" content="相關code">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python自動寄信">
 <meta property="og:url" content="https://luckygoodlily.github.io/2020/11/01/pythonSendmail/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="python寄信 相關code">
+<meta property="og:description" content="相關code">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-11-01T13:23:51.000Z">
-<meta property="article:modified_time" content="2020-11-01T13:26:06.746Z">
+<meta property="article:modified_time" content="2020-11-09T16:14:00.467Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -101,8 +101,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1>python寄信</h1>
-<h2 id="相關code">相關code</h2>
+        <h2 id="相關code">相關code</h2>
 <a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from_addr&#x3D;&quot;sender@....&quot;</span><br><span class="line">to_addr&#x3D;&quot;receiver@...&quot;</span><br><span class="line">def sendMail(from_addr,to_addr):</span><br><span class="line">    smtp&#x3D;smtplib.SMTP(&#39;***.***.**.***&#39;, 25)</span><br><span class="line">    smtp.ehlo()</span><br><span class="line">    smtp.starttls()</span><br><span class="line"></span><br><span class="line">    # from_addr&#x3D;&#39;sender@inside.com&#39;</span><br><span class="line">    # to_addr&#x3D;&quot;receiver@outside.com&quot;</span><br><span class="line">    msg&#x3D;&quot;Subject:2020 10 14 d 33333&quot;</span><br><span class="line">    status&#x3D;smtp.sendmail(from_addr, to_addr, msg)#加密文件，避免私密信息被截取</span><br><span class="line">    if status&#x3D;&#x3D;&#123;&#125;:</span><br><span class="line">        print(&quot;郵件傳送成功!&quot;)</span><br><span class="line">    else:</span><br><span class="line">        print(&quot;郵件傳送失敗!&quot;)</span><br><span class="line">    smtp.quit()</span><br></pre></td></tr></table></figure>
 <h2 id="domino可以收信寫法">domino可以收信寫法</h2>
