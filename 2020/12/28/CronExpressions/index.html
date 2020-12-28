@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Cron Expressions（定期做事情） | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Cron Expressions（定期做事情） Cron表達式用於配置CronTrigger的實例，CronTrigger是org.quartz.Trigger的子類。cron表達式是由6或7個以空格分隔的字段組成的字符串。字段可以包含任何允許的值，以及該字段允許的特殊字符的各種組合。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cron Expressions（定期做事情）">
+<meta property="og:url" content="https://luckygoodlily.github.io/2020/12/28/CronExpressions/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="Cron Expressions（定期做事情） Cron表達式用於配置CronTrigger的實例，CronTrigger是org.quartz.Trigger的子類。cron表達式是由6或7個以空格分隔的字段組成的字符串。字段可以包含任何允許的值，以及該字段允許的特殊字符的各種組合。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-12-28T13:31:52.000Z">
+<meta property="article:modified_time" content="2020-12-28T13:42:23.300Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="knowledge">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-CronExpressions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/28/CronExpressions/" class="article-date">
+  <time datetime="2020-12-28T13:31:52.000Z" itemprop="datePublished">2020-12-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/knowledge/">knowledge</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cron Expressions（定期做事情）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1>Cron Expressions（定期做事情）</h1>
+<p>Cron表達式用於配置CronTrigger的實例，CronTrigger是org.quartz.Trigger的子類。cron表達式是由6或7個以空格分隔的字段組成的字符串。字段可以包含任何允許的值，以及該字段允許的特殊字符的各種組合。</p>
+<a id="more"></a>
+<h2 id="格式">格式</h2>
+<table>
+<thead>
+<tr>
+<th>欄位名稱</th>
+<th>強制性的</th>
+<th>允許值</th>
+<th>允許的特殊字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秒</td>
+<td>是</td>
+<td>0-59</td>
+<td>，-* /</td>
+</tr>
+<tr>
+<td>分鐘</td>
+<td>是</td>
+<td>0-59</td>
+<td>，-* /</td>
+</tr>
+<tr>
+<td>小時</td>
+<td>是</td>
+<td>0-23</td>
+<td>，-* /</td>
+</tr>
+<tr>
+<td>一個月中的某天</td>
+<td>是</td>
+<td>1-31</td>
+<td>，-*？/ LW</td>
+</tr>
+<tr>
+<td>月</td>
+<td>是</td>
+<td>1-12或JAN-DEC</td>
+<td>，-* /</td>
+</tr>
+<tr>
+<td>星期幾</td>
+<td>是</td>
+<td>1-7或SUN-SAT</td>
+<td>，-*？/ L＃</td>
+</tr>
+<tr>
+<td>年</td>
+<td>是</td>
+<td>空，1970-2099年</td>
+<td>，-* /</td>
+</tr>
+</tbody>
+</table>
+<h2 id="特殊符號">特殊符號</h2>
+<ul>
+<li>*（ <code>所有值</code>）-用於選擇字段中的所有值。例如，分鐘字段中的<code>*</code>表示<code>每分鐘</code>。</li>
+<li>？（ <code>無特定值</code>）-當您需要在允許使用字符的兩個字段之一中指定某個內容而在另一個不允許的字段中指定某些內容時很有用。例如，如果我希望觸發器在每月的某個特定日期（例如10號）觸發，但不在乎一周中的哪一天發生，則將<code>10</code>設置為月字段，以及<code>？</code> 在星期幾字段中。</li>
+<li>– 用於指定範圍。例如，小時字段中的<code>10-12</code>表示<code>小時10、11和12</code>。</li>
+<li>， -用於指定其他值。例如，<code>星期幾</code>字段中的<code> MON，WED，FRI</code>表示<code>星期一，星期三和星期五的日子</code>。</li>
+<li>/ -用於指定增量。例如，秒字段中的<code>0/15</code>表示<code>秒0、15、30和45</code>。秒字段中的<code> 5/15</code>表示<code>5、20、35和50</code>。您還可以在<code> </code>字符後指定<code>/</code>在這種情況下，<code> </code>等效於在<code> /</code>之前使用<code>0</code>。月日字段中的<code>1/3</code>表示<code>從月的第一天開始每三天觸發一次</code>。</li>
+<li>L（ <code>最後一個</code>）-在允許使用的兩個字段中都有不同的含義。例如，<code>月日</code>字段中的值<code> L</code>表示<code>月的最後一天</code>，即非-年的1月31日，2月28日。如果單獨用於星期幾字段，則僅表示<code>7</code>或<code>SAT</code>。但是，如果在星期幾字段中使用另一個值，則表示<code>該月的最後一個xxx天</code>，例如<code> 6L</code>表示<code>該月的最後一個星期五</code>。您還可以指定與該月最後一天的偏移量，例如<code>L-3</code>，這表示日曆月的倒數第三天。 使用<code>L</code>選項時，不要指定列表或值的範圍很重要，因為這樣會導致混淆/意外結果。</li>
+<li>W（ <code>工作日</code>）-用於指定最接近給定日期的工作日（星期一至星期五）。例如，如果您將<code>15W</code>指定為<code>月日</code>字段的值，則含義是： <code>離月15日最近的工作日</code>。因此，如果15號是星期六，則觸發器將在14號星期五觸發。如果15日是星期日，則觸發器將在16日星期一觸發。如果15號是星期二，那麼它將在15號星期二觸發。</li>
+<li>＃ -用於指定每月的第<code>XXX</code>天。例如，<code>星期幾</code>字段中的值<code>6＃3</code>表示<code>該月的第三個星期五</code>（第6天=星期五，<code>＃3</code> =該月的第三個星期五）。其他示例：<code>2＃1</code> =該月的第一個星期一，<code>4＃5</code> =該月的第五個星期三。請注意，如果您指定<code>＃5</code>，並且該月的指定星期幾中沒有5個，則該月將不會觸發。</li>
+</ul>
+<p>** 法定字符以及月份和星期幾的名稱不區分大小寫。MON 與mon相同。</p>
+<h2 id="範例">範例</h2>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 0 12 * * ?</td>
+<td>Fire at 12pm (noon) every day</td>
+</tr>
+<tr>
+<td>0 15 10 ? * *</td>
+<td>Fire at 10:15am every day</td>
+</tr>
+<tr>
+<td>0 15 10 * * ?</td>
+<td>Fire at 10:15am every day</td>
+</tr>
+<tr>
+<td>0 15 10 * * ? *</td>
+<td>Fire at 10:15am every day</td>
+</tr>
+<tr>
+<td>0 15 10 * * ? 2005</td>
+<td>Fire at 10:15am every day during the year 2005</td>
+</tr>
+<tr>
+<td>0 * 14 * * ?</td>
+<td>Fire every minute starting at 2pm and ending at 2:59pm, every day</td>
+</tr>
+<tr>
+<td>0 0/5 14 * * ?</td>
+<td>Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day</td>
+</tr>
+<tr>
+<td>0 0/5 14,18 * * ?</td>
+<td>Fire every 5 minutes starting at 2pm and ending at 2:55pm, AND fire every 5 minutes starting at 6pm and ending at 6:55pm, every day</td>
+</tr>
+<tr>
+<td>0 0-5 14 * * ?</td>
+<td>Fire every minute starting at 2pm and ending at 2:05pm, every day</td>
+</tr>
+<tr>
+<td>0 10,44 14 ? 3 WED</td>
+<td>Fire at 2:10pm and at 2:44pm every Wednesday in the month of March.</td>
+</tr>
+<tr>
+<td>0 15 10 ? * MON-FRI</td>
+<td>Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday</td>
+</tr>
+<tr>
+<td>0 15 10 ? *</td>
+<td>Fire at 10:15am on the 15th day of every month</td>
+</tr>
+<tr>
+<td>0 15 10 15 * ?</td>
+<td>Fire at 10:15am on the 15th day of every month</td>
+</tr>
+<tr>
+<td>0 15 10 L * ?</td>
+<td>Fire at 10:15am on the last day of every month</td>
+</tr>
+<tr>
+<td>0 15 10 L-2 * ?</td>
+<td>Fire at 10:15am on the 2nd-to-last last day of every month</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L</td>
+<td>Fire at 10:15am on the last Friday of every month</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L</td>
+<td>Fire at 10:15am on the last Friday of every month</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L 2002-2005</td>
+<td>Fire at 10:15am on every last friday of every month during the years 2002, 2003, 2004 and 2005</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6#3</td>
+<td>Fire at 10:15am on the third Friday of every month</td>
+</tr>
+<tr>
+<td>0 0 12 1/5 * ?</td>
+<td>Fire at 12pm (noon) every 5 days every month, starting on the first day of the month.</td>
+</tr>
+<tr>
+<td>0 11 11 11 11 ?</td>
+<td>Fire every November 11th at 11:11am.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html#format" target="_blank" rel="noopener">參考</a></p>
+<h6 id="tags-tool">tags: <code>tool</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2020/12/28/CronExpressions/" data-id="ckj8n60x40000okjbev9b026n" class="article-share-link" data-share="baidu" data-title="Cron Expressions（定期做事情）">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2020/12/28/CronExpressions/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/28/afterSomeTime/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          一段時間執行某些命令的方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/23/AJAX/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">AJAX 網頁</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/12/28/CronExpressions/" data-title="Cron Expressions（定期做事情）" data-url="https://luckygoodlily.github.io/2020/12/28/CronExpressions/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">17</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Crawler/" style="font-size: 15px;">Crawler</a> <a href="/tags/English/" style="font-size: 17.5px;">English</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 11.25px;">internet</a> <a href="/tags/knowledge/" style="font-size: 18.75px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 13.75px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 16.25px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 13.75px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/28/emlBase64/">eml檔如何使用 Base64 編碼(Encode)及解碼(Decode)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/28/instance/">instance的運算</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/28/replaceOption/">使用None取代Null</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/28/output/">FileOutputStream vs PrintWriter</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/28/setVM/">裝VM 設定固定ip</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
