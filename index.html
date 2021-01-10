@@ -103,24 +103,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>今天為了可以跑Swagger，所以在linux上裝了Apache2</p>
-<h2 id="Step1">Step1</h2>
-<p>/etc/apache2/sites-available/000-default.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#DocumentRoot &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">DocumentRoot &#x2F;home&#x2F;lily&#x2F;http-api&#x2F;src&#x2F;docs&#x2F;swagger&#x2F;</span><br></pre></td></tr></table></figure>
-<h2 id="Step2">Step2</h2>
-<p>sudo vi /etc/apache2/apache2.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#&lt;Directory &#x2F;var&#x2F;www&#x2F;&gt;</span><br><span class="line">#        Options Indexes FollowSymLinks</span><br><span class="line">#        AllowOverride None</span><br><span class="line">#        Require all granted</span><br><span class="line">#&lt;&#x2F;Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;Directory &#x2F;home&#x2F;lily&#x2F;http-api&#x2F;src&#x2F;docs&#x2F;swagger&#x2F;&gt;</span><br><span class="line">  Options Indexes FollowSymLinks</span><br><span class="line">  AllowOverride None</span><br><span class="line">  Require all granted</span><br><span class="line">&lt;&#x2F;Directory&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="Step3">Step3</h2>
-<p>啟用原本配置文件<br>
-sudo a2ensite 000-default.conf<br>
-如要停用配置文件<br>
-sudo a2dissite 000-default.conf</p>
-<h2 id="Step4">Step4</h2>
-<p>測試是否存在任何配置錯誤<br>
-sudo apache2ctl configtest</p>
-<p><a href="https://m.linuxidc.com/Linux/2018-11/155507.htm" target="_blank" rel="noopener">https://m.linuxidc.com/Linux/2018-11/155507.htm</a></p>
-<p><a href="https://rommelhong.medium.com/ubuntu-18-04-lts-apache-mysql-php-lamp-%E5%AE%89%E8%A3%9D%E8%A8%AD%E5%AE%9A-c46e6f54f254" target="_blank" rel="noopener">https://rommelhong.medium.com/ubuntu-18-04-lts-apache-mysql-php-lamp-安裝設定-c46e6f54f254</a></p>
-<h6 id="tags-tool">tags: <code>tool</code></h6>
-
+        
+          <p class="article-more-link">
+            <a href="/2021/01/11/apache/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
