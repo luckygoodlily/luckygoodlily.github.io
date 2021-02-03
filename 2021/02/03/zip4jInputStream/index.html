@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>zip4jInputStream | Lily&#39;s coding life</title>
+  <title>使用zip4j archival file InputStream資料 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="建立zip檔 12345678910111213141516171819private def createZipFile(clock: Clock, zipName: MailId, retainPath: Path): ZipOutputStream &#x3D; &amp;#123;    mkdirs(File(retainPath))    val zip64Model &#x3D; new Z">
+  <meta name="description" content="建立zip檔">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zip4jInputStream">
+<meta property="og:title" content="使用zip4j archival file InputStream資料">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="建立zip檔 12345678910111213141516171819private def createZipFile(clock: Clock, zipName: MailId, retainPath: Path): ZipOutputStream &#x3D; &amp;#123;    mkdirs(File(retainPath))    val zip64Model &#x3D; new Z">
+<meta property="og:description" content="建立zip檔">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-02-03T09:45:22.000Z">
-<meta property="article:modified_time" content="2021-02-03T09:45:59.561Z">
+<meta property="article:modified_time" content="2021-02-03T09:47:50.622Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="scala">
 <meta name="twitter:card" content="summary">
@@ -93,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      zip4jInputStream
+      使用zip4j archival file InputStream資料
     </h1>
   
 
@@ -102,6 +102,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="建立zip檔">建立zip檔</h2>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private def createZipFile(clock: Clock, zipName: MailId, retainPath: Path): ZipOutputStream &#x3D; &#123;</span><br><span class="line">    mkdirs(File(retainPath))</span><br><span class="line">    val zip64Model &#x3D; new ZipModel</span><br><span class="line">    zip64Model.setZip64Format(true)</span><br><span class="line">    val retainMsgFile &#x3D;</span><br><span class="line">      retainPath.resolve(clock.millis().toString + &quot;_&quot; + zipName.id.toString + Zip).toString</span><br><span class="line">    val splitOutputStream &#x3D; new SplitOutputStream(new file(retainMsgFile), -1L)</span><br><span class="line"></span><br><span class="line">    val zipOutputStream &#x3D;</span><br><span class="line">      new ZipOutputStream(</span><br><span class="line">        splitOutputStream,</span><br><span class="line">        password,</span><br><span class="line">        StandardCharsets.UTF_8,</span><br><span class="line">        zip64Model</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">    zipOutputStream.flush()</span><br><span class="line">    zipOutputStream</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="準備zip參數">準備zip參數</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private def buildZipParameters(filename: String) &#x3D; &#123;</span><br><span class="line">    val parameters &#x3D; new ZipParameters()</span><br><span class="line">    parameters.setCompressionMethod(CompressionMethod.DEFLATE)</span><br><span class="line">    parameters.setCompressionLevel(CompressionLevel.NORMAL)</span><br><span class="line">    parameters.setEncryptFiles(true)</span><br><span class="line">    parameters.setEncryptionMethod(EncryptionMethod.AES)</span><br><span class="line">    parameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256)</span><br><span class="line">    parameters.setFileNameInZip(filename)</span><br><span class="line">    parameters</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
@@ -115,7 +116,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/" data-id="ckkp8xkro0006j0jb9wkp3gf4" class="article-share-link" data-share="baidu" data-title="zip4jInputStream">分享到</a>
+        <a data-url="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/" data-id="ckkp8xkro0006j0jb9wkp3gf4" class="article-share-link" data-share="baidu" data-title="使用zip4j archival file InputStream資料">分享到</a>
       
 
       
@@ -144,7 +145,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2021/02/03/zip4jInputStream/" data-title="zip4jInputStream" data-url="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/02/03/zip4jInputStream/" data-title="使用zip4j archival file InputStream資料" data-url="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/"></div>
   </section>
 </section>
       
@@ -193,7 +194,7 @@
       <ul>
         
           <li>
-            <a href="/2021/02/03/zip4jInputStream/">zip4jInputStream</a>
+            <a href="/2021/02/03/zip4jInputStream/">使用zip4j archival file InputStream資料</a>
           </li>
         
           <li>
