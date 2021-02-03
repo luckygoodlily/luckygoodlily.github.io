@@ -76,6 +76,266 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-zip4jInputStream" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/03/zip4jInputStream/" class="article-date">
+  <time datetime="2021-02-03T09:45:22.000Z" itemprop="datePublished">2021-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/scala/">scala</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/03/zip4jInputStream/">zip4jInputStream</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="建立zip檔">建立zip檔</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private def createZipFile(clock: Clock, zipName: MailId, retainPath: Path): ZipOutputStream &#x3D; &#123;</span><br><span class="line">    mkdirs(File(retainPath))</span><br><span class="line">    val zip64Model &#x3D; new ZipModel</span><br><span class="line">    zip64Model.setZip64Format(true)</span><br><span class="line">    val retainMsgFile &#x3D;</span><br><span class="line">      retainPath.resolve(clock.millis().toString + &quot;_&quot; + zipName.id.toString + Zip).toString</span><br><span class="line">    val splitOutputStream &#x3D; new SplitOutputStream(new file(retainMsgFile), -1L)</span><br><span class="line"></span><br><span class="line">    val zipOutputStream &#x3D;</span><br><span class="line">      new ZipOutputStream(</span><br><span class="line">        splitOutputStream,</span><br><span class="line">        password,</span><br><span class="line">        StandardCharsets.UTF_8,</span><br><span class="line">        zip64Model</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">    zipOutputStream.flush()</span><br><span class="line">    zipOutputStream</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="準備zip參數">準備zip參數</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private def buildZipParameters(filename: String) &#x3D; &#123;</span><br><span class="line">    val parameters &#x3D; new ZipParameters()</span><br><span class="line">    parameters.setCompressionMethod(CompressionMethod.DEFLATE)</span><br><span class="line">    parameters.setCompressionLevel(CompressionLevel.NORMAL)</span><br><span class="line">    parameters.setEncryptFiles(true)</span><br><span class="line">    parameters.setEncryptionMethod(EncryptionMethod.AES)</span><br><span class="line">    parameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256)</span><br><span class="line">    parameters.setFileNameInZip(filename)</span><br><span class="line">    parameters</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="每個InputStream建一個參數寫一次資料">每個InputStream建一個參數寫一次資料</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private def zipMessage(</span><br><span class="line">    zipOutputStream: ZipOutputStream,</span><br><span class="line">    id: MailId,</span><br><span class="line">    message: InputStream,</span><br><span class="line">    fileType: String</span><br><span class="line">  ) &#x3D;</span><br><span class="line">    Try &#123;</span><br><span class="line">      val parameters &#x3D; buildZipParameters(id.id.toString + fileType)</span><br><span class="line">      zipOutputStream.putNextEntry(parameters)</span><br><span class="line"></span><br><span class="line">      Iterator</span><br><span class="line">        .continually(message.read(buffer))</span><br><span class="line">        .takeWhile(_ !&#x3D; -1)</span><br><span class="line">        .foreach(len &#x3D;&gt; zipOutputStream.write(buffer, 0, len))</span><br><span class="line">      zipOutputStream.closeEntry()</span><br><span class="line">      message.close()</span><br><span class="line">    &#125;.toEither</span><br></pre></td></tr></table></figure>
+<h2 id="建置順序">建置順序</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">      val zipOutputStream &#x3D; createZipFile(clock, zipName, retainPath)</span><br><span class="line"></span><br><span class="line">      val error &#x3D; ids.flatMap &#123; id &#x3D;&gt;</span><br><span class="line">        (for &#123;</span><br><span class="line">          msgId &lt;- SerializationUtils.messageId(id, storage.getSnapshot) &#x2F;&#x2F;Either[Error, xxx]</span><br><span class="line">          msg   &lt;- storage.getMessage(msgId) &#x2F;&#x2F;Either[Error, ReadOnlyFileMessage] 透過msg.message()拿到InputStream</span><br><span class="line">          prop  &lt;- storage.getSnapshotInputStream(id) &#x2F;&#x2F;Either[Error, InputStream]</span><br><span class="line">        &#125; yield (msg.message(), prop)) match &#123;</span><br><span class="line">          case Right(value) &#x3D;&gt; &#123;</span><br><span class="line">            zipMessage(zipOutputStream, id, value._1, Eml) match &#123;</span><br><span class="line">              case Right(_) &#x3D;&gt;</span><br><span class="line">                zipMessage(zipOutputStream, id, value._2, Properties) match &#123;</span><br><span class="line">                  case Right(_) &#x3D;&gt; None</span><br><span class="line">                  case Left(e)  &#x3D;&gt; Some(StoreFail(e.getMessage))</span><br><span class="line">                &#125;</span><br><span class="line">              case Left(e) &#x3D;&gt; Some(StoreFail(e.getMessage))</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          case Left(e) &#x3D;&gt; Some(e)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      zipOutputStream.close()</span><br><span class="line"></span><br><span class="line">      if (error.isEmpty) Right(())</span><br><span class="line">      else Left(StoreFail(error.toString()))</span><br><span class="line">    &#125; catch &#123;</span><br><span class="line">      case e: ZipException &#x3D;&gt; Left(StoreFail(e.getMessage))</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h6 id="tags-scala">tags: <code>scala</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/" data-id="ckkp8xkro0006j0jb9wkp3gf4" class="article-share-link" data-share="baidu" data-title="zip4jInputStream">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/02/03/zip4jInputStream/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/03/vi/" class="article-date">
+  <time datetime="2021-02-03T09:41:47.000Z" itemprop="datePublished">2021-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/03/vi/">vi的快捷鍵</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>vi 在編輯時，時常需要用到快捷鍵來完成跳行或複製貼上特別是在編輯git內容時，以下是我常用的快捷鍵：</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/02/03/vi/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/02/03/vi/" data-id="ckkp8xkrm0004j0jbhq7efyjj" class="article-share-link" data-share="baidu" data-title="vi的快捷鍵">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/02/03/vi/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-staticFinal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/03/staticFinal/" class="article-date">
+  <time datetime="2021-02-03T09:39:42.000Z" itemprop="datePublished">2021-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/03/staticFinal/">static和final特性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="static">static</h2>
+        
+          <p class="article-more-link">
+            <a href="/2021/02/03/staticFinal/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/02/03/staticFinal/" data-id="ckkp8xkqn0000j0jb4te0c701" class="article-share-link" data-share="baidu" data-title="static和final特性">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/02/03/staticFinal/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-timeFormat" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/03/timeFormat/" class="article-date">
+  <time datetime="2021-02-03T09:37:57.000Z" itemprop="datePublished">2021-02-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/03/timeFormat/">timeFormat</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1>轉寫自己想要的時間格式</h1>
+<p>一開始我沒考慮到時區問題，所以我直接拿現在時區的時間，但是這樣在跨時區地點時間會有問題，所以我做了些改寫。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/02/03/timeFormat/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/02/03/timeFormat/" data-id="ckkp8xkr70001j0jb8b6m3gpp" class="article-share-link" data-share="baidu" data-title="timeFormat">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/02/03/timeFormat/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-word20210203" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/03/word20210203/" class="article-date">
+  <time datetime="2021-02-03T09:36:26.000Z" itemprop="datePublished">2021-02-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/English/">English</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/03/word20210203/">單字學習 20210203</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>allergic (a) 過敏性的</li>
+</ol>
+        
+          <p class="article-more-link">
+            <a href="/2021/02/03/word20210203/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/02/03/word20210203/" data-id="ckkp8xkrn0005j0jb20ymetdf" class="article-share-link" data-share="baidu" data-title="單字學習 20210203">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/02/03/word20210203/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/English/" rel="tag">English</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-apache" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/11/apache/" class="article-date">
@@ -343,265 +603,6 @@
 
 
   
-    <article id="post-Laneige" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/31/Laneige/" class="article-date">
-  <time datetime="2020-12-30T16:01:30.000Z" itemprop="datePublished">2020-12-31</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Maintain/">Maintain</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/31/Laneige/">蘭芝全新 超能亮睡美人晚安面膜 試用心得</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="改善乾燥、暗沉"><a href="#改善乾燥、暗沉" class="headerlink" title="改善乾燥、暗沉"></a>改善乾燥、暗沉</h2>
-        
-          <p class="article-more-link">
-            <a href="/2020/12/31/Laneige/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://luckygoodlily.github.io/2020/12/31/Laneige/" data-id="ckjbm4x6i0000xtjb6y97emq3" class="article-share-link" data-share="baidu" data-title="蘭芝全新 超能亮睡美人晚安面膜 試用心得">分享到</a>
-      
-
-      
-        <a href="https://luckygoodlily.github.io/2020/12/31/Laneige/#ds-thread" class="article-comment-link">評論</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-emlBase64" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/28/emlBase64/" class="article-date">
-  <time datetime="2020-12-28T14:10:15.000Z" itemprop="datePublished">2020-12-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/28/emlBase64/">eml檔如何使用 Base64 編碼(Encode)及解碼(Decode)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Step1-將eml讀成字串">Step1-將eml讀成字串</h2>
-        
-          <p class="article-more-link">
-            <a href="/2020/12/28/emlBase64/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://luckygoodlily.github.io/2020/12/28/emlBase64/" data-id="ckj8n60xl0003okjb6azb3b5f" class="article-share-link" data-share="baidu" data-title="eml檔如何使用 Base64 編碼(Encode)及解碼(Decode)">分享到</a>
-      
-
-      
-        <a href="https://luckygoodlily.github.io/2020/12/28/emlBase64/#ds-thread" class="article-comment-link">評論</a>
-      
-
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-instance" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/28/instance/" class="article-date">
-  <time datetime="2020-12-28T14:08:42.000Z" itemprop="datePublished">2020-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/scala/">scala</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/28/instance/">instance的運算</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>創建Instant 類型的時間，Instant 代表一個時間，並不包括時區的概念，所以必須傳入的是符合UTC格式的字符串。</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/12/28/instance/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://luckygoodlily.github.io/2020/12/28/instance/" data-id="ckj8n60xm0005okjbaxwa4xyj" class="article-share-link" data-share="baidu" data-title="instance的運算">分享到</a>
-      
-
-      
-        <a href="https://luckygoodlily.github.io/2020/12/28/instance/#ds-thread" class="article-comment-link">評論</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-replaceOption" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/28/replaceOption/" class="article-date">
-  <time datetime="2020-12-28T14:06:46.000Z" itemprop="datePublished">2020-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/scala/">scala</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/28/replaceOption/">使用None取代Null</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>函式或方法可能有傳回物件，也有可能沒有結果，如果沒有結果時，Scala不建議傳回null。</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/12/28/replaceOption/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://luckygoodlily.github.io/2020/12/28/replaceOption/" data-id="ckj8n60xn000aokjb8kwd4p6d" class="article-share-link" data-share="baidu" data-title="使用None取代Null">分享到</a>
-      
-
-      
-        <a href="https://luckygoodlily.github.io/2020/12/28/replaceOption/#ds-thread" class="article-comment-link">評論</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-output" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/28/output/" class="article-date">
-  <time datetime="2020-12-28T14:04:36.000Z" itemprop="datePublished">2020-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/scala/">scala</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/28/output/">FileOutputStream vs PrintWriter</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不要將<code>Array[Byte]</code>轉成String存進String中，直接透過可以使用<code>Array[Byte]</code>的方法寫入檔案</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/12/28/output/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://luckygoodlily.github.io/2020/12/28/output/" data-id="ckj8n60xo000cokjbhtowerrp" class="article-share-link" data-share="baidu" data-title="FileOutputStream vs PrintWriter">分享到</a>
-      
-
-      
-        <a href="https://luckygoodlily.github.io/2020/12/28/output/#ds-thread" class="article-comment-link">評論</a>
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/" rel="tag">scala</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -615,7 +616,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maintain/">Maintain</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">20</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maintain/">Maintain</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">21</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -624,7 +625,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標簽</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">21</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">22</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -633,7 +634,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標簽雲</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Crawler/" style="font-size: 15px;">Crawler</a> <a href="/tags/English/" style="font-size: 17.5px;">English</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Maintain/" style="font-size: 10px;">Maintain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 11.25px;">internet</a> <a href="/tags/knowledge/" style="font-size: 18.75px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 13.75px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 16.25px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 15px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+      <a href="/tags/Crawler/" style="font-size: 15px;">Crawler</a> <a href="/tags/English/" style="font-size: 17.5px;">English</a> <a href="/tags/Java/" style="font-size: 11.25px;">Java</a> <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/Maintain/" style="font-size: 10px;">Maintain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 11.25px;">internet</a> <a href="/tags/knowledge/" style="font-size: 18.75px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 13.75px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 16.25px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/tool/" style="font-size: 15px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
     </div>
   </div>
 
@@ -642,7 +643,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">歸檔</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
     </div>
   </div>
 
@@ -654,23 +655,23 @@
       <ul>
         
           <li>
-            <a href="/2021/01/11/apache/">安裝Apache2</a>
+            <a href="/2021/02/03/zip4jInputStream/">zip4jInputStream</a>
           </li>
         
           <li>
-            <a href="/2021/01/11/zipMultiFile/">zip multiple file</a>
+            <a href="/2021/02/03/vi/">vi的快捷鍵</a>
           </li>
         
           <li>
-            <a href="/2021/01/11/Symmetric-key/">對稱式檔案加密（Symmetric Encryption）</a>
+            <a href="/2021/02/03/staticFinal/">static和final特性</a>
           </li>
         
           <li>
-            <a href="/2021/01/11/pem/">公鑰讀檔(pem)</a>
+            <a href="/2021/02/03/timeFormat/">timeFormat</a>
           </li>
         
           <li>
-            <a href="/2021/01/03/word20201231/">單字學習 20201231</a>
+            <a href="/2021/02/03/word20210203/">單字學習 20210203</a>
           </li>
         
       </ul>
