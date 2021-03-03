@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>RoundtoDecimal | Lily&#39;s coding life</title>
+  <title>各位數轉10進位 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="各位數轉10進位">
+  <meta name="description" content="簡單2進位轉10進位">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RoundtoDecimal">
+<meta property="og:title" content="各位數轉10進位">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/03/03/RoundtoDecimal/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="各位數轉10進位">
+<meta property="og:description" content="簡單2進位轉10進位">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-03-03T10:35:48.000Z">
-<meta property="article:modified_time" content="2021-03-03T10:37:02.271Z">
+<meta property="article:modified_time" content="2021-03-03T10:43:32.450Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -93,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      RoundtoDecimal
+      各位數轉10進位
     </h1>
   
 
@@ -101,21 +101,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1>各位數轉10進位</h1>
-<a id="more"></a>
-<h2 id="簡單2進位轉10進位">簡單2進位轉10進位</h2>
+        <h2 id="簡單2進位轉10進位"><a href="#簡單2進位轉10進位" class="headerlink" title="簡單2進位轉10進位"></a>簡單2進位轉10進位</h2><a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int b &#x3D; 11110010;</span><br><span class="line">String s&#x3D;Integer.toString(b);</span><br><span class="line">System.out.println(&quot;轉十進位&quot;+ Integer.valueOf(s,2).toString());</span><br></pre></td></tr></table></figure>
-<h2 id="簡單8進位轉10進位">簡單8進位轉10進位</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;轉十進位&quot;+ Integer.valueOf(&quot;07654&quot;,8).toString());</span><br></pre></td></tr></table></figure>
-<h2 id="簡單16進位轉10進位">簡單16進位轉10進位</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Long n &#x3D; Long.decode(&quot;0x09184e72a000&quot;);</span><br><span class="line"></span><br><span class="line">System.out.println(n);</span><br></pre></td></tr></table></figure>
-<h6 id="tags-Java">tags: <code>Java</code></h6>
-
+<h2 id="簡單8進位轉10進位"><a href="#簡單8進位轉10進位" class="headerlink" title="簡單8進位轉10進位"></a>簡單8進位轉10進位</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(&quot;轉十進位&quot;+ Integer.valueOf(&quot;07654&quot;,8).toString());</span><br></pre></td></tr></table></figure>
+<h2 id="簡單16進位轉10進位"><a href="#簡單16進位轉10進位" class="headerlink" title="簡單16進位轉10進位"></a>簡單16進位轉10進位</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Long n &#x3D; Long.decode(&quot;0x09184e72a000&quot;);</span><br><span class="line"></span><br><span class="line">System.out.println(n);</span><br></pre></td></tr></table></figure>
+<h6 id="tags-Java"><a href="#tags-Java" class="headerlink" title="tags: Java"></a>tags: <code>Java</code></h6>
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://luckygoodlily.github.io/2021/03/03/RoundtoDecimal/" data-id="ckltb7nkq00001fjb01r52mze" class="article-share-link" data-share="baidu" data-title="RoundtoDecimal">分享到</a>
+        <a data-url="https://luckygoodlily.github.io/2021/03/03/RoundtoDecimal/" data-id="ckltb7nkq00001fjb01r52mze" class="article-share-link" data-share="baidu" data-title="各位數轉10進位">分享到</a>
       
 
       
@@ -153,7 +148,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2021/03/03/RoundtoDecimal/" data-title="RoundtoDecimal" data-url="https://luckygoodlily.github.io/2021/03/03/RoundtoDecimal/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/03/03/RoundtoDecimal/" data-title="各位數轉10進位" data-url="https://luckygoodlily.github.io/2021/03/03/RoundtoDecimal/"></div>
   </section>
 </section>
       
@@ -210,7 +205,7 @@
           </li>
         
           <li>
-            <a href="/2021/03/03/RoundtoDecimal/">RoundtoDecimal</a>
+            <a href="/2021/03/03/RoundtoDecimal/">各位數轉10進位</a>
           </li>
         
           <li>
