@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Docker基本介紹 | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="主要的幾個特色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker基本介紹">
+<meta property="og:url" content="https://luckygoodlily.github.io/2021/05/09/dockeIntroduction/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="主要的幾個特色">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/hrRurCS.png">
+<meta property="og:image" content="https://i.imgur.com/J5SjQzI.png">
+<meta property="og:image" content="https://i.imgur.com/Eq8HLNN.png">
+<meta property="og:image" content="https://i.imgur.com/hp67hR4.png">
+<meta property="og:image" content="https://i.imgur.com/poSRYRa.png">
+<meta property="og:image" content="https://i.imgur.com/kPKbq7y.png">
+<meta property="og:image" content="https://i.imgur.com/Aa3O8kT.png">
+<meta property="og:image" content="https://i.imgur.com/kJK58X0.png">
+<meta property="og:image" content="https://i.imgur.com/0UlXJmD.png">
+<meta property="og:image" content="https://i.imgur.com/IcuYatQ.png">
+<meta property="og:image" content="https://i.imgur.com/3ubc72J.png">
+<meta property="og:image" content="https://i.imgur.com/8OOqyxj.png">
+<meta property="article:published_time" content="2021-05-09T06:10:37.000Z">
+<meta property="article:modified_time" content="2021-05-09T06:16:51.011Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/hrRurCS.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-dockeIntroduction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/09/dockeIntroduction/" class="article-date">
+  <time datetime="2021-05-09T06:10:37.000Z" itemprop="datePublished">2021-05-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker基本介紹
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="主要的幾個特色">主要的幾個特色</h2>
+<a id="more"></a>
+<ol>
+<li>首先，Docker 是一個開源專案，提供開發、轉移和執行應用程式。</li>
+<li>隔離性好：一台機器上可能需要跑多個服務，而服務各自需要的依賴配置不盡相同，假如說兩個應用需要使用同一個依賴，或者兩個應用需要的依賴互相有一些衝突，這個時候就需要隔離性好的環境才能解決此問題。</li>
+<li>部屬方便：我們平常搭建環境往往會耗費我們好幾個小時的時間，因為每台主機環境不盡相同，遇到的問題又會不一樣。<br>
+而有了container之後，建置環境非常容易且快速，你的開發環境就只是一個或者幾個container，最多再需要一個控制部署流程的執行腳本像docker-compose就能容易架設起環境。</li>
+<li>快速回滾機制：類似git的機制，容器技術天生帶有回滾屬性，因為每個歷史容器或者鏡像都會保存，而替換一個容器或者某個歷史鏡像是非常快速和簡單的。</li>
+<li>建立和維運管理成本低：這也是容器技術發展迅速的最主要原因。伺服器的購置成本和運維成本都很高，而vm需要占用很多不必要的資源。相比之下，容器技術省去搭建作業系統的成本，</li>
+</ol>
+<h2 id="Docker-想解決的問題：">Docker 想解決的問題：</h2>
+<p>改善傳統虛擬機器因為需要額外安裝作業系統，導致啟動慢、佔較大記憶體的問題</p>
+<h2 id="Docker-提供的解法：">Docker 提供的解法：</h2>
+<p>以應用程式為核心虛擬化，取代傳統需要Guest OS 的虛擬化技術</p>
+<h2 id="Virtual-Machine-VS-Container">Virtual Machine VS Container</h2>
+<ul>
+<li>
+<p>VM虛擬化是實作在硬體層之上，建立一個可以執行完整作業系統的獨立環境。<br>
+<img src="https://i.imgur.com/hrRurCS.png" alt=""></p>
+</li>
+<li>
+<p>Container是實作在作業系統層之上，應用程式本身與相關的函式庫、環境配置檔，打包成映像檔 (Image) ，以達到應用程式的獨立與模組化。<br>
+<img src="https://i.imgur.com/J5SjQzI.png" alt=""><br>
+簡而言之，VM打包作業系統，Container打包應用程式。</p>
+</li>
+</ul>
+<h2 id="Docker-底層實作技術">Docker 底層實作技術</h2>
+<p><img src="https://i.imgur.com/Eq8HLNN.png" alt=""></p>
+<p>Docker 的底層是使用 Linux Kernel的 Namespace 和 Cgroup 組合而成的。<br>
+Namespace： 提供了 Container 彼此之間與作業系統是完全隔離且不受影響的，像是把Process ID、User ID、Network…等等的環境執行狀態隔離開來。如左圖例子來說在一台實體機器上，有 2個 Namespace。Namespace 1 裡面的 PID 有 1，Namespace 2的PID 也可以有 1 的 PID，透過這樣的機制做到執行環境上Process ID的隔離。<br>
+Cgroup：用來做系統資源的管理，如：CPU、Memory、I/O…等等，資源做使用上的限制和優先順序。<br>
+有了 Namespace 和 Cgroup 後，就可以做到在同一個 Kernel的系統環境下，有效的隔離資源的使用。</p>
+<h2 id="Docker-基本架構">Docker 基本架構</h2>
+<h3 id="主要元件：">主要元件：</h3>
+<p><img src="https://i.imgur.com/hp67hR4.png" alt=""></p>
+<p>平常大家在講的「Docker」，其實是指 Docker Engine，他是使用主從式架構(client-server 模式)<br>
+如上圖我們可以看到docker的架構</p>
+<ul>
+<li>在最裡層Docker daemon:它是一個長期在背景運行(long-running)的 server，用來執行管理 Docker image，提供 Restful API 給使用者操作，和顯示 Docker container 的狀態訊息</li>
+<li>REST API：就是遠端伺服器，使用者需要時可將image載入於本機中。</li>
+<li>docker CLI：主要是提供指令操作，透過REST API的方式與Docker daemon溝通。</li>
+</ul>
+<h3 id="docker-CLI-使用範例：">docker CLI 使用範例：</h3>
+<p><img src="https://i.imgur.com/poSRYRa.png" alt=""></p>
+<ol>
+<li>docker build ：如左圖我標的路徑1，他會先去命令 daemon 建立一個應用程式的 image。</li>
+<li>docker pull ：如路徑2，命令 daemon 從 registry 下載 image。<br>
+registry 是存放 image 的倉庫，若要分享 image 給別人，可以 docker push 把 image 上傳到 registry。 docker 預設公開的 registry 會放在 Docker Hub上 。也可以架設一個私人的 registry。</li>
+<li>docker run ：如路徑3，命令 daemon 以 image 為範本建立並執行 container。</li>
+</ol>
+<p><img src="https://i.imgur.com/kPKbq7y.png" alt=""></p>
+<h3 id="Docker-的基本物件：">Docker 的基本物件：</h3>
+<p>主要有container image network和volume</p>
+<ul>
+<li>Docker Image 是映像檔(只能讀取的檔案，不能改寫):含蓋Container內的所有程式(包括應用程式、函式庫、環境設定檔)，可以用來建立Docker Container，使用者想要什麼樣的執行環境也可以到DockerHub上找到相對應的映像檔載下來。例如：完整的 MySQL 服務或是一個 Ubuntu 作業系統等。</li>
+<li>Container(可以改寫的部分): 是根據docker image建立的instance。每個container之間都是互相獨立的平台。容器是一個簡易版的 Linux 環境應用程式並可在其中運行程式。</li>
+<li>Network :讓外界或其他容器可以存取容器中的應用程式</li>
+<li>Volume: 獨立於容器的檔案空間，當需要「共用」和「留存」資料時會用到 Volume。</li>
+</ul>
+<h4 id="Network">Network</h4>
+<p>network解決的問題:<br>
+container是封閉的空間，但有時我們會需要讓其它人可以存取容器中的應用程式，甚至讓各個 container串接起來溝通時，會需要有網路的設置</p>
+<p>Docker的網路分為以下幾種模式:</p>
+<ol>
+<li>Bridge Mode</li>
+<li>Host Mode</li>
+<li>None Mode</li>
+<li>Container Mode</li>
+</ol>
+<h5 id="Bridge-Mode">Bridge Mode</h5>
+<p><img src="https://i.imgur.com/Aa3O8kT.png" alt=""></p>
+<p>預設的network，容器啟動時會創建一對veth pair(虛擬網路接口)設備，Docker會將一端掛載到 bridge網路物件上，另一端放入容器的Network Namespace內，從而實現容器與主機通信的目的。</p>
+<p>如左圖，因為 veth2讓 bridge(172.17.0.1) 與 eth0(172.17.0.2) 位於同一個區網。</p>
+<p>Container 2 可透過 eth0 經過 veth2 與 bridge 進行溝通，且 Container 1 與 Container 2 透過IP進行溝通。<br>
+適合對網路沒有要求，單節點彼此能通的使用者使用</p>
+<h5 id="Host-Mode">Host Mode</h5>
+<p><img src="https://i.imgur.com/kJK58X0.png" alt=""></p>
+<p>Host 模式相對簡單些，可以把他想像成建立一個與Host 擁有同樣的 network interface 的 Container<br>
+圖中不一樣的是只有一個eth0 的 network interface ，所以每個容器可以用 192.168.0.2:<port> 通訊。</p>
+<p>通常我們的使用情境是：<br>
+容器需要使用特殊硬體資源，但掛載到容器導致相對麻煩時，我們則會使用這種方式共用宿主機的資源<br>
+但因為與主機共享Root Network Namespace，容器有完整的權限可以操縱主機的protocol、port和防火牆等，所以被認為是不安全的方式。<br>
+也要特別注意 Port Number 的使用，若啟用相同服務的port時就很容易發生衝突</p>
+<h5 id="None-Mode">None Mode</h5>
+<p><img src="https://i.imgur.com/0UlXJmD.png" alt=""><br>
+None Mode最簡潔的模式，沒有任何 network interface 的 Container，也就是不為容器配置任何網路功能，但仍然可以手動為容器配置網路。</p>
+<p>適合想要開發網路模型，或想要研究 Docker 網路，以及想要開發 CNI (Container Network Interface)的人都適合用這種模式創建乾淨網路。</p>
+<h5 id="Container-Mode">Container Mode</h5>
+<p><img src="https://i.imgur.com/IcuYatQ.png" alt=""><br>
+和其他三個種網路建立方式不一樣，前面三個只要直接run container就可以了。</p>
+<p>而container Mode的建立方法:<br>
+以bridge模式建立一個container，並且使用這個 Container ID 建立另外一個 Container</p>
+<p>特色:<br>
+與另一個運行中的容器共享相同的網絡，所以可以使用 localhost 來存取彼此服務。<br>
+如左圖雖然兩個 Container 的 IP 都是 172.17.0.2 ，雖然他們是不同的 Container 但是被放置同一個 Namespace 內，可以透過此方式享受到更快的網路存取速度</p>
+<h4 id="Volume">Volume</h4>
+<p><img src="https://i.imgur.com/3ubc72J.png" alt=""></p>
+<p>Docker 提供三種掛載類型(mount types)：</p>
+<ul>
+<li>bind mount(與 host 共享)：掛入現有的 host 檔案系統(filesystem)，用在容器與 host 共享資料夾或檔案</li>
+<li>volume(容器掛載 Volume 實體)：掛入 volume 物件</li>
+<li>tmpfs mount：從 memory 掛載</li>
+</ul>
+<h2 id="Dockerfile和docker-compose之間差異">Dockerfile和docker-compose之間差異</h2>
+<p>Dockerfile內容是把指令式的模式寫在文字檔中，主要是用來描述image的文件，可以幫助我們建立和執行image，在建置環境上減少重複的步驟</p>
+<p>而Docker Compose用於快速建立多個container的Docker工具，也就是描述一個service應該如何組成。<br>
+Docker Compose是在docker-compose.yml檔案中定義其構成的應用服務和所有依賴服務的container，藉此讓它們可以在單一隔離環境中一起運行。</p>
+<h3 id="舉例">舉例</h3>
+<p><img src="https://i.imgur.com/8OOqyxj.png" alt=""></p>
+<p>接下來得例子讓各位可以簡單了解Dockerfile和docker-compose之間的差異和關係，<br>
+首先圖1是Dockerfile檔案裡的內容，主要是描述apache下載和設定，圖2是建置目錄，<br>
+在圖4中我們會看到mysql和phpapache中都需要載apache的image，這時候就會使用Dockerfile來做減少設定環境上的重複內容</p>
+<p><a href="https://cwhu.medium.com/docker-tutorial-101-c3808b899ac6" target="_blank" rel="noopener">介紹1</a><br>
+<a href="https://tw.alphacamp.co/blog/docker-introduction" target="_blank" rel="noopener">介紹2</a><br>
+<a href="https://medium.com/@VisonLi/docker-%E5%85%A5%E9%96%80-%E7%AD%86%E8%A8%98-part-2-91e4dfa2b365" target="_blank" rel="noopener">介紹3</a><br>
+<a href="https://docs.microsoft.com/zh-tw/dotnet/architecture/containerized-lifecycle/what-is-docker" target="_blank" rel="noopener">介紹4</a></p>
+<h6 id="tags-Docker">tags: <code>Docker</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/05/09/dockeIntroduction/" data-id="ckogsu5yj0001gajb2isn4o9e" class="article-share-link" data-share="baidu" data-title="Docker基本介紹">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/05/09/dockeIntroduction/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/05/09/dockerInwindows/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          win10裝Docker要注意的問題
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/09/springNotsupportStatic/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">Spring@Autowired java.lang.NullPointerException 空指針</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/05/09/dockeIntroduction/" data-title="Docker基本介紹" data-url="https://luckygoodlily.github.io/2021/05/09/dockeIntroduction/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maintain/">Maintain</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">22</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/">shell</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Crawler/" style="font-size: 14px;">Crawler</a> <a href="/tags/Docker/" style="font-size: 16px;">Docker</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/Java/" style="font-size: 17px;">Java</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/Maintain/" style="font-size: 10px;">Maintain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 11px;">internet</a> <a href="/tags/knowledge/" style="font-size: 19px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/shell/" style="font-size: 12px;">shell</a> <a href="/tags/tool/" style="font-size: 19px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/09/dockersetRedis/">Docker redis 設定</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockerMount/">docker mount 資料</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockerinstallphpmyadmin/">Docker安裝phpmyadmin connect to Mysql(docker-compose)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockeruploadandDownload/">docker 上傳下載指令</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockerInlinux/">docker Linux安裝步驟</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

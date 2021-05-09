@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Docker安裝phpmyadmin connect to Mysql(docker-compose) | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="打指令來完成(失敗)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker安裝phpmyadmin connect to Mysql(docker-compose)">
+<meta property="og:url" content="https://luckygoodlily.github.io/2021/05/09/dockerinstallphpmyadmin/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="打指令來完成(失敗)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/8UePhSl.png">
+<meta property="article:published_time" content="2021-05-09T06:12:20.000Z">
+<meta property="article:modified_time" content="2021-05-09T06:29:45.775Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/8UePhSl.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-dockerinstallphpmyadmin" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/09/dockerinstallphpmyadmin/" class="article-date">
+  <time datetime="2021-05-09T06:12:20.000Z" itemprop="datePublished">2021-05-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker安裝phpmyadmin connect to Mysql(docker-compose)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="打指令來完成-失敗">打指令來完成(失敗)</h2>
+<a id="more"></a>
+<h3 id="安裝Mysql-phpmyadmin">安裝Mysql phpmyadmin</h3>
+<blockquote>
+<p>docker pull mysql:5.7.33<br>
+docker pull phpmyadmin/phpmyadmin:latest</p>
+</blockquote>
+<h3 id="確認image有哪些">確認image有哪些</h3>
+<blockquote>
+<p>docker images</p>
+</blockquote>
+<h3 id="啟動Mysql-phpmyadmin-container">啟動Mysql phpmyadmin container</h3>
+<blockquote>
+<p>docker run --name mysqltest -e MYSQL_ROOT_PASSWORD=123 -d -p 3306:3306 mysql/mysql-server<br>
+docker run --name myadmin -d --link mysqltest:db -p 9100:80 phpmyadmin/phpmyadmin<br>
+port 可以改</p>
+</blockquote>
+<p>設定名稱及密碼並指定port為3306</p>
+<h3 id="確認是否起成功">確認是否起成功</h3>
+<blockquote>
+<p>docker ps -a</p>
+</blockquote>
+<p>用<code>docker ps -a</code>確認<br>
+<img src="https://i.imgur.com/8UePhSl.png" alt=""></p>
+<h2 id="直接寫yml檔來執行-成功">直接寫yml檔來執行(成功)</h2>
+<p>取名<code>docker-compose.yml</code></p>
+<h3 id="修正後的yml檔-使用link來連結mysql">修正後的<code>yml</code>檔 使用link來連結mysql</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3.3&#39;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">    mysql:</span><br><span class="line">      image: mysql:5.7.33 &#x2F;&#x2F; 找官方image會比較穩定</span><br><span class="line">      container_name: mysql</span><br><span class="line">      restart: unless-stopped</span><br><span class="line">      ports:</span><br><span class="line">       - 3306:3306 # 外部露出開放的 port 對應到 docker container 的 port</span><br><span class="line">      environment:</span><br><span class="line">       - MYSQL_USER&#x3D;user</span><br><span class="line">       - MYSQL_PASSWORD&#x3D;123</span><br><span class="line">       - MYSQL_ROOT_PASSWORD&#x3D;123</span><br><span class="line">    phpmyadmin:</span><br><span class="line">       image: phpmyadmin&#x2F;phpmyadmin</span><br><span class="line">       container_name: myadmin</span><br><span class="line">       restart: always</span><br><span class="line">       links:</span><br><span class="line">        - mysql # 連結到 mysql，讓兩個 container 可以互通網路</span><br><span class="line">       ports:</span><br><span class="line">        - 9100:80</span><br><span class="line">       environment:</span><br><span class="line">        - PMA_ARBITRARY&#x3D;1</span><br></pre></td></tr></table></figure>
+<h3 id="error版">error版</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3.3&#39;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">    mysql:</span><br><span class="line">      image: mysql&#x2F;mysql-server &#x2F;&#x2F;改成mysql:5.7.22root才能執行</span><br><span class="line">      container_name: mysql</span><br><span class="line">      restart: always</span><br><span class="line">      ports:</span><br><span class="line">       - 3306:3306</span><br><span class="line">      environment:</span><br><span class="line">        MYSQL_ROOT_PASSWORD: 123</span><br><span class="line">    phpmyadmin:</span><br><span class="line">       image: phpmyadmin&#x2F;phpmyadmin</span><br><span class="line">       container_name: myadmin</span><br><span class="line">       restart: always</span><br><span class="line">       links:</span><br><span class="line">        - mysql</span><br><span class="line">       ports:</span><br><span class="line">        - 9100:80</span><br><span class="line">       environment:</span><br><span class="line">        - PMA_ARBITRARY&#x3D;1</span><br><span class="line">       networks: &#x2F;&#x2F;不需要設定網路</span><br><span class="line">        - Your-network</span><br><span class="line">networks:</span><br><span class="line">    Your-network:</span><br><span class="line">        driver: bridge</span><br></pre></td></tr></table></figure>
+<p>使用<code>docker-compose up</code>來執行此yml檔</p>
+<h3 id="使用network-來連mysql">使用network 來連mysql</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;3.3&#39; # 目前使用的版本</span><br><span class="line"></span><br><span class="line">services: # services 關鍵字後面列出 mysql, phpmyadmin 兩項專案中的服務</span><br><span class="line">    mysql:</span><br><span class="line">      image: mysql:5.7.33 # 從 mysql image build 出 container</span><br><span class="line">      container_name: mysql</span><br><span class="line">      restart: always #是指在docker或host重啟後container要不要一起跟隨起動</span><br><span class="line">      ports:</span><br><span class="line">       - 3306:3306 # 外部露出開放的 port 對應到 docker container 的 port</span><br><span class="line">      volumes:</span><br><span class="line">       - db-data:&#x2F;var&#x2F;lib&#x2F;mysql # 要從本地資料夾 mount 掛載進去的資料</span><br><span class="line">      environment:</span><br><span class="line">       - MYSQL_USER&#x3D;user</span><br><span class="line">       - MYSQL_PASSWORD&#x3D;123</span><br><span class="line">       - MYSQL_ROOT_PASSWORD&#x3D;123</span><br><span class="line">    phpmyadmin:</span><br><span class="line">       image: phpmyadmin&#x2F;phpmyadmin</span><br><span class="line">       container_name: myadmin</span><br><span class="line">       restart: always</span><br><span class="line">       ports:</span><br><span class="line">        - 9100:80</span><br><span class="line">       environment:</span><br><span class="line">        - PMA_ARBITRARY&#x3D;1</span><br><span class="line">        - PMA_HOST&#x3D;mysql</span><br><span class="line">        - PMA_USER&#x3D;root </span><br><span class="line">        - PMA_PASSWORD&#x3D;123 &#x2F;&#x2F;有輸入這個就會自動登入</span><br><span class="line">        - PMA_PORT&#x3D;3306 &#x2F;&#x2F;可不要</span><br><span class="line">volumes:</span><br><span class="line">  db-data:</span><br></pre></td></tr></table></figure>
+<h2 id="docker-compose-一些指令">docker-compose  一些指令</h2>
+<ol>
+<li><code>build</code>             Build or rebuild services</li>
+<li><code>config</code>            Validate and view the Compose file</li>
+<li><code>create</code>             Create services</li>
+<li><code>down</code>               Stop and remove resources</li>
+<li><code>vents</code>            Receive real time events from containers</li>
+<li><code>exec</code>               Execute a command in a running container</li>
+<li><code>help</code>               Get help on a command</li>
+<li><code>images</code>             List images</li>
+<li><code>kill</code>               Kill containers</li>
+<li><code>logs</code>               View output from containers</li>
+<li><code>pause</code>              Pause services</li>
+<li><code>port</code>               Print the public port for a port binding</li>
+<li><code>ps</code>                 List containers</li>
+<li><code>pull</code>               Pull service images</li>
+<li><code>push</code>               Push service images</li>
+<li><code>restart</code>            Restart services</li>
+<li><code>rm</code>                 Remove stopped containers</li>
+<li><code>run</code>               Run a one-off command</li>
+<li><code>scale</code>              Set number of containers for a service</li>
+<li><code>start</code>              Start services</li>
+<li><code>stop</code>               Stop services</li>
+<li><code>top</code>                Display the running processes</li>
+<li><code>unpause</code>            Unpause services</li>
+<li><code>up</code>                 Create and start containers</li>
+<li><code>version</code>            Show version information and quit</li>
+</ol>
+<p><a href="https://towardsdatascience.com/how-to-run-mysql-and-phpmyadmin-using-docker-17dfe107eab7" target="_blank" rel="noopener">改network 參考1</a><br>
+<a href="https://gist.github.com/bradtraversy/faa8de544c62eef3f31de406982f1d42" target="_blank" rel="noopener">改network 參考2</a><br>
+<a href="https://stackoverflow.com/questions/46431601/docker-connect-phpmyadmin-to-my-mysql-server/46433889" target="_blank" rel="noopener">改network 參考3</a><br>
+<a href="https://www.youtube.com/watch?v=ozKxWsojYJ4" target="_blank" rel="noopener">yml影片教學</a><br>
+<a href="https://stackoverflow.com/questions/46427096/how-to-startup-docker-with-phpmyadmin" target="_blank" rel="noopener">yml參考1</a><br>
+<a href="https://medium.com/@migueldoctor/run-mysql-phpmyadmin-locally-in-3-steps-using-docker-74eb735fa1fc" target="_blank" rel="noopener">yml參考2</a><br>
+<a href="https://bidhankhatri.com.np/system/docker-compose-file-for-mysql-and-phpmyadmin/" target="_blank" rel="noopener">yml參考3</a><br>
+<a href="https://hub.docker.com/r/phpmyadmin/phpmyadmin/" target="_blank" rel="noopener">phpmyadmin說明</a><br>
+<a href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener">mysql說明</a><br>
+<a href="https://ithelp.ithome.com.tw/articles/10199339" target="_blank" rel="noopener">dockerfile介紹</a><br>
+<a href="https://github.com/twtrubiks/docker-tutorial" target="_blank" rel="noopener">docke-compose教學</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/05/09/dockerinstallphpmyadmin/" data-id="ckogsu5z00009gajbau6y8zxq" class="article-share-link" data-share="baidu" data-title="Docker安裝phpmyadmin connect to Mysql(docker-compose)">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/05/09/dockerinstallphpmyadmin/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/05/09/dockerMount/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          docker mount 資料
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/09/dockeruploadandDownload/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">docker 上傳下載指令</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/05/09/dockerinstallphpmyadmin/" data-title="Docker安裝phpmyadmin connect to Mysql(docker-compose)" data-url="https://luckygoodlily.github.io/2021/05/09/dockerinstallphpmyadmin/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maintain/">Maintain</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">22</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/">shell</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/" rel="tag">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Crawler/" style="font-size: 14px;">Crawler</a> <a href="/tags/Docker/" style="font-size: 16px;">Docker</a> <a href="/tags/English/" style="font-size: 18px;">English</a> <a href="/tags/Java/" style="font-size: 17px;">Java</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/Maintain/" style="font-size: 10px;">Maintain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 11px;">internet</a> <a href="/tags/knowledge/" style="font-size: 19px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux/" style="font-size: 13px;">linux</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/shell/" style="font-size: 12px;">shell</a> <a href="/tags/tool/" style="font-size: 19px;">tool</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/09/dockersetRedis/">Docker redis 設定</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockerMount/">docker mount 資料</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockerinstallphpmyadmin/">Docker安裝phpmyadmin connect to Mysql(docker-compose)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockeruploadandDownload/">docker 上傳下載指令</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/dockerInlinux/">docker Linux安裝步驟</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
