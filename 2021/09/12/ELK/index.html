@@ -6,43 +6,18 @@
   
   <title>ELK介紹 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什麼是ELK?ELK 是指 Elasticsearch(E) 、Logstash (L)和Kibana (K) 這三個開源軟體的集合套件，這三個軟體可以組成一套日誌 ( log ) 分析和監控架構。 ELK 的起源：Elasticsearch（NoSQL資料庫） Elasticsearch 是一個及時分散式的資料庫兼檢索引擎  提供 REST API 方便大家操作 可以用在任何需要把資料儲存並快速">
+  <meta name="description" content="什麼是ELK?">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ELK介紹">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/09/12/ELK/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="什麼是ELK?ELK 是指 Elasticsearch(E) 、Logstash (L)和Kibana (K) 這三個開源軟體的集合套件，這三個軟體可以組成一套日誌 ( log ) 分析和監控架構。 ELK 的起源：Elasticsearch（NoSQL資料庫） Elasticsearch 是一個及時分散式的資料庫兼檢索引擎  提供 REST API 方便大家操作 可以用在任何需要把資料儲存並快速">
+<meta property="og:description" content="什麼是ELK?">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://i.imgur.com/dD9DPgZ.png">
-<meta property="og:image" content="https://i.imgur.com/cVcxiBq.png">
-<meta property="og:image" content="https://i.imgur.com/A1tXdsZ.png">
-<meta property="og:image" content="https://i.imgur.com/s5m1xNh.png">
-<meta property="og:image" content="https://i.imgur.com/WjYKVBB.png">
-<meta property="og:image" content="https://i.imgur.com/xbRrj9Z.png">
-<meta property="og:image" content="https://i.imgur.com/ieKQ3Kd.png">
-<meta property="og:image" content="https://i.imgur.com/dB35U9U.png">
-<meta property="og:image" content="https://i.imgur.com/CJwYwf9.png">
-<meta property="og:image" content="https://i.imgur.com/zpYqTUy.png">
-<meta property="og:image" content="https://i.imgur.com/E7yy8Gd.png">
-<meta property="og:image" content="https://i.imgur.com/PWQcqf7.png">
-<meta property="og:image" content="https://i.imgur.com/II2gHe2.png">
-<meta property="og:image" content="https://i.imgur.com/XXPOogr.png">
-<meta property="og:image" content="https://i.imgur.com/dg7WBLg.png">
-<meta property="og:image" content="https://i.imgur.com/Ut7jI2t.png">
-<meta property="og:image" content="https://i.imgur.com/yYbXwf6.png">
-<meta property="og:image" content="https://i.imgur.com/gD4V0cs.png">
-<meta property="og:image" content="https://i.imgur.com/v5e8Te2.png">
-<meta property="og:image" content="https://i.imgur.com/1hQJzG8.png">
-<meta property="og:image" content="https://i.imgur.com/PcVEZOH.png">
-<meta property="og:image" content="https://i.imgur.com/YS7gAzg.png">
-<meta property="og:image" content="https://i.imgur.com/D60afU3.png">
-<meta property="og:image" content="https://i.imgur.com/felHvaq.png">
 <meta property="article:published_time" content="2021-09-12T12:14:42.000Z">
-<meta property="article:modified_time" content="2021-09-12T12:17:09.291Z">
+<meta property="article:modified_time" content="2021-09-12T12:40:15.615Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="ELK">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.imgur.com/dD9DPgZ.png">
   
     <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
   
@@ -126,150 +101,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什麼是ELK"><a href="#什麼是ELK" class="headerlink" title="什麼是ELK?"></a>什麼是ELK?</h2><p>ELK 是指 Elasticsearch(E) 、Logstash (L)和Kibana (K) 這三個開源軟體的集合套件，這三個軟體可以組成一套日誌 ( log ) 分析和監控架構。</p>
-<h2 id="ELK-的起源：Elasticsearch（NoSQL資料庫）"><a href="#ELK-的起源：Elasticsearch（NoSQL資料庫）" class="headerlink" title="ELK 的起源：Elasticsearch（NoSQL資料庫）"></a>ELK 的起源：Elasticsearch（NoSQL資料庫）</h2><ul>
-<li>Elasticsearch 是一個及時分散式的資料庫兼檢索引擎 </li>
-<li>提供 REST API 方便大家操作</li>
-<li>可以用在任何需要把資料儲存並快速進行全文檢索</li>
-<li>搜尋引擎執行可以優化查詢的速度</li>
-</ul>
-<h2 id="架構圖"><a href="#架構圖" class="headerlink" title="架構圖"></a>架構圖</h2><p><img src="https://i.imgur.com/dD9DPgZ.png" alt=""></p>
-<p>ELK 是由 Elasticsearch、Logstash 及 Kibana 三個系統所組成的 Log 蒐集、分析、查詢系統。</p>
-<ul>
-<li>Logstash:是日誌採集的中心，負責日誌解析與處理，會把所有採集的log都傳遞到logstash中。</li>
-<li>Elasticsearch:本身是一個資料庫用json的格式做存取，用了一個全文索引可以查詢非常大量的資訊。</li>
-<li>Kibana:是圖形化的展示，可以用來展示ES中的數據的</li>
-<li>Beats 是Log採集工具，負責將本台電腦的Log檔取出傳遞到logstash做過濾，或是直接傳遞到ES儲存器起來。</li>
-</ul>
-<p><a href="https://snoopy30485.github.io/2018/07/26/ELK%E4%BB%8B%E7%B4%B9/" target="_blank" rel="noopener">ELK參考</a></p>
-<h3 id="最後假起來的架構"><a href="#最後假起來的架構" class="headerlink" title="最後假起來的架構:"></a>最後假起來的架構:</h3><p><img src="https://i.imgur.com/cVcxiBq.png" alt=""></p>
-<h2 id="什麼是-Filebeat"><a href="#什麼是-Filebeat" class="headerlink" title="什麼是 Filebeat"></a>什麼是 Filebeat</h2><p>Filebeat是Beats中的一員。Beats在是一個輕量級日誌採集器，目前Beats包含六種工具：</p>
-<ul>
-<li>Packetbeat：網絡數據（收集網絡流量數據）</li>
-<li>Metricbeat：指標（收集系統、進程和文件系統級別的CPU和內存使用情況等數據）</li>
-<li>Filebeat：日誌文件（收集文件數據）</li>
-<li>Winlogbeat：windows事件日誌（收集Windows事件日誌數據）</li>
-<li>Auditbeat：審計數據（收集審計日誌）</li>
-<li>Heartbeat：運行時間監控（收集系統運行時的數據）</li>
-</ul>
-<p>早期的ELK架構中使用Logstash收集、解析日誌，但是Logstash對內存、cpu、io等資源消耗比較高。相比Logstash，Beats所佔系統的CPU和內存幾乎可以忽略不計。</p>
-<p>Filebeat以agent的角色監控指定的log files，收集log events，然後forward至Elasticsearch或Logstash來建立索引</p>
-<h3 id="Filebeat如何運作的"><a href="#Filebeat如何運作的" class="headerlink" title="Filebeat如何運作的"></a>Filebeat如何運作的</h3><p>Filebeat可以包含一個或多個input，而每一個input可以指定多個log data locations，</p>
-<p>filebeat針對每一個log都會有一個收割程序(harvester)，每個收割程序會讀取log的新內容，<br>如有新的內容，併發送這些新的日誌資料到處理程式（spooler），處理程式會集合這些事件，然後再送至設定的output，</p>
-<p>output可以是es或Logstash</p>
-<h4 id="工作流程圖如下"><a href="#工作流程圖如下" class="headerlink" title="工作流程圖如下:"></a>工作流程圖如下:</h4><p><img src="https://i.imgur.com/A1tXdsZ.png" alt=""></p>
-<h3 id="如何建立Filebeat"><a href="#如何建立Filebeat" class="headerlink" title="如何建立Filebeat"></a>如何建立Filebeat</h3><p>架構圖如下:<br><img src="https://i.imgur.com/s5m1xNh.png" alt=""></p>
-<ol>
-<li>log：將您的日誌文件（例如：access.log）放在日誌文件夾下，讓filebeat將其log發送給 ELK。<br>filebeat：</li>
-<li>docker-compose.yml：主要是將路徑改為nginx或tomcat放置日誌的路徑。例如： - ../log:/home/ubuntu/kibana/log-&gt;這個路徑沒有一定要設哪裡，後面的filebeat的yaml檔設定正確就可以了<br>Dockerfile：Dockerfile 是用於在容器中啟動 filebeat 掛載和更改設置的配置文件。<h4 id="filebeat-yml-內容"><a href="#filebeat-yml-內容" class="headerlink" title="filebeat.yml 內容"></a>filebeat.yml 內容</h4><h5 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h5></li>
-</ol>
-<p>支援複數 inputs，filebeat 去讀取這些 log 檔案，並且在系統上紀錄讀取的進度，偵測到 log 有增加，變繼續讀取新的 log。</p>
-<p><img src="https://i.imgur.com/WjYKVBB.png" alt=""></p>
-<ul>
-<li>Type: 預設類型是log類型</li>
-<li>Enabled:設為true表示啟用這個block的input功能</li>
-<li>Scan_frequency:表示間隔多久掃描一次</li>
-<li>Tags and fields:可以加入一些自己想記錄的特性，這裡我是紀錄server hostname</li>
-</ul>
-<h5 id="output"><a href="#output" class="headerlink" title="output"></a>output</h5><p>output 也是 filebeat 十分重要的一環，好的 filebeat output 設定，可以大幅降低整體 ELK stack 的負擔。</p>
-<p><img src="https://i.imgur.com/xbRrj9Z.png" alt=""></p>
-<p><img src="https://i.imgur.com/ieKQ3Kd.png" alt=""></p>
-<ul>
-<li>logstash: 先向後送到 logstash, enable設定為true開啟功能，並指定hosts</li>
-<li>elasticsearch: 直接向後送進 elasticsearch,設定elasticsearch的host並設定index的名稱</li>
-<li>Kibana:最後設定kibana的host,指定elasticsearch的index要送去的位置</li>
-</ul>
-<h5 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h5><p><img src="https://i.imgur.com/dB35U9U.png" alt=""></p>
-<p>Filebeat有很多modules，裡面已經包含了很多默認模板，你可以直接使用默認設置從系統默認路徑中抓取文件，再進行下一步，將我們的輸出減少到logstash，做管道預處理非常方便。</p>
-<p>以nginx為例<br>在Dockerfile加上”Run filebeat modules” 啟用container中的模組<br>找到 filebeat.yml 中的 filebeat.config.modules 並填入正確資料，如左圖<br>找到 modules.d\nginx.yml 中的 var.paths: [“\access.log*”]，如右圖</p>
-<h2 id="什麼是-Logsatsh"><a href="#什麼是-Logsatsh" class="headerlink" title="什麼是 Logsatsh"></a>什麼是 Logsatsh</h2><p><img src="https://i.imgur.com/CJwYwf9.png" alt=""></p>
-<h3 id="logstash-conf的大致架構"><a href="#logstash-conf的大致架構" class="headerlink" title="logstash.conf的大致架構"></a>logstash.conf的大致架構</h3><p><img src="https://i.imgur.com/zpYqTUy.png" alt=""><br>logstash幫助你去收集各地的log或是資訊，並且根據你的格式，轉換成各種資料欄位．</p>
-<p>Logstash包含3個主要部分： 輸入(inputs)，過濾器(filters)和輸出(outputs)。</p>
-<ul>
-<li>Inputs:由各種地方抓取相關的資料，不論是標準輸入(stdin)，檔案或是beat都可以．</li>
-<li>Filter:抓取到資料之後，這時候可以選擇使用grok去拆解資料．比如說把一串非常長但是沒人看得懂的log拆解成各個相對應得資料欄位．</li>
-<li>Output:可以輸出到各種地方(一次可以多個輸出)，不論是輸出到stdout印出來，或是直接丟給Elasticsearch拿來做分析用甚至可以直接輸出到資料庫．</li>
-</ul>
-<h3 id="Input-plugin"><a href="#Input-plugin" class="headerlink" title="Input-plugin"></a>Input-plugin</h3><p>Logstash 輸入插件常用的是Beats系列（例如Filebeat 和Metricbeat），還包含各種file，Amazon s3。Logstash 當前支持50多個輸入插件</p>
-<ul>
-<li><p>Beat:<br><img src="https://i.imgur.com/E7yy8Gd.png" alt=""></p>
-<p>Logstash 匯總Beats 收集的日誌，並使用有效的Logstash 工作線程創建有效的批次處理，這可以大量減少索引操作的次數。因而減少Elasticsearch 的負擔。<br>右邊的例子表示了，輸入配置告訴Logstash監聽5044端口上的Beats事件，並將它們直接發送到Elasticsearch。</p>
-</li>
-</ul>
-<ul>
-<li><p>File:<br><img src="https://i.imgur.com/PWQcqf7.png" alt=""></p>
-<p>此插件用作文件文字檔的監視程序，將文件末尾的新行視為新事件。此功能好處是，該插件將當前位置存儲在它跟踪的每個文件中，這樣它就可以從停止和重新啟動Logstash 時從中斷處開始。<br>我這裡簡單介紹file的參數設定<br>path 讀取的監聽文件的絕對路徑，可以使用匹配模式<br>Discover_interval =&gt; 15  #設置多長時間掃描目錄，發現新文件<br>start_position =&gt; “beginning”<br>logstash從什麼位置開始讀取文件數據，默認是結束位置，也就是說 logstash 進程會以類似tail -F的形式運行。 如果需要從頭取得全部 log 內容則設成beginning</p>
-</li>
-<li><p>Amazon S3<br><img src="https://i.imgur.com/II2gHe2.png" alt=""><br>預設logstash 沒有安裝s3 input plugin，所以我們首先需要在container中安裝plugin，撰寫在docker-compose中，我們會下載後並指定要執行哪個config檔案</p>
-<p><img src="https://i.imgur.com/XXPOogr.png" alt=""><br>access_key_id, secret_access_key, region和bucket是s3需要的參數<br>prefix是要放入s3的檔案路徑，支持 dynamic parameters, Ex: “BB/%{[fields][log_source]}/%{+YYYY}/%{+MM}“<br><code>codec</code> 在數據進入輸入之前對其進行json 解碼，而無需在 Logstash 管道中使用單獨的過濾器。<br><code>backup_to_dir</code> 將處理過的文件備份到的本地目錄的路徑。</p>
-</li>
-</ul>
-<h3 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h3><p>Filter是負責把收到的純文字資料，做特定的規則處理，就可以變成指定的欄位。建立欄位的好處是可以方便搜尋，而且也能做到比全文檢索更好的分析，</p>
-<ol>
-<li>Grok<br>Grok Patterns 的基本用法是：%{Pattern名稱:欄位名稱:型別}<br>Type default: text</li>
-<li>Geoip<br>GeoIP 過濾器根據 MaxMind GeoLite2 數據庫中的數據添加有關 IP 地址地理位置的信息。</li>
-<li>Mutate<br>它提供了豐富的基礎類型數據處理能力。包括，字符串處理和增加或刪除欄位和類型行別轉換等。</li>
-<li>Date<br>根據grok切出的時間(HTTPDATE)來改成新個格式或時區</li>
-</ol>
-<h3 id="Output-plugin"><a href="#Output-plugin" class="headerlink" title="Output-plugin"></a>Output-plugin</h3><ul>
-<li><p>elasticsearch<br>解析完資料新建index放入elasticsearch<br>— Host: 可設定多台elasticsearch，預設值是[127.0.0.1]<br><img src="https://i.imgur.com/dg7WBLg.png" alt=""><br>— Index:設定建index的名稱，不能有大寫字母，並支持動態語法<br><img src="https://i.imgur.com/Ut7jI2t.png" alt=""><br>— document_id:每個索引都有唯一文檔id，我們可以使用這個id來防止重複數據導入<br><img src="https://i.imgur.com/yYbXwf6.png" alt=""><br>指紋過濾器將原始事件中的一個或多個字段（默認為message）作為原來創建一致的哈希值(hash)，將其用作Elasticsearch輸出中的文檔ID。</p>
-</li>
-<li><p>Amazon S3<br>預設logstash 沒有安裝s3 input plugin，所以我們首先需要在container中安裝plugin，撰寫在docker-compose中，我們會下載後並指定要執行哪個config檔案<br><img src="https://i.imgur.com/gD4V0cs.png" alt=""></p>
-<p>access_key_id, secret_access_key, region和bucket是s3需要的參數<br>prefix是要放入s3的檔案路徑，支持 dynamic parameters, Ex: “BB/%{[fields][log_source]}/%{+YYYY}/%{+MM}“<br><code>codec</code>和input用的不一樣，需要使用<code>json_line</code><br><code>temporary_directory</code>:暫存傳上去s3的資料</p>
-<p><img src="https://i.imgur.com/v5e8Te2.png" alt=""></p>
-</li>
-</ul>
-<h2 id="什麼是Elasticsearch"><a href="#什麼是Elasticsearch" class="headerlink" title="什麼是Elasticsearch"></a>什麼是Elasticsearch</h2><h3 id="Elasticsearch-Features"><a href="#Elasticsearch-Features" class="headerlink" title="Elasticsearch Features"></a>Elasticsearch Features</h3><ul>
-<li>ElasticSearch (簡稱 ES) 是一個分散式搜尋引擎</li>
-<li>ES 是一個提供全文字搜尋引擎功能的開源 Java 專案，</li>
-<li>其底層採用了 lucene 全文字搜尋框架，lucene 為 ES 提供 invert index，文件儲存以及文件搜尋的功能，</li>
-<li>而 ES 在 lucene 上提供出 cluster 架構，讓使用者能透過多台電腦中的硬碟來處存大量的文件。</li>
-<li>ES 還提供 HTTP 接口，讓使用者可用不同語言實作 client-side 程式來與 ES 交互，</li>
-<li>透過 DSL 設計自己的查詢語法，來做到不單只有全文字的搜尋，還可以做得資料聚合的功能</li>
-<li>在全文字搜尋上，ES 提供可擴充的 Analyzer 模組，主要用於文件中取文字以及標準化的邏輯，因此我們可以透過自己訂義的 Analyzer 來實作中文版的全文字搜尋引擎。</li>
-</ul>
-<h3 id="Elastic-setting"><a href="#Elastic-setting" class="headerlink" title="Elastic setting"></a>Elastic setting</h3><p>服務啟用後會開啟 TCP 9200, 9300 這兩個 Port，9200 是 API WebService，9300 是在 Cluster 環境下讓節點之間傳遞資料的服務。</p>
-<ul>
-<li><p>Test start ElasticSearch : <a href="http://localhost:9200/_cluster/health" target="_blank" rel="noopener">http://localhost:9200/_cluster/health</a><br><img src="https://i.imgur.com/1hQJzG8.png" alt=""></p>
-<p>結果如上圖:<br>status:yellow 表示資料完整。green 就表示 Cluster 模式運作正常，設定的副本量都有正確分佈在其他節點中。red 的情況下 API 是無法進行服務的，表示 Active Primary Shard 在 Cluster 中有遺漏，可能有節點掛了或者還沒上線，透過 shards 相關資訊可以得知詳細狀態。<br>number_of_nodes可以顯示自己有幾個node</p>
-</li>
-</ul>
-<h4 id="Document-amp-JSON-document"><a href="#Document-amp-JSON-document" class="headerlink" title="Document &amp; JSON document"></a>Document &amp; JSON document</h4><ul>
-<li>Document<br>— Document 是搜尋數據的最小單位<br>— Document 會被序列化成 JSON(由一堆 Key/Value 的資料組成，並有其資料格式) 格式，保存在 Elasticsearch 中<br>— 每個 Document 都有一個 Unique ID，可自己指定或交由 Elasticsearch 自動產生</li>
-<li>JSON document<br>— 包含多個 Key/Value 組合，就像是資料庫中的一筆資料<br>— 但跟資料庫不一樣的是，JSON 格式靈活不受限，不須預先定義格式<br>— 每個 Key/Value 的類型(string, number, boolean … etc) 可以自己指定或是由 Elasticsearch 幫忙推算</li>
-</ul>
-<h4 id="Metadata-amp-Index"><a href="#Metadata-amp-Index" class="headerlink" title="Metadata &amp; Index"></a>Metadata &amp; Index</h4><ul>
-<li>document metadata :描述 document 本身屬性用的資料</li>
-<li>index: 在 ES 中是個邏輯空間的概念，用來儲存 document 的容器，而這些 document 內容都是相似的</li>
-<li>shard: 在 ES 中則是個物理空間的的概念，index 中的資料會分散放在不同的 shard 中</li>
-</ul>
-<h4 id="index-組成："><a href="#index-組成：" class="headerlink" title="index 組成："></a>index 組成：</h4><ul>
-<li>data：由 document 和 metadata 所組成</li>
-<li>mapping：用來定義每個欄位名稱 &amp; 類型</li>
-<li>setting：定義資料是如何存放(例如：replication 數量, 使用的 shard 數量)</li>
-<li>在 ES 7.0 的版本後，index 在 type 部份只能設定為 _doc (在以前的版本是可以設定不同的 type)</li>
-</ul>
-<h2 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h2><p>Kibana 是虛擬開源的數據分析和可視化平台，您可以使用 Kibana 對 Elasticsearch 索引中的數據進行搜索、查看、交互操作。<br>基於瀏覽器的界面便於您快速創建和分享動態數據儀表板來追踪 Elasticsearch 的實時數據變化。</p>
-<h3 id="kibana解決得痛點"><a href="#kibana解決得痛點" class="headerlink" title="kibana解決得痛點"></a>kibana解決得痛點</h3><ol>
-<li>資料視覺化:kibana可以很方便的利用圖表、表格及地圖對數據進行多元化的分析和呈現。</li>
-<li>Kibana Lens 提供簡單直觀的拖拉式視覺化工具</li>
-<li>Dashboards: 提供預設範本也可自訂和編輯</li>
-<li>Alert 機制: 設定 thresholds 來觸發特定動作 (Slack 通知、寄信等等) 這個功能在免費版中沒有<h3 id="Kibana設定"><a href="#Kibana設定" class="headerlink" title="Kibana設定"></a>Kibana設定</h3>Kibana 設定<br>要開始使用視覺化功能前，當收到檔案後，有些步驟可以先進行資料的確認</li>
-</ol>
-<p>首先檢查Index Management查看資料有沒有進來<br><img src="https://i.imgur.com/PcVEZOH.png" alt=""></p>
-<p>設定 Index Patterns 彙整相關 index,且設定timestamp變數為time 欄位的值<br><img src="https://i.imgur.com/YS7gAzg.png" alt=""></p>
-<h4 id="Discover"><a href="#Discover" class="headerlink" title="Discover"></a>Discover</h4><p><img src="https://i.imgur.com/D60afU3.png" alt=""><br>Discover 介面可以查看資料，透過設定和切換 Filters 來加速篩選，常用的可以 Pin 起來，也可以透過右邊時間的篩選來轉換要看的資料，左下角也能抓出自己想看的欄位</p>
-<h4 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a>Dashboard</h4><p>Kibana Lens 資料視覺化的拖拉工具，覺得算是最容易入門的，使用方式就是將最左側相關欄位拖拉到右側的 X 跟 Y 軸，底下會有建議的樣式出現。</p>
-<p><img src="https://i.imgur.com/felHvaq.png" alt=""></p>
-<p>說明:</p>
-<ul>
-<li>把 Taipei_time 放到 X 軸</li>
-<li>Count放到 Y 軸</li>
-<li>用 國家名稱去分類</li>
-<li>做好可以把相關視覺化資料存起來，之後他就會自動更新了，從以上操作可以發現，並不需要 Elasticsearch 的專業知識就可以進行操作，複雜的運算與效能調整 Elasticsearch 也都會自動處理好，只需要專注在資料視覺化。</li>
-</ul>
-<h2 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h2><p><a href="https://hackmd.io/9SLtrmWzT5y_wrRbTfhiOw" target="_blank" rel="noopener">教學1</a><br><a href="https://lufor129.medium.com/elk-%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8Flog%E6%8E%A1%E9%9B%86%E7%B3%BB%E7%B5%B1-d3e729624af4" target="_blank" rel="noopener">教學2</a><br><a href="https://medium.com/@d101201007/elk%E6%95%99%E5%AD%B8-elk%E4%B8%80%E9%8D%B5%E5%95%9F%E5%8B%95%E6%8C%87%E4%BB%A4-%E6%95%B4%E7%90%86-b757acb28fcc" target="_blank" rel="noopener">教學3</a> </p>
-<h6 id="tags-ELK"><a href="#tags-ELK" class="headerlink" title="tags: ELK"></a>tags: <code>ELK</code></h6>
+        <h2 id="什麼是ELK">什麼是ELK?</h2>
+<a id="more"></a>
+<h6 id="tags-ELK">tags: <code>ELK</code></h6>
+
       
     </div>
     <footer class="article-footer">
