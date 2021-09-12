@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ELK欄位都沒切好 | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我們在建Elasticsearch時發現log的fields是沒切好的，資料都擠在message參數中，所以需要切欄位。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK欄位都沒切好">
+<meta property="og:url" content="https://luckygoodlily.github.io/2021/09/12/ELKCutField/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="我們在建Elasticsearch時發現log的fields是沒切好的，資料都擠在message參數中，所以需要切欄位。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-09-12T14:13:53.000Z">
+<meta property="article:modified_time" content="2021-09-12T14:15:51.922Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="ELK">
+<meta property="article:tag" content="Logstash">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-ELKCutField" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/12/ELKCutField/" class="article-date">
+  <time datetime="2021-09-12T14:13:53.000Z" itemprop="datePublished">2021-09-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ELK/">ELK</a>►<a class="article-category-link" href="/categories/ELK/Logstash/">Logstash</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ELK欄位都沒切好
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我們在建Elasticsearch時發現log的<code>fields</code>是沒切好的，資料都擠在<code>message</code>參數中，所以需要切欄位。</p>
+<a id="more"></a>
+<p>我是透過logstash的config檔來設定要怎麼切欄位</p>
+<h2 id="以下是常見的access-log切欄位的方式">以下是常見的access log切欄位的方式</h2>
+<p>通常我們使用<code>logstash.conf</code>中的<code>grok</code>來切割欄位</p>
+<h3 id="Nginx切割欄位方法">Nginx切割欄位方法</h3>
+<h4 id="方法一">方法一</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grok &#123;</span><br><span class="line">  match &#x3D;&gt; &#123; &quot;message&quot; &#x3D;&gt; &quot;%&#123;HTTPD_COMBINEDLOG&#125;&quot;&#125;</span><br><span class="line">  remove_field &#x3D;&gt; [&quot;message&quot;, &quot;beat&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Nginx 的日誌結構是這樣的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.*.* - - [15&#x2F;Jun&#x2F;2021:10:09:46 +0800] &quot;GET &#x2F; HTTP&#x2F;1.1&quot; 304 0 &quot;-&quot; &quot;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;90.0.4430.212 Safari&#x2F;537.36&quot; &quot;-&quot;</span><br><span class="line">172.*.*.* - - [17&#x2F;Jun&#x2F;2021:11:54:28 +0800] &quot;GET &#x2F;_cat&#x2F;health HTTP&#x2F;1.1&quot; 404 153 &quot;-&quot; &quot;curl&#x2F;7.68.0&quot; &quot;-&quot;</span><br></pre></td></tr></table></figure>
+<p>在<code>/etc/nginx/nginx.conf</code>中欄位設定是以下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log_format main &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;</span><br><span class="line">                &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;</span><br><span class="line">                &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;</span><br><span class="line">                    </span><br><span class="line">access_log   &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log  main;</span><br></pre></td></tr></table></figure>
+<h4 id="方法二">方法二</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match &#x3D;&gt; &#123; &quot;message&quot; &#x3D;&gt; &quot;%&#123;IPORHOST:clientip&#125; %&#123;HTTPDUSER:ident&#125; %&#123;HTTPDUSER:auth&#125; \[%&#123;HTTPDATE:timestamp&#125;\] \&quot;(?:%&#123;WORD:verb&#125; %&#123;NOTSPACE:request&#125;(?: HTTP&#x2F;%&#123;NUMBER:httpversion&#125;)?|%&#123;DATA:rawrequest&#125;)\&quot; (?:-|%&#123;NUMBER:response&#125;) (?:-|%&#123;NUMBER:bytes&#125;) %&#123;QS:referrer&#125; %&#123;QS:agent&#125; %&#123;QS:xforwardedfor&#125; %&#123;IPORHOST:http_host&#125;&quot; &#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>/etc/nginx/nginx.conf</code>中欄位設定是以下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;</span><br><span class="line">                    &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;</span><br><span class="line">                    &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39; $host;</span><br></pre></td></tr></table></figure>
+<h3 id="tomcat切割欄位方法">tomcat切割欄位方法</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> match &#x3D;&gt; &#123;  &quot;message&quot; &#x3D;&gt; &quot;%&#123;IPORHOST:clientip&#125;%&#123;SPACE&#125;%&#123;USER:ident&#125;%&#123;SPACE&#125;%&#123;USER:auth&#125;%&#123;SPACE&#125;\[%&#123;HTTPDATE:timestamp&#125;\]%&#123;SPACE&#125;\&quot;(?:%&#123;WORD:verb&#125;%&#123;SPACE&#125;%&#123;NOTSPACE:request&#125;(?:%&#123;SPACE&#125;HTTP&#x2F;%&#123;NUMBER:httpversion&#125;)?|%&#123;DATA:rawrequest&#125;)\&quot;%&#123;SPACE&#125;%&#123;NUMBER:response&#125;%&#123;SPACE&#125;(?:%&#123;NUMBER:bytes&#125;|-)(?:%&#123;SPACE&#125;(?:%&#123;NUMBER:duration&#125;|-)%&#123;SPACE&#125;(?:-|%&#123;NOTSPACE:header-key&#125;)%&#123;SPACE&#125;(?:-|%&#123;NOTSPACE:header-signature&#125;)|)&quot; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>tomcat 的日誌結構是這樣的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.4.44 - - [19&#x2F;Jun&#x2F;2021:20:27:56 +0800] &quot;GET &#x2F; HTTP&#x2F;1.1&quot;  200 99 1  -  -</span><br></pre></td></tr></table></figure>
+<p>修改tomcat log格式(/usr/local/tomcat/conf/server.xml)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Valve className&#x3D;&quot;org.apache.catalina.valves.AccessLogValve&quot; directory&#x3D;&quot;logs&quot;</span><br><span class="line">       prefix&#x3D;&quot;localhost_access_log&quot; suffix&#x3D;&quot;.txt&quot;</span><br><span class="line">       pattern&#x3D;&quot;%h %l %u %t &quot;%r&quot;  %s %b %D  %&#123;header-key&#125;i  %&#123;header-signature&#125;i&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://zhuanlan.zhihu.com/p/35459799" target="_blank" rel="noopener">Nginx參考</a><br>
+<a href="https://blog.51cto.com/jinlong/2055379" target="_blank" rel="noopener">Tomcat參考</a></p>
+<h6 id="tags-ELK-Logstash">tags: <code>ELK</code> <code>Logstash</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/09/12/ELKCutField/" data-id="ckthcn2y30001kujb2mij9y8c" class="article-share-link" data-share="baidu" data-title="ELK欄位都沒切好">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/09/12/ELKCutField/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logstash/" rel="tag">Logstash</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/09/12/ILMTemplate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          logstash.yaml 中設定ILM 的template
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/12/geoip/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">Logstash使用Geoip過濾器將ip轉成國家位置資訊</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/09/12/ELKCutField/" data-title="ELK欄位都沒切好" data-url="https://luckygoodlily.github.io/2021/09/12/ELKCutField/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/">ELK</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Filebeat/">Filebeat</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Logstash/">Logstash</a><span class="category-list-count">7</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maintain/">Maintain</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/aws/">aws</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/phpmyadmin/">phpmyadmin</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">22</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/Linux/">Linux</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/svn/">svn</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">19</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/">shell</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filebeat/" rel="tag">Filebeat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/" rel="tag">Logstash</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpmyadmin/" rel="tag">phpmyadmin</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/" rel="tag">svn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Crawler/" style="font-size: 12.73px;">Crawler</a> <a href="/tags/Docker/" style="font-size: 16.36px;">Docker</a> <a href="/tags/ELK/" style="font-size: 17.27px;">ELK</a> <a href="/tags/English/" style="font-size: 15.45px;">English</a> <a href="/tags/Filebeat/" style="font-size: 10.91px;">Filebeat</a> <a href="/tags/Java/" style="font-size: 16.36px;">Java</a> <a href="/tags/Linux/" style="font-size: 18.18px;">Linux</a> <a href="/tags/Logstash/" style="font-size: 14.55px;">Logstash</a> <a href="/tags/Maintain/" style="font-size: 10px;">Maintain</a> <a href="/tags/Mysql/" style="font-size: 11.82px;">Mysql</a> <a href="/tags/aws/" style="font-size: 10.91px;">aws</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 10.91px;">internet</a> <a href="/tags/java/" style="font-size: 11.82px;">java</a> <a href="/tags/knowledge/" style="font-size: 17.27px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/phpmyadmin/" style="font-size: 10.91px;">phpmyadmin</a> <a href="/tags/python/" style="font-size: 13.64px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/shell/" style="font-size: 15.45px;">shell</a> <a href="/tags/svn/" style="font-size: 10px;">svn</a> <a href="/tags/tool/" style="font-size: 19.09px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/12/LogstashCutString/">Logstash 切字串</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/logstashDeleteRepeat/">Logstash 刪除重複的Log內容</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/s3Logstash/">s3Logstash</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/ELKTimeZone/">Logstash 時間戳時區不正確問题</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/ILMTemplate/">logstash.yaml 中設定ILM 的template</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
