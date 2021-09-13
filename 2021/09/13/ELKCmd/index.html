@@ -4,18 +4,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ELKCmd | Lily&#39;s coding life</title>
+  <title>docker-compose 裝Elk常用指令 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker-compose 裝Elk常用指令查特定port netstat -an|grep 5044  查正在監聽的port netstat -plnt 監聽elaticsearchcurl &quot;http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;nodes&quot;和curl -XGET &quot;http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;nodes&quot;是一">
+  <meta name="description" content="查特定port">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ELKCmd">
+<meta property="og:title" content="docker-compose 裝Elk常用指令">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/09/13/ELKCmd/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="docker-compose 裝Elk常用指令查特定port netstat -an|grep 5044  查正在監聽的port netstat -plnt 監聽elaticsearchcurl &quot;http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;nodes&quot;和curl -XGET &quot;http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;nodes&quot;是一">
+<meta property="og:description" content="查特定port">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/PD2svxu.png">
 <meta property="article:published_time" content="2021-09-13T11:25:23.000Z">
-<meta property="article:modified_time" content="2021-09-13T11:27:28.666Z">
+<meta property="article:modified_time" content="2021-09-13T11:35:35.138Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="ELK">
 <meta name="twitter:card" content="summary">
@@ -95,7 +95,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ELKCmd
+      docker-compose 裝Elk常用指令
     </h1>
   
 
@@ -103,28 +103,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="docker-compose-裝Elk常用指令"><a href="#docker-compose-裝Elk常用指令" class="headerlink" title="docker-compose 裝Elk常用指令"></a>docker-compose 裝Elk常用指令</h1><h2 id="查特定port"><a href="#查特定port" class="headerlink" title="查特定port"></a>查特定port</h2><blockquote>
+        <h2 id="查特定port">查特定port</h2>
+<a id="more"></a>
+<blockquote>
 <p>netstat -an|grep 5044</p>
 </blockquote>
-<h2 id="查正在監聽的port"><a href="#查正在監聽的port" class="headerlink" title="查正在監聽的port"></a>查正在監聽的port</h2><blockquote>
+<h2 id="查正在監聽的port">查正在監聽的port</h2>
+<blockquote>
 <p>netstat -plnt</p>
-<h2 id="監聽elaticsearch"><a href="#監聽elaticsearch" class="headerlink" title="監聽elaticsearch"></a>監聽elaticsearch</h2><p><code>curl &quot;http://127.0.0.1:9200/_cat/nodes&quot;</code><br>和<br><code>curl -XGET &quot;http://127.0.0.1:9200/_cat/nodes&quot;</code><br>是一樣的<br><img src="https://i.imgur.com/PD2svxu.png" alt=""></p>
 </blockquote>
-<h2 id="查詢log"><a href="#查詢log" class="headerlink" title="查詢log"></a>查詢log</h2><blockquote>
+<h2 id="監聽elaticsearch">監聽elaticsearch</h2>
+<p><code>curl &quot;http://127.0.0.1:9200/_cat/nodes&quot;</code><br>
+和<br>
+<code>curl -XGET &quot;http://127.0.0.1:9200/_cat/nodes&quot;</code><br>
+是一樣的<br>
+<img src="https://i.imgur.com/PD2svxu.png" alt=""></p>
+<h2 id="查詢log">查詢log</h2>
+<blockquote>
 <p>docker-compose logs</p>
-<h2 id="查詢特定container-log"><a href="#查詢特定container-log" class="headerlink" title="查詢特定container log"></a>查詢特定container log</h2><p>docker-compose logs logstash<br>或是<br>docker logs -t -f logstash</p>
 </blockquote>
-<h2 id="查詢machine"><a href="#查詢machine" class="headerlink" title="查詢machine"></a>查詢machine</h2><p>$ docker-machine ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME          ACTIVE   DRIVER       STATE     URL                         SWARM              DOCKER        ERRORS</span><br><span class="line">springmusic   *        virtualbox   Running   tcp:&#x2F;&#x2F;192.000.000.000:2376                      v1.12.1</span><br></pre></td></tr></table></figure></p>
-<h2 id="查詢mount的空間"><a href="#查詢mount的空間" class="headerlink" title="查詢mount的空間"></a>查詢mount的空間</h2><p>$ docker volume ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               music_data</span><br><span class="line">local               music_elk</span><br></pre></td></tr></table></figure></p>
-<h2 id="查詢設置得網路"><a href="#查詢設置得網路" class="headerlink" title="查詢設置得網路"></a>查詢設置得網路</h2><p>$ docker network ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NETWORK ID          NAME             DRIVER              SCOPE</span><br><span class="line">XXXXXXX        music_net           bridge              local</span><br></pre></td></tr></table></figure></p>
-<h2 id="查詢有哪些image"><a href="#查詢有哪些image" class="headerlink" title="查詢有哪些image"></a>查詢有哪些image</h2><p>$ docker images<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">music_proxy         latest              XXXXXXX        About a minute ago   250.3 MB</span><br><span class="line">music_app           latest              XXXXXXX        2 minutes ago        400.3 MB</span><br><span class="line">music_mongodb       latest              XXXXXXX        3 minutes ago        366.4 MB</span><br><span class="line"></span><br><span class="line">nginx               latest              XXXXXXX        47 hours ago         183.5 MB</span><br><span class="line">sebp&#x2F;elk            latest              XXXXXXX        2 weeks ago          887.2 MB</span><br><span class="line">tomcat              8.5.4-jre8          XXXXXXX        2 weeks ago          334.5 MB</span><br><span class="line">mongo               latest              XXXXXXXd        2 weeks ago          366.4 MB</span><br></pre></td></tr></table></figure></p>
-<h2 id="查詢啟了哪些container和port"><a href="#查詢啟了哪些container和port" class="headerlink" title="查詢啟了哪些container和port"></a>查詢啟了哪些container和port</h2><p>$ docker ps<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                                                                                                      NAMES</span><br><span class="line">XXXXXXX        music_proxy         &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   About a minute ago   Up About a minute   0.0.0.0:80-&gt;80&#x2F;tcp, 443&#x2F;tcp                                                                                proxy</span><br><span class="line">XXXXXXX        music_app           &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   2 minutes ago        Up 2 minutes        0.0.0.0:32780-&gt;8080&#x2F;tcp                                                                                    music_app_3</span><br><span class="line">XXXXXXX        music_app           &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   2 minutes ago        Up 2 minutes        0.0.0.0:32779-&gt;8080&#x2F;tcp                                                                                    music_app_2</span><br><span class="line">XXXXXXX        music_app           &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   2 minutes ago        Up 2 minutes        0.0.0.0:32778-&gt;8080&#x2F;tcp                                                                                    music_app_1</span><br><span class="line">XXXXXXX        music_mongodb       &quot;&#x2F;entrypoint.sh mongo&quot;   4 minutes ago        Up 4 minutes        0.0.0.0:27017-&gt;27017&#x2F;tcp                                                                                   mongodb</span><br><span class="line">XXXXXXX        sebp&#x2F;elk:latest     &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   4 minutes ago        Up 4 minutes        0.0.0.0:5000-&gt;5000&#x2F;tcp, 0.0.0.0:5044-&gt;5044&#x2F;tcp, 0.0.0.0:5601-&gt;5601&#x2F;tcp, 0.0.0.0:9200-&gt;9200&#x2F;tcp, 9300&#x2F;tcp   elk</span><br></pre></td></tr></table></figure></p>
-<h6 id="tags-ELK"><a href="#tags-ELK" class="headerlink" title="tags: ELK"></a>tags: <code>ELK</code></h6>
+<h2 id="查詢特定container-log">查詢特定container log</h2>
+<blockquote>
+<p>docker-compose logs logstash<br>
+或是<br>
+docker logs -t -f logstash</p>
+</blockquote>
+<h2 id="查詢machine">查詢machine</h2>
+<p>$ docker-machine ls</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME          ACTIVE   DRIVER       STATE     URL                         SWARM              DOCKER        ERRORS</span><br><span class="line">springmusic   *        virtualbox   Running   tcp:&#x2F;&#x2F;192.000.000.000:2376                      v1.12.1</span><br></pre></td></tr></table></figure>
+<h2 id="查詢mount的空間">查詢mount的空間</h2>
+<p>$ docker volume ls</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               music_data</span><br><span class="line">local               music_elk</span><br></pre></td></tr></table></figure>
+<h2 id="查詢設置得網路">查詢設置得網路</h2>
+<p>$ docker network ls</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NETWORK ID          NAME             DRIVER              SCOPE</span><br><span class="line">XXXXXXX        music_net           bridge              local</span><br></pre></td></tr></table></figure>
+<h2 id="查詢有哪些image">查詢有哪些image</h2>
+<p>$ docker images</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE</span><br><span class="line">music_proxy         latest              XXXXXXX        About a minute ago   250.3 MB</span><br><span class="line">music_app           latest              XXXXXXX        2 minutes ago        400.3 MB</span><br><span class="line">music_mongodb       latest              XXXXXXX        3 minutes ago        366.4 MB</span><br><span class="line"></span><br><span class="line">nginx               latest              XXXXXXX        47 hours ago         183.5 MB</span><br><span class="line">sebp&#x2F;elk            latest              XXXXXXX        2 weeks ago          887.2 MB</span><br><span class="line">tomcat              8.5.4-jre8          XXXXXXX        2 weeks ago          334.5 MB</span><br><span class="line">mongo               latest              XXXXXXXd        2 weeks ago          366.4 MB</span><br></pre></td></tr></table></figure>
+<h2 id="查詢啟了哪些container和port">查詢啟了哪些container和port</h2>
+<p>$ docker ps</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                                                                                                      NAMES</span><br><span class="line">XXXXXXX        music_proxy         &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   About a minute ago   Up About a minute   0.0.0.0:80-&gt;80&#x2F;tcp, 443&#x2F;tcp                                                                                proxy</span><br><span class="line">XXXXXXX        music_app           &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   2 minutes ago        Up 2 minutes        0.0.0.0:32780-&gt;8080&#x2F;tcp                                                                                    music_app_3</span><br><span class="line">XXXXXXX        music_app           &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   2 minutes ago        Up 2 minutes        0.0.0.0:32779-&gt;8080&#x2F;tcp                                                                                    music_app_2</span><br><span class="line">XXXXXXX        music_app           &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   2 minutes ago        Up 2 minutes        0.0.0.0:32778-&gt;8080&#x2F;tcp                                                                                    music_app_1</span><br><span class="line">XXXXXXX        music_mongodb       &quot;&#x2F;entrypoint.sh mongo&quot;   4 minutes ago        Up 4 minutes        0.0.0.0:27017-&gt;27017&#x2F;tcp                                                                                   mongodb</span><br><span class="line">XXXXXXX        sebp&#x2F;elk:latest     &quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;start&quot;   4 minutes ago        Up 4 minutes        0.0.0.0:5000-&gt;5000&#x2F;tcp, 0.0.0.0:5044-&gt;5044&#x2F;tcp, 0.0.0.0:5601-&gt;5601&#x2F;tcp, 0.0.0.0:9200-&gt;9200&#x2F;tcp, 9300&#x2F;tcp   elk</span><br></pre></td></tr></table></figure>
+<h6 id="tags-ELK">tags: <code>ELK</code></h6>
+
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://luckygoodlily.github.io/2021/09/13/ELKCmd/" data-id="cktikjg4z0000ptjbd3e14rxr" class="article-share-link" data-share="baidu" data-title="ELKCmd">分享到</a>
+        <a data-url="https://luckygoodlily.github.io/2021/09/13/ELKCmd/" data-id="cktikjg4z0000ptjbd3e14rxr" class="article-share-link" data-share="baidu" data-title="docker-compose 裝Elk常用指令">分享到</a>
       
 
       
@@ -162,7 +187,7 @@
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2021/09/13/ELKCmd/" data-title="ELKCmd" data-url="https://luckygoodlily.github.io/2021/09/13/ELKCmd/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/09/13/ELKCmd/" data-title="docker-compose 裝Elk常用指令" data-url="https://luckygoodlily.github.io/2021/09/13/ELKCmd/"></div>
   </section>
 </section>
       
@@ -219,7 +244,7 @@
           </li>
         
           <li>
-            <a href="/2021/09/13/ELKCmd/">ELKCmd</a>
+            <a href="/2021/09/13/ELKCmd/">docker-compose 裝Elk常用指令</a>
           </li>
         
           <li>
