@@ -1,0 +1,672 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>生命週期管裡的介紹 Index Lifecycle Management (ILM) | Lily&#39;s coding life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="docker-compose設定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生命週期管裡的介紹 Index Lifecycle Management (ILM)">
+<meta property="og:url" content="https://luckygoodlily.github.io/2021/09/13/ILMIntroduction/index.html">
+<meta property="og:site_name" content="Lily&#39;s coding life">
+<meta property="og:description" content="docker-compose設定">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/CLC57hB.png">
+<meta property="og:image" content="https://i.imgur.com/PwQordy.png">
+<meta property="og:image" content="https://i.imgur.com/HMuFuDz.png">
+<meta property="article:published_time" content="2021-09-13T10:59:39.000Z">
+<meta property="article:modified_time" content="2021-09-13T11:04:42.249Z">
+<meta property="article:author" content="Lily Chen">
+<meta property="article:tag" content="ELK">
+<meta property="article:tag" content="Elasticsearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/CLC57hB.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Lily&#39;s coding life" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/Paris.jpg">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s coding life</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Believe in myself</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="luckygoodlily.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-ILMIntroduction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/13/ILMIntroduction/" class="article-date">
+  <time datetime="2021-09-13T10:59:39.000Z" itemprop="datePublished">2021-09-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ELK/">ELK</a>►<a class="article-category-link" href="/categories/ELK/Elasticsearch/">Elasticsearch</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      生命週期管裡的介紹 Index Lifecycle Management (ILM)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="docker-compose設定">docker-compose設定</h2>
+<a id="more"></a>
+<p>我在本地的 docker 容器中運行 elasticsearch。您可以通過運行以下 docker-compose 來跟進。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3.7&quot;</span><br><span class="line">services:</span><br><span class="line">  elasticsearch:</span><br><span class="line">    image: docker.elastic.co&#x2F;elasticsearch&#x2F;elasticsearch:7.13.0</span><br><span class="line">    environment:</span><br><span class="line">      - xpack.security.enabled&#x3D;false</span><br><span class="line">      - &quot;ES_JAVA_OPTS&#x3D;-Xms6g -Xmx6g&quot; &#x2F;&#x2F; Ram最大給6G</span><br><span class="line">      - discovery.type&#x3D;single-node</span><br><span class="line">    ports:</span><br><span class="line">      - 9200:9200</span><br><span class="line">      - 9300:9300</span><br></pre></td></tr></table></figure>
+<p>索引生命週期中有四個階段，按執行順序排列。<br>
+<img src="https://i.imgur.com/CLC57hB.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hot</td>
+<td>該索引正在積極寫入</td>
+</tr>
+<tr>
+<td>warm</td>
+<td>索引通常不能被寫入，但仍然會被查詢</td>
+</tr>
+<tr>
+<td>cold</td>
+<td>索引不再更新，很少查詢。資訊仍然需要搜尋，但如果這些查詢速度較慢也沒關係。</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>不再需要索引，可以安全刪除</td>
+</tr>
+</tbody>
+</table>
+<p>這些階段中的每一個都稱為階段。策略可以不需要為索引配置每個階段。例如，一個策略可以僅定義熱階段和刪除階段，而另一個策略可以定義所有四個階段。</p>
+<h2 id="時間（Timing）">時間（Timing）</h2>
+<p>​ 索引進入某階段是基於該階段設定的<code>min_age</code>引數。當索引的“年齡”大於該階段設定的的<code>min_age</code>之前，索引才會進入階段<code>min_age</code>。使用持續時間格式配置引數（請參閱時間單位）。</p>
+<p><code>min_age</code>如果未指定，則每個階段的預設值為零秒0s。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;min_age&quot;: &quot;1d&quot;,</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;allocate&quot;: &#123;</span><br><span class="line">            &quot;number_of_replicas&quot;: 1</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;delete&quot;: &#123;</span><br><span class="line">        &quot;min_age&quot;: &quot;30d&quot;,</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;delete&quot;: &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在索引生命週期管理將檢查<code>min_age</code> 並轉換到下一階段之前，必須完成上一階段的操作。</p>
+<h2 id="操作（Actions）">操作（Actions）</h2>
+<p>下列清單展示每個階段可配置的動作。</p>
+<p>在每個階段中執行已配置操作的順序由ILM自動確定，並且無法通過更改策略定義進行更改。</p>
+<p>熱階段（Hot）</p>
+<ol>
+<li>設定優先順序（Set Priority）</li>
+<li>滾動更新（Rollover）: 滾動索引操作，可用在索引大小或者文檔數達到某設定值時，創建新的索引用於數據讀寫，從而控制單個索引的大小。這裡要注意的一點是，如果啟用了Rollover，那麼所有階段的時間不再以索引創建時間為準，而是以該索引Rollover 的時間為準。</li>
+<li>取消關注（Unfollow）</li>
+</ol>
+<p>溫階段（Warm）</p>
+<ol>
+<li>設定優先順序（Set Priority）</li>
+<li>分配（Allocate）: 設定副本數、修改分片分配規則(如將分片遷移到中等配置的節點上)等</li>
+<li>只讀（Read-Only）: 設定當前索引為只讀狀態</li>
+<li>強制合併（Force Merge）:合併segment 操作</li>
+<li>收縮（Shrink）:縮小shard 分片數</li>
+<li>取消關注（Unfollow）</li>
+</ol>
+<p>冷階段（Cold）</p>
+<ol>
+<li>設定優先順序（Set Priority）</li>
+<li>分配（Allocate）</li>
+<li>凍結（Freeze）</li>
+<li>取消關注（Unfollow）</li>
+</ol>
+<p>刪除階段（Delete）</p>
+<ol>
+<li>刪除（Delete）</li>
+</ol>
+<h3 id="Allocate">Allocate</h3>
+<p>階段允許：warm，cold</p>
+<p>​ Allocate操作允許您指定允許哪些節點託管索引的分片並設定副本數。在這些場景背後，它正在修改分片過濾和/或副本計數的索引設定。更新副本數時，配置分配規則是可選的。配置分配規則時，設定副本數是可選的。雖然此操作可以視為兩個單獨的索引設定更新，但兩者都可以一次配置。</p>
+<p>配置選項</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>必須性</th>
+<th>預設值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number_of_replicas</td>
+<td>no</td>
+<td>-</td>
+<td>要分配給索引的副本數</td>
+</tr>
+<tr>
+<td>include</td>
+<td>no</td>
+<td>-</td>
+<td>為至少具有其中一個屬性的節點分配一個索引</td>
+</tr>
+<tr>
+<td>exclude</td>
+<td>no</td>
+<td>-</td>
+<td>為沒有任何屬性的節點分配索引</td>
+</tr>
+<tr>
+<td>require</td>
+<td>no</td>
+<td>-</td>
+<td>為具有所有屬性的節點分配索引</td>
+</tr>
+</tbody>
+</table>
+<p>如果<code>number_of_replicas</code>未配置，那麼<code>include</code>， <code>exclude</code>和<code>require</code>中的至少一個是必需的。沒有配置的空Allocate Action是無效的。</p>
+<p>在此示例中，索引的副本數已更改為2，而分配規則未更改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;allocate&quot; : &#123;</span><br><span class="line">            &quot;number_of_replicas&quot; : 2</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="刪除">刪除</h3>
+<p>階段允許：delete</p>
+<p>刪除操作就是這樣，它會刪除索引。</p>
+<p>此操作沒有與之關聯的任何選項。</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;delete&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;delete&quot; : &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="強制合併-Force-Merge">強制合併(Force Merge)</h3>
+<p>階段允許：delete</p>
+<p>執行此操作時，索引將變成只讀。請參考</p>
+<p>強制合併操作<code>Force Merge</code>會將索引合併為最多特定數量的segments。</p>
+<p>配置選項</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>是否必須</th>
+<th>預設</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max_num_segments</td>
+<td>是</td>
+<td>-</td>
+<td>要合併的段數。要完全合併索引，請將其設定為1</td>
+</tr>
+</tbody>
+</table>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;forcemerge&quot; : &#123;</span><br><span class="line">            &quot;max_num_segments&quot;: 1</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="凍結-freeze">凍結(freeze)</h3>
+<p>階段允許：cold</p>
+<p>該動作將通過呼叫Freeze Index API的api來freeze索引</p>
+<p>凍結索引將關閉索引並在同一API呼叫中重新開啟它。</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;cold&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;freeze&quot; : &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="只讀-readonly">只讀(readonly)</h3>
+<p>階段允許：warm</p>
+<p>此操作將索引設定為只讀，此操作沒有與之關聯的任何選項。</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;readonly&quot; : &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="滾下-rollover">滾下(rollover)</h3>
+<p>階段允許：hot</p>
+<p>索引格式必須匹配模式<code>^。* - \ d + $</code>，例如（logs-000001）。每個索引必須設定index.lifecycle.rollover_alias為別名進行Rollover，且索引還必須是以別名的寫入。<br>
+例如，如果要管理的索引具有別名my_data。託管的索引“my_index”必須是別名的寫入索引。有關更多資訊，請閱讀 寫入索引別名行為。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT my_index</span><br><span class="line">&#123;</span><br><span class="line">  &quot;settings&quot;: &#123;</span><br><span class="line">    &quot;index.lifecycle.name&quot;: &quot;my_policy&quot;,</span><br><span class="line">    &quot;index.lifecycle.rollover_alias&quot;: &quot;my_data&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aliases&quot;: &#123;</span><br><span class="line">    &quot;my_data&quot;: &#123;</span><br><span class="line">      &quot;is_write_index&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>當現有索引滿足其中一個滾動更新條件時，“Rollover Action”會將別名轉到新索引。</p>
+<p>配置選項</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>必需性</th>
+<th>預設值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max_size</td>
+<td>No</td>
+<td>-</td>
+<td>最大主分片索引儲存大小。請參見位元組單位 以進行格式化</td>
+</tr>
+<tr>
+<td>max_docs</td>
+<td>No</td>
+<td>-</td>
+<td>滾動前索引要包含的最大文件數。</td>
+</tr>
+<tr>
+<td>max_age</td>
+<td>No</td>
+<td>-</td>
+<td>索引建立過去的最長時間。</td>
+</tr>
+</tbody>
+</table>
+<p>三個之中的至少一個max_size，max_docs，max_age或需要這三者的任意組合來進行指定。</p>
+<p>此示例在至少7天前建立索引或至少100GB或至少100000000個文件時將索引捲起。在這種情況下，當滿足任何條件時，索引將被翻轉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;hot&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;rollover&quot; : &#123;</span><br><span class="line">            &quot;max_size&quot;: &quot;100GB&quot;,</span><br><span class="line">            &quot;max_docs&quot;: 100000000,</span><br><span class="line">            &quot;max_age&quot;: &quot;7d&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="設置優先級-priority">設置優先級(priority)</h3>
+<p>階段允許: hot, warm, cold.</p>
+<p>一旦策略進入hot，warm或cold階段，此操作就會為索引設定索引優先順序。具有較高優先順序的索引將在節點重啟後具有較低優先順序的索引之前恢復。通常，hot階段的指數應具有最高值，而cold階段的指數應具有最低值。例如：hot階段設定為100，warm階段設定為50，cold階段設定為0。未設定此值的指標的預設優先順序為1。</p>
+<p>配置選項</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>需要</th>
+<th>預設</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>priority</td>
+<td>是</td>
+<td>-</td>
+<td>索引的優先順序。必須為0或更大。該值也可以設定為null以刪除優先順序。</td>
+</tr>
+</tbody>
+</table>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;set_priority&quot; : &#123;</span><br><span class="line">            &quot;priority&quot;: 50</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="收縮-shrink">收縮(shrink)</h3>
+<p>執行此操作時，索引將變為只讀</p>
+<p>此操作會將現有索引縮減為具有較少主分片的新索引。它呼叫Shrink API來縮小索引。由於將索引的所有主分片分配給一個節點是先決條件，因此該操作將首先將主分片分配給有效節點。收縮後，它會將指向原始索引的別名交換到新的收縮指數中。新索引還將有一個新名稱：“shrink-”。因此，如果原始索引稱為<code>logs</code>，則新索引將命名為<code>shrink-logs</code>。</p>
+<p>配置選項</p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>必須性</th>
+<th>預設值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number_of_shards</td>
+<td>是</td>
+<td>-</td>
+<td>要縮小的分片數。必須是源索引中分片數量的一個因子。</td>
+</tr>
+</tbody>
+</table>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;shrink&quot; : &#123;</span><br><span class="line">            &quot;number_of_shards&quot;: 1</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="取消關注-unfollow">取消關注(unfollow)</h2>
+<p>此操作可以顯式使用，如下所示，但此操作也在Rollover操作和Shrink操作之前執行，如這些操作的文件中所述。</p>
+<p>取消關注操作沒有任何選項，如果遇到非關注者索引，則取消關注操作會保持索引不變，並允許下一個操作對此索引進行操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;my_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;hot&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;unfollow&quot; : &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完整策略（Full-Policy）">完整策略（Full Policy）</h3>
+<p>此策略將定義一個將在熱階段開始的索引，</p>
+<ul>
+<li>索引名以<code>full_policy</code>為前綴，且以每10個文檔做一次Rollover或每50 GB或7天滾動一次。</li>
+<li>Rollover30天后，它進入溫暖階段並將副本增加到2，強制合併和收縮。</li>
+<li>60天后進入冷期並分配到&quot;冷&quot;節點</li>
+<li>90天后刪除索引。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">PUT _ilm&#x2F;policy&#x2F;full_policy</span><br><span class="line">&#123;</span><br><span class="line">  &quot;policy&quot;: &#123;</span><br><span class="line">    &quot;phases&quot;: &#123;</span><br><span class="line">      &quot;hot&quot;: &#123;</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;rollover&quot;: &#123;</span><br><span class="line">            &quot;max_age&quot;: &quot;7d&quot;,</span><br><span class="line">            &quot;max_size&quot;: &quot;50G&quot;,</span><br><span class="line">            &quot;max_docs&quot; : &quot;10&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;warm&quot;: &#123;</span><br><span class="line">        &quot;min_age&quot;: &quot;30d&quot;,</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;forcemerge&quot;: &#123;</span><br><span class="line">            &quot;max_num_segments&quot;: 1</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;shrink&quot;: &#123;</span><br><span class="line">            &quot;number_of_shards&quot;: 1</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;allocate&quot;: &#123;</span><br><span class="line">            &quot;number_of_replicas&quot;: 2</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;cold&quot;: &#123;</span><br><span class="line">        &quot;min_age&quot;: &quot;60d&quot;,</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;allocate&quot;: &#123;</span><br><span class="line">            &quot;require&quot;: &#123;</span><br><span class="line">              &quot;type&quot;: &quot;cold&quot;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;delete&quot;: &#123;</span><br><span class="line">        &quot;min_age&quot;: &quot;90d&quot;,</span><br><span class="line">        &quot;actions&quot;: &#123;</span><br><span class="line">          &quot;delete&quot;: &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="修改輪詢ILM間隔時間-可選">修改輪詢ILM間隔時間(可選)</h2>
+<p>ILM Service 會在後台輪詢執行 Policy，默認間隔時間為 10 分鐘，為了測試更快地看到效果，可將其修改為1秒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PUT &#x2F;_cluster&#x2F;settings</span><br><span class="line">&#123;</span><br><span class="line">  &quot;persistent&quot;: &#123;</span><br><span class="line">    &quot;indices.lifecycle.poll_interval&quot;:&quot;1m&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="啟動和停止索引生命週期管理">啟動和停止索引生命週期管理</h2>
+<blockquote>
+<p>ILM 默認開啟</p>
+</blockquote>
+<p>停止ILM時，快照生命週期管理操作也會停止，這意味着不會創建計劃的快照（當前正在進行的快照不受影響）。</p>
+<p>通常，ILM將默認運行。要查看ILM的當前運行狀態，請使用Get Status API 來查看ILM的當前狀態。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET  _ilm&#x2F;status</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;operation_mode&quot;: &quot;RUNNING&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ILM的操作模式：">ILM的操作模式：</h3>
+<table>
+<thead>
+<tr>
+<th>階段/action</th>
+<th>正常運行，所有策略均正常執行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>停止</td>
+<td>ILM已收到停止請求，但仍在處理某些策略</td>
+</tr>
+<tr>
+<td>已停止</td>
+<td>這表示沒有執行任何策略的狀態</td>
+</tr>
+</tbody>
+</table>
+<h3 id="停止ILM">停止ILM</h3>
+<p>可以暫停ILM服務，以便使用Stop API不再執行其他步驟。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST  _ilm&#x2F;stop</span><br></pre></td></tr></table></figure>
+<p>停止後，所有其他政策措施都將停止。這將反映在狀態API中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;operation_mode&quot;: &quot;STOPPING&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然後，ILM服務將異步地將所有策略運行到可以安全停止的位置。在ILM確認它是安全的之後，它將移至該STOPPED模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;operation_mode&quot;: &quot;STOPPED&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="啟動ILM">啟動ILM</h3>
+<p>要啟動ILM並繼續執行策略，請使用Start API。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST  _ilm&#x2F;start</span><br></pre></td></tr></table></figure>
+<p>Start API將向ILM服務發送請求，以立即開始正常操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;operation_mode&quot;: &quot;RUNNING&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="創建Index-Template">創建Index Template</h3>
+<p>我們基於索引模板來創建所需的索引，如下所示：</p>
+<h6 id="tags-ELK-Elasticsearch">tags: <code>ELK</code> <code>Elasticsearch</code></h6>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PUT &#x2F;_template&#x2F;my_test_template</span><br><span class="line">&#123;</span><br><span class="line">    &quot;index_patterns&quot;: [&quot;tomcat-access-*&quot;],</span><br><span class="line">    &quot;version&quot; : 1,</span><br><span class="line">    &quot;settings&quot;: &#123;</span><br><span class="line">        &quot;index.refresh_interval&quot; : &quot;5s&quot;,</span><br><span class="line">        &quot;index.number_of_shards&quot;: 4,</span><br><span class="line">        &quot;index.number_of_replicas&quot;: 0,</span><br><span class="line">        &quot;index.lifecycle.name&quot;: &quot;my_ilm_policy&quot;,</span><br><span class="line">        &quot;index.lifecycle.rollover_alias&quot;: &quot;tomcat&quot;,</span><br><span class="line">        &quot;index.routing.allocation.require.box_type&quot;:&quot;&quot;,</span><br><span class="line">        &quot;index&quot; : &#123;</span><br><span class="line">            &quot;number_of_shards&quot; : &quot;4&quot;,</span><br><span class="line">            &quot;refresh_interval&quot; : &quot;5s&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可將上面設定寫在<code>/etc/logstash/tomcat_template.json</code>讓logstash讀入</p>
+<p>配置解釋如下：</p>
+<ul>
+<li><a href="http://index.lifecycle.name" target="_blank" rel="noopener">index.lifecycle.name</a> 指明該索引應用的ILM Policy</li>
+<li>index.lifecycle.rollover_alias 指明在Rollover 的時候使用的alias</li>
+<li>index.routing.allocation.include.box_type 指明新建的索引都分配在hot 節點上</li>
+</ul>
+<p>索引直接關聯</p>
+<h3 id="為現有的索引單獨關聯策略">為現有的索引單獨關聯策略</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PUT &#x2F;tomcat-access-*&#x2F;_settings&quot; </span><br><span class="line">&#123;</span><br><span class="line">  &quot;index&quot;: &#123;</span><br><span class="line">     &quot;lifecycle&quot;: &#123;</span><br><span class="line">       &quot;name&quot;: &quot;my_ilm_policy&quot;,</span><br><span class="line">       &quot;rollover_alias&quot;: &quot;nginx_logs&quot;,</span><br><span class="line">       &quot;indexing_complete&quot;: &quot;true&quot;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="index的ILM自動設定如下">index的ILM自動設定如下</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">elasticsearch &#123;</span><br><span class="line">     hosts &#x3D;&gt; [&quot;elasticsearch:9200&quot;]</span><br><span class="line">     ilm_enabled &#x3D;&gt; auto</span><br><span class="line">     ilm_rollover_alias &#x3D;&gt; &quot;tomcat&quot;</span><br><span class="line">     ilm_pattern &#x3D;&gt; &quot;000001&quot;</span><br><span class="line">     ilm_policy &#x3D;&gt; &quot;my_ilm_policy&quot;</span><br><span class="line">     template &#x3D;&gt; &quot;&#x2F;etc&#x2F;logstash&#x2F;tomcat_template.json&quot;</span><br><span class="line">     template_name &#x3D;&gt; &quot;tomcat_template&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>創建的Index設定如圖:<br>
+<img src="https://i.imgur.com/PwQordy.png" alt=""></p>
+<h3 id="查看-ILM-狀態">查看 ILM 狀態</h3>
+<p>解釋 API 提供有關對索引執行的操作的詳細信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET tomcat-access-000078&#x2F;_ilm&#x2F;explain</span><br><span class="line">or</span><br><span class="line">GET &#x2F;tomcat-access-*&#x2F;_ilm&#x2F;explain</span><br></pre></td></tr></table></figure>
+<p>結果類似如下:<br>
+<img src="https://i.imgur.com/HMuFuDz.png" alt=""></p>
+<h6 id="tags-ELK-Elasticsearch-2">tags: <code>ELK</code> <code>Elasticsearch</code></h6>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://luckygoodlily.github.io/2021/09/13/ILMIntroduction/" data-id="cktijhnui0000e7jbean33vz5" class="article-share-link" data-share="baidu" data-title="生命週期管裡的介紹 Index Lifecycle Management (ILM)">分享到</a>
+      
+
+      
+        <a href="https://luckygoodlily.github.io/2021/09/13/ILMIntroduction/#ds-thread" class="article-comment-link">評論</a>
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/09/13/ILMWarning/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          建ILM時遇到 &#34;Waiting for [2] shards to be allocated to nodes matching the given filters&#34;
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/12/LogstashCutString/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">Logstash 切字串</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2021/09/13/ILMIntroduction/" data-title="生命週期管裡的介紹 Index Lifecycle Management (ILM)" data-url="https://luckygoodlily.github.io/2021/09/13/ILMIntroduction/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crawler/">Crawler</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/">ELK</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Elasticsearch/">Elasticsearch</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Filebeat/">Filebeat</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/Logstash/">Logstash</a><span class="category-list-count">7</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/English/">English</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maintain/">Maintain</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/aws/">aws</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/internet/">internet</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/">knowledge</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/knowledge/scala/">scala</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mailServer/">mailServer</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/phpmyadmin/">phpmyadmin</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/scala/">scala</a><span class="category-list-count">22</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/scala/Java/">Java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/shell/">shell</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/shell/Linux/">Linux</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/svn/">svn</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tool/">tool</a><span class="category-list-count">19</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/">shell</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/tool/shell/Linux/">Linux</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawler/" rel="tag">Crawler</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/" rel="tag">Elasticsearch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/English/" rel="tag">English</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filebeat/" rel="tag">Filebeat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logstash/" rel="tag">Logstash</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maintain/" rel="tag">Maintain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internet/" rel="tag">internet</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge/" rel="tag">knowledge</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mailServer/" rel="tag">mailServer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/" rel="tag">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpmyadmin/" rel="tag">phpmyadmin</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/" rel="tag">scala</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/" rel="tag">shell</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svn/" rel="tag">svn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Crawler/" style="font-size: 12.5px;">Crawler</a> <a href="/tags/Docker/" style="font-size: 15.83px;">Docker</a> <a href="/tags/ELK/" style="font-size: 17.5px;">ELK</a> <a href="/tags/Elasticsearch/" style="font-size: 10.83px;">Elasticsearch</a> <a href="/tags/English/" style="font-size: 15px;">English</a> <a href="/tags/Filebeat/" style="font-size: 10.83px;">Filebeat</a> <a href="/tags/Java/" style="font-size: 15.83px;">Java</a> <a href="/tags/Linux/" style="font-size: 18.33px;">Linux</a> <a href="/tags/Logstash/" style="font-size: 14.17px;">Logstash</a> <a href="/tags/Maintain/" style="font-size: 10px;">Maintain</a> <a href="/tags/Mysql/" style="font-size: 11.67px;">Mysql</a> <a href="/tags/aws/" style="font-size: 10.83px;">aws</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/internet/" style="font-size: 10.83px;">internet</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/knowledge/" style="font-size: 16.67px;">knowledge</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/mailServer/" style="font-size: 10px;">mailServer</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/phpmyadmin/" style="font-size: 10.83px;">phpmyadmin</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/scala/" style="font-size: 20px;">scala</a> <a href="/tags/shell/" style="font-size: 15px;">shell</a> <a href="/tags/svn/" style="font-size: 10px;">svn</a> <a href="/tags/tool/" style="font-size: 19.17px;">tool</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/13/ILMWarning/">建ILM時遇到 &#34;Waiting for [2] shards to be allocated to nodes matching the given filters&#34;</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/13/ILMIntroduction/">生命週期管裡的介紹 Index Lifecycle Management (ILM)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/LogstashCutString/">Logstash 切字串</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/logstashDeleteRepeat/">Logstash 刪除重複的Log內容</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/s3Logstash/">s3 在Logstash的使用方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Lily Chen<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true
+                    
+}
+  
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                  
+}
+    
+        });
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                            all[i].SourceElement().parentNode.className += ' has-jax';
+                                    
+            }
+                
+        });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>
