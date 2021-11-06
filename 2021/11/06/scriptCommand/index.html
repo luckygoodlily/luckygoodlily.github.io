@@ -6,15 +6,15 @@
   
   <title>shell 常用指令 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
+  <meta name="description" content="function範例">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell 常用指令">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/11/06/scriptCommand/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="function範例">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-06T12:10:03.000Z">
-<meta property="article:modified_time" content="2021-11-06T12:42:42.876Z">
+<meta property="article:modified_time" content="2021-11-06T12:43:39.178Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="function範例">function範例</h2>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">get_test() &#123;</span><br><span class="line">  curl -u elastic:uslog#5203 &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;index&#x2F;_search?scroll&#x3D;1m&#39; \</span><br><span class="line">       -H &#39;Content-Type: application&#x2F;json&#39; \</span><br><span class="line">       -d &#39;&#123;</span><br><span class="line">            &quot;_source&quot;: [&quot;test&quot;],</span><br><span class="line">            &quot;query&quot;:</span><br><span class="line">             &#123; &quot;match&quot;:</span><br><span class="line">                   &#123; &quot;response&quot;: 404</span><br><span class="line">                   &#125;</span><br><span class="line">              &#125;,</span><br><span class="line">              &quot;size&quot;:  83093 &#125;&#39; | jq &#39;.hits.hits[]._source.test&#39;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">test&#x3D;$(get_test)</span><br><span class="line">echo $path</span><br></pre></td></tr></table></figure>
+<h6 id="tags-shell">tags: <code>shell</code></h6>
+
       
     </div>
     <footer class="article-footer">
