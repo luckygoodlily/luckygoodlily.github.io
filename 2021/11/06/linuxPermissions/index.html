@@ -6,15 +6,15 @@
   
   <title>linux的權限介紹 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
+  <meta name="description" content="修改檔案所有者">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux的權限介紹">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/11/06/linuxPermissions/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="修改檔案所有者">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-06T12:12:49.000Z">
-<meta property="article:modified_time" content="2021-11-06T12:40:10.022Z">
+<meta property="article:modified_time" content="2021-11-06T12:42:45.700Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="修改檔案所有者">修改檔案所有者</h2>
+<a id="more"></a>
+<blockquote>
+<p>sudo chown root:root XXXX</p>
+</blockquote>
+<h2 id="修改讀寫執行的權限">修改讀寫執行的權限</h2>
+<p>chmod 755 是Linux 對文件所設置權限的命令，後面的數字是代表不同的權限</p>
+<p>一般是三個数字</p>
+<p>第一個數字：表示檔案擁有者權限<br>
+第二個數字：表示檔案所屬群組的權限<br>
+第三個數字：表示其它非擁有者與群組者的權限</p>
+<h3 id="權限分三種：">權限分三種：</h3>
+<p>讀 r＝4</p>
+<p>寫 w＝2</p>
+<p>執行 x＝1</p>
+<p>由上面三種可組合成</p>
+<p>可讀可執行 rx＝4+1＝5</p>
+<p>可讀可寫 rw＝4+2＝6</p>
+<p>可讀可寫可執行 rwx＝4+2+1＝7</p>
+<p>舉例 chmod 755 權限為</p>
+<p>1.文件所有者可讀可寫可執行<br>
+2.文件所有者和其他用戶可讀可執行<br>
+3.其它用戶组可讀可執行</p>
+<h6 id="tags-shell">tags: <code>shell</code></h6>
+
       
     </div>
     <footer class="article-footer">
