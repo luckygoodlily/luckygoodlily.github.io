@@ -94,7 +94,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/06/deleteDocker/">deleteDocker</a>
+      <a class="article-title" href="/2021/11/06/deleteDocker/">docker 刪除image container 或volume</a>
     </h1>
   
 
@@ -102,75 +102,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1>docker 刪除image container 或volume</h1>
-<p>快速刪除乾淨container的方法</p>
-<h2 id="Delete-container">Delete container</h2>
-<p>先顯示container 資料id</p>
-<blockquote>
-<p>docker ps -a</p>
-</blockquote>
-<p>刪除指令(可以一個或多個)</p>
-<blockquote>
-<p>docker rm containerId</p>
-</blockquote>
-<p>要移除所有已經停止的 Container 可以使用以下指令</p>
-<p>docker container prune</p>
-<h2 id="Delete-image">Delete image</h2>
-<p>先顯示image 資料id</p>
-<blockquote>
-<p>docker images</p>
-</blockquote>
-<p>刪除指令(可以一個或多個)</p>
-<blockquote>
-<p>docker rmi imageId</p>
-</blockquote>
-<h2 id="Delete-volume">Delete volume</h2>
-<p>先顯示image 資料id</p>
-<blockquote>
-<p>docker volume ls</p>
-</blockquote>
-<p>刪除指令(可以一個或多個)</p>
-<blockquote>
-<p>docker volume rm volumeName</p>
-</blockquote>
-<h2 id="Delete-network">Delete network</h2>
-<p>要移除一個或是多個 Network 可以使用 docker network ls 找到 ID</p>
-<blockquote>
-<p>docker network ls</p>
-</blockquote>
-<p>把要移除的 NETWORK ID 給 docker network rm</p>
-<blockquote>
-<p>docker network rm NETWORK ID</p>
-</blockquote>
-<h2 id="Delete-all-containers">Delete all containers</h2>
-<p>docker rm $(docker ps -a -q)</p>
-<h2 id="Delete-all-images">Delete all images</h2>
-<p>docker rmi $(docker images -q)</p>
-<h2 id="移除所有未使用的-Docker-項目">移除所有未使用的 Docker 項目</h2>
-<blockquote>
-<p>docker system prune</p>
-</blockquote>
-<h2 id="如遇刪不掉的images">如遇刪不掉的images</h2>
-<h3 id="有tag時可以Resitory-tag">有tag時可以Resitory+tag</h3>
-<p>docker rmi Resitory+tag<br>
-<img src="https://i.imgur.com/OyNYa8N.png" alt=""></p>
-<h3 id="沒tag和Resitory時">沒tag和Resitory時</h3>
-<p>docker rmi -f <image id><br>
-<img src="https://i.imgur.com/VXzSSWP.png" alt=""></p>
-<h3 id="我們還可在不同在子命令下執行-prune，這樣刪除的就是某類資源：">我們還可在不同在子命令下執行 prune，這樣刪除的就是某類資源：</h3>
-<p>docker container prune # 刪除所有退出狀態的容器</p>
-<p>docker volume prune # 刪除未被使用的數據卷</p>
-<p>docker image prune # 刪除 dangling 或所有未被使用的鏡像</p>
-<p><a href="https://www.cnblogs.com/youreyebows/p/8064280.html" target="_blank" rel="noopener">參考1</a><br>
-<a href="https://www.opencli.com/linux/docker-delete-images-containers" target="_blank" rel="noopener">參考2</a><br>
-<a href="https://blog.clarence.tw/2019/09/10/docker-removing-containers-images-volumes-and-networks/" target="_blank" rel="noopener">參考3</a></p>
-<h6 id="tags-Docker">tags: <code>Docker</code></h6>
-
+        <p>快速刪除乾淨container的方法</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/11/06/deleteDocker/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://luckygoodlily.github.io/2021/11/06/deleteDocker/" data-id="ckvnulfx300004rjb7bkq17gh" class="article-share-link" data-share="baidu" data-title="deleteDocker">分享到</a>
+        <a data-url="https://luckygoodlily.github.io/2021/11/06/deleteDocker/" data-id="ckvnulfx300004rjb7bkq17gh" class="article-share-link" data-share="baidu" data-title="docker 刪除image container 或volume">分享到</a>
       
 
       
@@ -716,7 +658,7 @@
       <ul>
         
           <li>
-            <a href="/2021/11/06/deleteDocker/">deleteDocker</a>
+            <a href="/2021/11/06/deleteDocker/">docker 刪除image container 或volume</a>
           </li>
         
           <li>
