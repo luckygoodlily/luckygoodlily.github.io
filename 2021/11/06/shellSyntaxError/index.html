@@ -6,15 +6,15 @@
   
   <title>Syntax error “(” unexpected when creating an array | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
+  <meta name="description" content="當我在切割字串時，遇到切割字串放的變數會出現不能辨識’(&#39;的狀況">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Syntax error “(” unexpected when creating an array">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/11/06/shellSyntaxError/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="當我在切割字串時，遇到切割字串放的變數會出現不能辨識’(&#39;的狀況">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-06T12:22:07.000Z">
-<meta property="article:modified_time" content="2021-11-06T12:40:29.901Z">
+<meta property="article:modified_time" content="2021-11-06T12:41:14.504Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>當我在切割字串時，遇到切割字串放的變數會出現不能辨識’('的狀況</p>
+<a id="more"></a>
+<p>Error 類似下面狀況</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Syntax error: &quot;(&quot; unexpected when creating an array</span><br></pre></td></tr></table></figure>
+<h2 id="code內容">code內容</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#string&#x3D;&quot;hello,shell,split,test&quot;</span><br><span class="line">#OLD_IFS&#x3D;&quot;$IFS&quot;</span><br><span class="line">#IFS&#x3D;&quot;,&quot;</span><br><span class="line">#array&#x3D;($&#123;string&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="解決方法">解決方法</h2>
+<p>執行</p>
+<blockquote>
+<p>./test.sh</p>
+</blockquote>
+<p>不要執行</p>
+<blockquote>
+<p>sh <a href="http://test.sh" target="_blank" rel="noopener">test.sh</a></p>
+</blockquote>
+<p>./test.sh 是執行 <code>/bin/bash</code><br>
+而sh <a href="http://test.sh" target="_blank" rel="noopener">test.sh</a> 是執行 <code>sh</code></p>
+<h6 id="tags-shell">tags: <code>shell</code></h6>
+
       
     </div>
     <footer class="article-footer">
