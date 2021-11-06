@@ -6,15 +6,15 @@
   
   <title>shell 抓取json的值 | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Let&#39;s happy every day">
+  <meta name="description" content="下載jq安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell 抓取json的值">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/11/06/shellGetJson/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="Let&#39;s happy every day">
+<meta property="og:description" content="下載jq安装">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-06T12:20:07.000Z">
-<meta property="article:modified_time" content="2021-11-06T12:40:24.781Z">
+<meta property="article:modified_time" content="2021-11-06T12:41:44.210Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="下載jq安装">下載jq安装</h2>
+<a id="more"></a>
+<h3 id="下载安装说明：">下载安装说明：</h3>
+<h4 id="Linux：">Linux：</h4>
+<p>和 Ubuntu 2 系统，cmd安裝</p>
+<blockquote>
+<p>sudo apt-get install jq</p>
+</blockquote>
+<h4 id="Mac：">Mac：</h4>
+<p>使用Homebrew安装： brew install jq</p>
+<h2 id="抓取array資料">抓取array資料</h2>
+<h3 id="架構">架構</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot; : 13,</span><br><span class="line">  &quot;timed_out&quot; : false,</span><br><span class="line">  &quot;_shards&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 60,</span><br><span class="line">    &quot;successful&quot; : 60,</span><br><span class="line">    &quot;skipped&quot; : 0,</span><br><span class="line">    &quot;failed&quot; : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : &#123;</span><br><span class="line">      &quot;value&quot; : 81438,</span><br><span class="line">      &quot;relation&quot; : &quot;eq&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;max_score&quot; : 1.0,</span><br><span class="line">    &quot;hits&quot; : [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot; : &quot;test-000010&quot;,</span><br><span class="line">        &quot;_type&quot; : &quot;_doc&quot;,</span><br><span class="line">        &quot;_id&quot; : &quot;2020897421&quot;,</span><br><span class="line">        &quot;_score&quot; : 1.0,</span><br><span class="line">        &quot;_source&quot; : &#123;</span><br><span class="line">          &quot;request&quot; : &quot;&#x2F;member&#x2F;member-profile.do?memberId&#x3D;9444367&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, </span><br><span class="line">      &#123;......</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| jq &#39;.hits.hits[]._source.request&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="架構-2">架構</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot; : 3,</span><br><span class="line">  &quot;timed_out&quot; : false,</span><br><span class="line">  &quot;_shards&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : 4,</span><br><span class="line">    &quot;successful&quot; : 4,</span><br><span class="line">    &quot;skipped&quot; : 0,</span><br><span class="line">    &quot;failed&quot; : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot; : &#123;</span><br><span class="line">    &quot;total&quot; : &#123;</span><br><span class="line">      &quot;value&quot; : 41,</span><br><span class="line">      &quot;relation&quot; : &quot;eq&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;max_score&quot; : 1.0,</span><br><span class="line">    &quot;hits&quot; : [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot; : &quot;download-server-000001&quot;,</span><br><span class="line">        &quot;_type&quot; : &quot;_doc&quot;,</span><br><span class="line">        &quot;_id&quot; : &quot;3771103536&quot;,</span><br><span class="line">        &quot;_score&quot; : 1.0,</span><br><span class="line">        &quot;_source&quot; : &#123;</span><br><span class="line">          &quot;request&quot; : &quot;&#x2F;hudson&quot;,</span><br><span class="line">          &quot;http_host&quot; : &quot;123&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| jq -r &#39;.hits.hits[]._source | [.http_host, .request] | @csv&#39;</span><br></pre></td></tr></table></figure>
+<p><a href="https://stackoverflow.com/questions/55361298/jq-error-cannot-index-array-with-string-getting-data-from-elasticsearch-resu" target="_blank" rel="noopener">elastic 是用shell切割json參考</a></p>
+<h6 id="tags-shell">tags: <code>shell</code></h6>
+
       
     </div>
     <footer class="article-footer">
