@@ -6,15 +6,15 @@
   
   <title>./untitled.sh command not found | Lily&#39;s coding life</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="123$ sudo .&#x2F;test.shPassword:&gt; sudo: .&#x2F;test.sh: command not found">
+  <meta name="description" content="執行Script時跳出的error如下：">
 <meta property="og:type" content="article">
 <meta property="og:title" content=".&#x2F;untitled.sh command not found">
 <meta property="og:url" content="https://luckygoodlily.github.io/2021/11/06/shellCommandNotFound/index.html">
 <meta property="og:site_name" content="Lily&#39;s coding life">
-<meta property="og:description" content="123$ sudo .&#x2F;test.shPassword:&gt; sudo: .&#x2F;test.sh: command not found">
+<meta property="og:description" content="執行Script時跳出的error如下：">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-11-06T12:26:05.000Z">
-<meta property="article:modified_time" content="2021-11-06T12:41:00.548Z">
+<meta property="article:modified_time" content="2021-11-06T12:59:38.450Z">
 <meta property="article:author" content="Lily Chen">
 <meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
@@ -101,15 +101,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo .&#x2F;test.sh</span><br><span class="line">Password:</span><br><span class="line">&gt; sudo: .&#x2F;test.sh: command not found</span><br></pre></td></tr></table></figure>
+        <p>執行Script時跳出的error如下：</p>
 <a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo .&#x2F;test.sh</span><br><span class="line">Password:</span><br><span class="line">&gt; sudo: .&#x2F;test.sh: command not found</span><br></pre></td></tr></table></figure>
 <p>執行<code>./test.sh</code>出現找步道指令</p>
-<h2 id="解決辦法"><a href="#解決辦法" class="headerlink" title="解決辦法"></a>解決辦法</h2><p>修改權限即可</p>
+<h2 id="解決辦法">解決辦法</h2>
+<p>修改權限即可</p>
 <blockquote>
-<p>chmod +x test.sh</p>
+<p>chmod +x <a href="http://test.sh" target="_blank" rel="noopener">test.sh</a></p>
 </blockquote>
-<p>ll test.sh # Linux</p>
-<h6 id="tags-shell"><a href="#tags-shell" class="headerlink" title="tags: shell"></a>tags: <code>shell</code></h6>
+<p>ll <a href="http://test.sh" target="_blank" rel="noopener">test.sh</a> # Linux</p>
+<h6 id="tags-shell">tags: <code>shell</code></h6>
+
       
     </div>
     <footer class="article-footer">
